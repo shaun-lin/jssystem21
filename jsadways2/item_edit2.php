@@ -105,8 +105,6 @@
 	for($test=0;$test<=count(array_unique($arraymatch))-1;$test++){
 		//一次新增
 		mysql_query($resortArray[$test]);
-		print_r($resortArray[$test]);
-		print_r("<br>");
 			}
 		}	
 	}

@@ -10,8 +10,8 @@
 
 		$arrItems=array();
 		$id =GetVar('id');
-		$sql=sprintf(" `id`  IN (SELECT `items_id` FROM `rel_companies_items` WHERE `companies_id` IN ( SELECT `companies_id` FROM `rel_media_companies` WHERE `medias_id` ='%d')) and display = '1'",$id[0]);
-			foreach ($objItems->searchAll($sql) as $itemItem) {
+		$sql=sprintf(" `id`  IN (SELECT `item_id` FROM `rel_media_item` WHERE `media_id` ='%d') and display = '1'",$id[0]);
+			foreach ($objItems->searchAll($sql,'name','ASC') as $itemItem) {
 				$item_id=$itemItem['id'];
 				$item_name=$itemItem['name'];
 
@@ -27,7 +27,7 @@
 		$arrItems=array();
 		$id =GetVar('id');
 		$sql=sprintf(" `id`  IN (SELECT `type_id` FROM `rel_items_type` WHERE `items_id` ='%d') and display = '1'",$id[0]);
-			foreach ($objItems->searchAll($sql) as $itemItem) {
+			foreach ($objItems->searchAll($sql,'name','ASC') as $itemItem) {
 				$item_id=$itemItem['id'];
 				$item_name=$itemItem['name'];
 

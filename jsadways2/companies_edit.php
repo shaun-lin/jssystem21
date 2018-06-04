@@ -208,7 +208,7 @@
 									<div>
 									<!-- 顯示媒體資料 -->
 									<?php
-										$sqlClass2 = "SELECT id,name FROM `medias` order by name";
+										$sqlClass2 = "SELECT id,name FROM `medias` where display='1' order by name";
 										$resultClass2 = mysql_query($sqlClass2);
 										while ($itemClass2 = mysql_fetch_array($resultClass2)) {
 											$rowsClass2[] = $itemClass2;

@@ -75,7 +75,7 @@
 									</table>
 									<div>
 									<?php
-										$sqlClass2 = "SELECT id,name FROM `items` order by name ";
+										$sqlClass2 = "SELECT id,name FROM `items` where display='1' order by name ";
 										$resultClass2 = mysql_query($sqlClass2);
 										while ($itemClass2 = mysql_fetch_array($resultClass2)) {
 											$rowsClass2[] = $itemClass2;

@@ -55,7 +55,7 @@
                                     <label class="control-label">媒體</label>
                                     <div class="controls">
                                         <select id="media" name="media" size="<?= count($objMedias->searchAll('', 'id', 'ASC'));?>" >
-                                            <? foreach ($objMedias->searchAll('', 'id', 'ASC') as $itemMedias) : ?>
+                                            <? foreach ($objMedias->searchAll('', 'name', 'ASC') as $itemMedias) : ?>
                                                 <option value="<?= $itemMedias['id']; ?>"><?= $itemMedias['name']; ?></option>
                                                 <? endforeach; ?> 
                                         </select>
@@ -106,12 +106,12 @@
                 // $('#labCompany').hide();
                 // $('#labMedia').hide();
                 // $('#labItems').hide();
+
                 $('#save').hide();
                 $('#saveExit').hide();
                 //依據選擇媒體載入商品
-                
                 $('#media').change(function(){
-                     $('fieldset:eq(3)').empty();
+                     $('fieldset').empty();
                      var media_id = $(this).val();
                     $.ajax({
                         url: 'medias_add_option.php',
@@ -123,7 +123,8 @@
                             var len = response.length;
                             // console.log(len);
                             $("#items").empty();
-                            $('#items').attr('size',len);
+                            $('#items').attr('size',len + 1);
+                            $("#items").append("<option value=' '>--請選擇媒體--</option>");
                             for( var i = 0; i<len; i++){
                                 var id = response[i]['key'];
                                 var name = response[i]['name'];
@@ -160,7 +161,7 @@
                             var len = response.length;
                             // console.log(len);
                             $("#mtype").empty();
-                            $("#mtype").attr("size",len+1);
+                            $("#mtype").attr("size",len + 1);
                             $("#mtype").append("<option value=' '>請選擇賣法</option>");
                             for( var i = 0; i<len; i++){
                                 var id = response[i]['key'];
@@ -189,6 +190,7 @@
                     var company_id = $('#company').val();
                     var mtype_id = $('#mtype').val();
                     var media_id = $('#media').val();
+                    var media_name = $('#media option:selected').text();
                     var id = <?= GetVar('id'); ?>;
                     var cue = <?= GetVar('cue'); ?>;
                     var media_url = "";
@@ -307,7 +309,7 @@
                                 $('.box-content footer').hide();
                                     console.log("2.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
                                 //修改模板form的action
-                                $('.box-content .form-horizontal:eq(1)').attr('action',$('.box-content .form-horizontal:eq(1)').attr('action')+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id);
+                                $('.box-content .form-horizontal:eq(1)').attr('action',$('.box-content .form-horizontal:eq(1)').attr('action')+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id+"&media_name="+media_name);
                                     console.log("3.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
                             //將儲存按鈕show出來
                              $('#save').show();

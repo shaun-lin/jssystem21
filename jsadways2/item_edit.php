@@ -88,7 +88,15 @@
 									</thead>
 									<tbody>
                                     <?php
-                                    $sqlselect="SELECT (case when r.items_id is null then '' else 'Y' end) as checkp,mtype.name,(case when r.dashboard is null then mtype.dashboard else r.dashboard end) as dashboard,r.items_id,mtype.id as type_id FROM mtype left join `rel_items_type` r on mtype.id = r.type_id and r.items_id ='".GetVar('id')."' order by mtype.id";
+									$sqlselect="SELECT (case when r.items_id is null then '' else 'Y' end) as checkp
+									,mtype.name
+									,(case when r.dashboard is null then mtype.dashboard else r.dashboard end) as dashboard
+									,r.items_id
+									,mtype.id as type_id 
+									FROM mtype 
+									left join `rel_items_type` r on mtype.id = r.type_id and r.items_id ='".GetVar('id')."' 
+									where mtype.display='1'
+									order by mtype.name";
 									$dsType=mysql_query($sqlselect);
 									$ints = 0;
 									while($dr = mysql_fetch_array($dsType)){  ?>
