@@ -63,11 +63,19 @@
 	$fieldsVarForCue1 = [];
 
 	$autoSerialNumberA=autoSerialNumber();
- 	$autoSerialNumberB=autoSerialNumber();
+	$autoSerialNumberB=autoSerialNumber();
+	
+	$cp_id = $_GET['id'];
+	$media_id = $_GET['mediaid'];
+	$item_id = $_GET['itemid'];
+	$mtype_name = $_GET['mtypename'];
+	$mtype_number = $_GET['mtypenumber'];
+	$mtype_id = $_GET['mtypeid'];
+	
 	$addDataForCue1 = [
 		'campaign_id' => $_GET['id'],
 		'cue' => $_GET['cue'],
-		'website' => $website,
+		'website' => $_GET['media_name'],
 		'channel' => $channel,
 		'actions' => $_POST["actions"],
 		'phonesystem' => $phonesystem,
@@ -134,6 +142,12 @@
 	$sql2 = GenSqlFromArray($addDataForCue1, "media171", 'insert');
 	$db->query($sql2);
 	AddMediaMapping("media171", $_GET['id'], $db->get_last_insert_id());
+
+	$item_id2=mysql_insert_id();
+	echo $item_id2;
+	$sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
+    VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id2."','".$autoSerialNumberA."','1')";
+	$db->query($sql3);
 	
 	if ($_POST['samecue'] == 1) {
 		$sql1 = sprintf("SELECT * FROM `campaign` WHERE `id` = %d;", $_GET['id']);
@@ -185,10 +199,11 @@
 		$db->query($sql2);
 		AddMediaMapping("media171", $_GET['id'], $db->get_last_insert_id());
 	
+		$item_id1=mysql_insert_id();
+		$sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
+		VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id1."','".$autoSerialNumberB."','2')";
+		$db->query($sql4);
 	}
-	//jackie 2018/06/01　抓media***_id 填到cp_detail mtype_id
-	$item_id1=$db->get_last_insert_id();
-	$item_id2=$item_id1-1;
 	
 	$sql1 = sprintf("SELECT * FROM `campaign` WHERE `id` = %d;", $_GET['id']);
 	$db->query($sql1);
@@ -199,23 +214,10 @@
 				VALUES (". $db->quote($_SESSION['username']) .", ". $db->quote('新增'. $mediaName .'媒體') .", ".time() .", ". ((int)$_GET['id']) .");";
 		$db->query($sql2);
 	}
-$cp_id = $_GET['id'];
-	$media_id = $_GET['mediaid'];
-	$item_id = $_GET['itemid'];
-	$mtype_name = $_GET['mtypename'];
-	$mtype_number = $_GET['mtypenumber'];
-	$mtype_id = $_GET['mtypeid'];
+
 
 	$goon=GetVar('goon');
 	
-
-	$sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
-    VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id2."','".$autoSerialNumberA."','1')";
-	$db->query($sql3);
-
-	$sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
-		VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id1."','".$autoSerialNumberB."','2')";
-	$db->query($sql4);
 		if ($goon=="Y") {
 
 		$arrItems=array();

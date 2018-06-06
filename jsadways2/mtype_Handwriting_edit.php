@@ -23,7 +23,7 @@
     ];
 
     if (IsId($mediaId)) {
-        $sqlMediaItem = sprintf("SELECT * FROM `media19` WHERE `id` = %d;", $mediaId);
+        $sqlMediaItem = sprintf("SELECT * FROM `media162` WHERE `id` = %d;", $mediaId);
         $dbBloggerDetail->query($sqlMediaItem);
         $item = $dbBloggerDetail->next_record();
 
@@ -50,7 +50,7 @@
         unset($item);
     }
 
-    $sqlBloggerDetail = sprintf("SELECT * FROM `media19_detail` WHERE `campaign_id` = %d;", $campaignId);
+    $sqlBloggerDetail = sprintf("SELECT * FROM `media162_detail` WHERE `campaign_id` = %d;", $campaignId);
     $dbBloggerDetail->query($sqlBloggerDetail);
 
     $isEditExtCue = ($cue == 1 && IsId($mediaId));
@@ -97,11 +97,11 @@
                                                     <td><?= $itemDetail['price']; $itemMedia['cost'] += $itemDetail['price'];  ?></td>
                                                     <td><?= $itemDetail['price3']; $itemMedia['profit'] += $itemDetail['price3']; ?></td>
                                                     <td class="center">
-                                                        <a class="btn btn-info" href="media19_detail_edit.php?campaign_id=<?= $campaignId; ?>&detail_id=<?= $itemDetail['id']; ?>&blog_id=<?= $itemDetail['blogid']; ?>&media_id=<?= $mediaId; ?>">
+                                                        <a class="btn btn-info" href="mtype_Handwriting_detail_edit.php?campaign_id=<?= $campaignId; ?>&detail_id=<?= $itemDetail['id']; ?>&blog_id=<?= $itemDetail['blogid']; ?>&media_id=<?= $mediaId; ?>">
                                                             <i class="icon-edit icon-white"></i>
                                                             編輯
                                                         </a>
-                                                        <a class="btn btn-danger" href="#" onclick="if(window.confirm('確定要刪除')) location.href='media19_detail_delete.php?campaign_id=<?= $itemDetail['campaign_id']; ?>&blog_id=<?= $itemDetail['id'];?>&media_id=<?= $mediaId; ?>';">
+                                                        <a class="btn btn-danger" href="#" onclick="if(window.confirm('確定要刪除')) location.href='mtype_Handwriting_detail_delete.php?campaign_id=<?= $itemDetail['campaign_id']; ?>&blog_id=<?= $itemDetail['id'];?>&media_id=<?= $mediaId; ?>';">
                                                             <i class="fa fa-trash"></i>
                                                             刪除
                                                         </a>
@@ -112,7 +112,7 @@
                                     </table>
                                 <? endif; ?>
                                 <div class="box-content">
-                                    <form class="form-horizontal" action="media19_save.php?campaign_id=<?= $campaignId; ?>&media_id=<?= $mediaId; ?>" method="post" style="margin-bottom: 0px;">
+                                    <form class="form-horizontal" action="mtype_Handwriting_save.php?campaign_id=<?= $campaignId; ?>&media_id=<?= $mediaId; ?>" method="post" style="margin-bottom: 0px;">
                                         <div class="row-fluid">
                                             <div class="span5">
                                                 <div class="control-group">
@@ -179,7 +179,7 @@
                                     <div id="top_pagination">
                                         <?= $objPagination->getTopContent(); ?>
                                     </div>
-                                    <table class="table table-striped table-bordered" id="example">
+                                    <table class="table table-striped table-bordered" id="">
                                         <thead>
                                             <tr>
                                                 <th class="ui-state-default" style="width: 140px;">照片</th>
@@ -194,6 +194,7 @@
                                     </table>
                                     <div id="bottom_pagination">
                                         <?= $objPagination->getBottomContent(); ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +203,6 @@
                 </div>
             </div>
             <hr/>
-
             <?php include("public/footer.php"); ?>
         </div>
 

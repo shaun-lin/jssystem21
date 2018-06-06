@@ -212,8 +212,8 @@
 				$com_eng_name = ($drAcc['com_eng_name'] == null ? '' : $drAcc['com_eng_name']);
 				$com_tax_id = ($drAcc['com_tax_id'] == null ? '' : 'CD'.$drAcc['com_tax_id']);
 
-				$amt = ($currency_id=='TWD' || $currency_id=='' ? $drAcc['accounting_cost'] : '');//凭证货币金额
-				$forAmt = ($currency_id=='TWD' || $currency_id=='' ? '' : $drAcc['accounting_cost']);//本位币金额
+				$amt = ($currency_id=='TWD' || $currency_id=='' ? $drAcc['curr_cost'] : '');//預估的凭证货币金额
+				$forAmt = ($currency_id=='TWD' || $currency_id=='' ? '' : $drAcc['curr_cost']);//預估的本位币金额
 
 				//$paydate=支付基准日,media_accounting.invoice_date的下個月1號往後加90天
 				//$now_month = date("Y-m",$drAcc['invoice_date']).'-01';
@@ -225,7 +225,7 @@
 				$number_id = ($drAcc['numberid'] == null ? '' : $drAcc['numberid']);
 
 				$sh->setCellValue("A".$cellNum,$mark);//过账标识,如每筆匯出資料多複製一行 例 一二行為相同資料 但第一筆資料此欄打X
-				$sh->setCellValue("B".$cellNum,"");//分类账,空白
+				$sh->setCellValue("B".$cellNum,$drAcc['accounting_id']);//分类账,空白//ken,test
 				$sh->setCellValue("C".$cellNum,"C03");//公司代码,固定值 C03
 				$sh->setCellValue("D".$cellNum,"");//税自动计算,空白
 				$sh->setCellValue("E".$cellNum,"");//凭证日期,media_accounting.invoice_date
@@ -246,9 +246,9 @@
 				$sh->setCellValue("Q".$cellNum,"");//特殊G/L,空白
 				$sh->setCellValue("R".$cellNum,"");//固定资产事务类型,空白
 				$sh->setCellValue("S".$cellNum,"");//统驭科目,空白
-				$sh->setCellValue("T".$cellNum,$amt);//凭证货币金额,if media_accounting.currency_id = TWD,then accounting_cost else null
+				$sh->setCellValue("T".$cellNum,$amt);//凭证货币金额,if media_accounting.currency_id = TWD,then curr_cost else null
 
-				$sh->setCellValue("U".$cellNum,$forAmt);//本位币金额,if media_accounting.currency_id = TWD,then null else accounting_cost
+				$sh->setCellValue("U".$cellNum,$forAmt);//本位币金额,if media_accounting.currency_id = TWD,then null else curr_cost
 				$sh->setCellValue("V".$cellNum,"");//集团货币金额,空白
 				$sh->setCellValue("W".$cellNum,"");//全球公司金额,空白
 				$sh->setCellValue("X".$cellNum,"");//税码,空白
@@ -340,9 +340,9 @@
 				$com_eng_name = ($dr['com_eng_name'] == null ? '' : $dr['com_eng_name']);
 				$com_tax_id = ($dr['com_tax_id'] == null ? '' : 'CD'.$dr['com_tax_id']);
 
-				//$amt = ($currency_id=='TWD' || $currency_id=='' ? $dr['accounting_cost'] : '');//凭证货币金额
-				//$forAmt = ($currency_id=='TWD' || $currency_id=='' ? '' : $dr['accounting_cost']);//本位币金额
-				$curr_cost = ($dr['curr_cost'] == null ? '' : $dr['curr_cost']);
+				$amt = ($currency_id=='TWD' || $currency_id=='' ? $dr['accounting_cost'] : '');//實際的發票金額,凭证货币金额
+				$forAmt = ($currency_id=='TWD' || $currency_id=='' ? '' : $dr['accounting_cost']);//實際的發票金額,本位币金额
+				
 
 				//$paydate=支付基准日,media_accounting.invoice_date的下個月1號往後加90天
 				//$now_month = date("Y-m",$dr['invoice_date']).'-01';
@@ -376,9 +376,9 @@
 				$sh->setCellValue("Q".$cellNum,"");//特殊G/L,空白
 				$sh->setCellValue("R".$cellNum,"");//固定资产事务类型,空白
 				$sh->setCellValue("S".$cellNum,"");//统驭科目,空白
-				$sh->setCellValue("T".$cellNum,$curr_cost);//凭证货币金额,if media_accounting.currency_id = TWD,then accounting_cost else null
+				$sh->setCellValue("T".$cellNum,$amt);//凭证货币金额,if media_accounting.currency_id = TWD,then accounting_cost else null
 
-				$sh->setCellValue("U".$cellNum,"");//本位币金额,if media_accounting.currency_id = TWD,then null else accounting_cost
+				$sh->setCellValue("U".$cellNum,$forAmt);//本位币金额,if media_accounting.currency_id = TWD,then null else accounting_cost
 				$sh->setCellValue("V".$cellNum,"");//集团货币金额,空白
 				$sh->setCellValue("W".$cellNum,"");//全球公司金额,空白
 				$sh->setCellValue("X".$cellNum,"");//税码,空白

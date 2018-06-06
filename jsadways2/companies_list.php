@@ -25,7 +25,7 @@
 
 	$companiesOrdinal = GetVar('companies');
     $sizeformatConditions =IsId($companiesOrdinal) ? sprintf('`id` = %d', $companiesOrdinal) : 'id IN (SELECT `id` FROM `companies`)' ;
-    echo $sizeformatConditions;
+    // echo $sizeformatConditions;
 	//$objSizeformat = CreateObject('Sizeformat');
     $objSizeformat = CreateObject('companies');
 

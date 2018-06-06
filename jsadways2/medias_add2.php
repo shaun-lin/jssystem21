@@ -5,10 +5,10 @@
 	
 	$media = GetVar('media');
 
-	if (empty($GLOBALS['env']['flag']['pos']) && $_POST['media'] == 19) {
-		$uri = 'media19_edit.php?campaign_id='. $_GET['id'] .'&cue='. $_GET['cue'] .'&media='. $_POST['media'] .'&media2='. $_GET['media2'] .'&mediaid='. $_GET['mediaid'];
+	if (empty($GLOBALS['env']['flag']['pos']) && $_POST['media'] == 162) {
+		$uri = 'mtype_Handwriting_edit.php?campaign_id='. $_GET['id'] .'&cue='. $_GET['cue'] .'&media='. $_POST['media'] .'&media2='. $_GET['media2'] .'&mediaid='. $_GET['mediaid'];
 	} else {
-		$uri = 'media'. $_POST['media'] .'_add.php?id='. $_GET['id'] .'&cue='. $_GET['cue'] .'&media='. $_POST['media'] .'&media2='. $_GET['media2'] .'&mediaid='. $_GET['mediaid'];
+		$uri = 'mtype_Handwriting_add.php?id='. $_GET['id'] .'&cue='. $_GET['cue'] .'&media='. $_POST['media'] .'&media2='. $_GET['media2'] .'&mediaid='. $_GET['mediaid'];
 	}
 
 	ShowMessageAndRedirect('Loading', $uri, false);

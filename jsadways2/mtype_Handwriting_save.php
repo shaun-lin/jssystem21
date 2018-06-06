@@ -44,21 +44,21 @@
 
 	
 	if (IsId($mediaId)) {
-		$sqlMedia = sprintf("SELECT * FROM `media19` WHERE `id` = %d;", $mediaId);
+		$sqlMedia = sprintf("SELECT * FROM `media162` WHERE `id` = %d;", $mediaId);
 		$db->query($sqlMedia);
 		if ($itemMedia = $db->next_record()) {
 			if ($itemMedia['cue'] == 2) {
 				$sqlUpdateForIntCue = GenSqlFromArray($bindDataForIntCue + [
 					'a5' => GetVar('totalprice') < (GetVar('totalprice2') * getInfuencerPriceRate('outer_tax_included')) ? 1 : 0,
-				], 'media19', 'update', ['id' => $mediaId, 'campaign_id' => $campaignId]);
+				], 'media162', 'update', ['id' => $mediaId, 'campaign_id' => $campaignId]);
 				$db->query($sqlUpdateForIntCue);
 
 				if (GetVar('sync')) {
-					$sqlUpdateForExtCue = GenSqlFromArray($bindDataForExtCue, 'media19', 'update', ['id' => $itemMedia['a0'], 'campaign_id' => $campaignId]);
+					$sqlUpdateForExtCue = GenSqlFromArray($bindDataForExtCue, 'media162', 'update', ['id' => $itemMedia['a0'], 'campaign_id' => $campaignId]);
 					$db->query($sqlUpdateForExtCue);
 				}
 			} else if ($itemMedia['cue'] == 1) {
-				$sqlUpdateForExtCue = GenSqlFromArray($bindDataForExtCue, 'media19', 'update', ['id' => $mediaId, 'campaign_id' => $campaignId]);
+				$sqlUpdateForExtCue = GenSqlFromArray($bindDataForExtCue, 'media162', 'update', ['id' => $mediaId, 'campaign_id' => $campaignId]);
 				$db->query($sqlUpdateForExtCue);
 			}
 		}
@@ -66,24 +66,24 @@
 		$sqlInsertForExtCue = GenSqlFromArray($bindDataForExtCue + [
 			'cue' => 1,
 			'status' => 0,
-		], 'media19', 'insert');
+		], 'media162', 'insert');
 
 		$db->query($sqlInsertForExtCue);
 
 		$lastInsertId = $db->get_last_insert_id();
-		AddMediaMapping(19, $campaignId, $lastInsertId);
+		AddMediaMapping(162, $campaignId, $lastInsertId);
 
 		$sqlInsertForIntCue = GenSqlFromArray($bindDataForIntCue + [
 			'cue' => 2,
 			'status' => 0,
 			'a0' => $lastInsertId,
-			'a' => 19,
+			'a' => 162,
 			'a5' => GetVar('totalprice') < (GetVar('totalprice2') * getInfuencerPriceRate('outer_tax_included')) ? 1 : 0,
-		], 'media19', 'insert');
+		], 'media162', 'insert');
 		$db->query($sqlInsertForIntCue);
 
 		$lastInsertId = $db->get_last_insert_id();
-		AddMediaMapping(19, $campaignId, $lastInsertId);
+		AddMediaMapping(162, $campaignId, $lastInsertId);
 	}
 	
 	ShowMessageAndRedirect((IsId($mediaId) ? '編輯' : '新增') .'媒體成功', 'campaign_view.php?id='. $campaignId, false);

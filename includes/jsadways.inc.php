@@ -85,20 +85,20 @@ function updateMediaItemAccounting($data=[], $logging=true, $specificField=[])
     $ordinalId = isset($data['ordinal']) && IsId($data['ordinal']) ? $data['ordinal'] : 0;
     $itemId = isset($data['item']) && IsId($data['item']) ? $data['item'] : 0;
     $accountingMonth = isset($data['month']) && date('Ym', strtotime($data['month'] ."01")) == $data['month'] ? $data['month'] : 0;
-    $revenue = isset($data['revenue']) && is_numeric($data['revenue']) ? $data['revenue'] : 0;
-    $cost = isset($data['cost']) && is_numeric($data['cost']) ? $data['cost'] : 0;
+    $revenue = is_numeric($data['revenue']) ? $data['revenue'] : 0;
+    $cost = is_numeric($data['cost']) ? $data['cost'] : 0;
 
     //ken,2018/5/22,新增三個欄位
     //ken,2018/5/31,新增兩個欄位
     $currency_id = isset($data['currency_id']) ? $data['currency_id'] : 'TWD';
-    //$curr_cost = isset($data['curr_cost']) && is_float($data['curr_cost']) ? $data['curr_cost'] : 0;
-    $curr_cost = $data['curr_cost'];
+    $curr_cost = is_numeric($data['curr_cost']) ? $data['curr_cost'] : 0;
+    
 
-    $invoice_number = isset($data['invoice_number']) ? $data['invoice_number'] : 0;
+    $invoice_number = $data['invoice_number'];
     //$invoice_date = isset($data['invoice_date']) ? date('m/d/Y', strtotime($data['invoice_date'])) : 0;
-    $invoice_date = isset($data['invoice_date']) ? $data['invoice_date'] : 0;
-    //ken,如果有輸入發票,則記錄輸入時候的日期
-    $input_invoice_month = isset($data['invoice_number']) ? date('Ym') : 0;
+    $invoice_date = $data['invoice_date'];
+    $input_invoice_month = ($invoice_number=='' ? '' : date('Ym'));//ken,如果有輸入發票,則記錄輸入時候的日期
+
 
     $comment = isset($data['comment']) ? $data['comment'] : false;
 
@@ -109,7 +109,11 @@ function updateMediaItemAccounting($data=[], $logging=true, $specificField=[])
     $objMediaAccounting = CreateObject('MediaAccounting');
 
     $profit = $revenue - $cost;
-    $marginGross = round(($profit / $revenue) * 10000) / 100;
+    //ken,如果$revenue=0分母為0會出錯,感覺這欄位accounting_margin_gross後面沒用到,先填0
+    //$marginGross = round(($profit / $revenue) * 10000) / 100;
+    if($revenue!=0){
+        $marginGross = round(($profit / $revenue) * 10000) / 100;
+    }
 
     $conditions = [
         sprintf("`accounting_campaign` = %d", $campaignId),
@@ -192,7 +196,7 @@ function updateMediaItemAccounting($data=[], $logging=true, $specificField=[])
     //ken,調整,增加三個欄位
     //if ($logging === true && $isAmountChanged === true) {
     if ($logging === true ) {
-        $logData = "輸入收入成本({$itemMedia['name']})=>收入: {$revenue}, 成本: {$cost}, 幣別: {$currency_id}, 發票編號: {$invoice_number}, 發票日期: {$invoice_date}。";
+        $logData = "({$itemMedia['name']})=>收入:{$revenue},預估成本:{$curr_cost},幣別:{$currency_id},實際成本: {$cost},發票編號:{$invoice_number},發票日期:{$invoice_date}";
         $sqlInsertLog = GenSqlFromArray([
             'name' => $_SESSION['username'],
             'data' => $logData,

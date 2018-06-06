@@ -561,6 +561,7 @@
 			$closeEntryFlag = $GLOBALS['app']->preference->get('close_entry_flag');
 			$closeEntryFlag = $closeEntryFlag ? $closeEntryFlag : date('Ym', strtotime('-1 month'));
 
+			//ken,儲存對內CUE的某個月相關欄位
 			//$thisMonth = date('Ym');
 
 			if ($isGrantedForCampaignEntry 
@@ -582,12 +583,20 @@
 				]);
 
 				if($result === true){
+					$invoice_number = GetVar('invoice_number');
+				    $input_invoice_month = ($invoice_number=='' ? '' : date('Ym'));//ken,如果有輸入發票,則記錄輸入時候的日期
+
 					$feedback = [
 						'success' => 1, 
 						'failure' => null,
 						'data' => [
-							'accounting_revenue' => GetVar('accounting_revenue'), 
-							'accounting_cost' => GetVar('accounting_cost')
+							//'accounting_revenue' => GetVar('accounting_revenue'), 
+							//'curr_cost' => GetVar('curr_cost'),
+							//'currency_id' => GetVar('currency_id'), 
+							//'accounting_cost' => GetVar('accounting_cost'),
+							//'invoice_number' => GetVar('invoice_number'), 
+							//'invoice_date' => GetVar('invoice_date'), 
+							'input_invoice_month' => $input_invoice_month						
 						]
 					];
 				}else{

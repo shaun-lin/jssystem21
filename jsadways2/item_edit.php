@@ -13,8 +13,7 @@
 	foreach($objRelItemsType->searchAll('`items_id`='.GetVar('id')) as $RelItemsType){
 			$arrRelItemsType[]=$RelItemsType['type_id'];
 			
-	}
-	echo $RelItemsType['type_id'];
+		}
 	}
 	if ((!IsPermitted('superuser') && !in_array($_SESSION['departmentid'], [21, 22]))) {
 		RedirectLink('item_list.php');

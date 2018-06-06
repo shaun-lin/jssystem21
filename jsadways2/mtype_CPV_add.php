@@ -44,5 +44,6 @@
 
             <?php include("public/footer.php"); ?>
         </div>
+        <?php include("public/js.php"); ?>
     </body>
 </html>

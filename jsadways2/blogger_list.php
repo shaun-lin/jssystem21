@@ -56,7 +56,29 @@
 		}
 
 		$allowNames = ['blog_name' => 'blog_flow', 'fb_name' => 'fb_fans', 'ig_name' => 'ig_fans', 'youtube_name' => 'youtube_fans'];
-		$extraCondition['name'] = array_keys($allowNames);
+		if (isset($extraCondition['name']) && $extraCondition['name']) {
+			$nameConditions = [];
+
+			if (is_array($extraCondition['name'])) {
+				foreach ($extraCondition['name'] as $idxName => $itemName) {
+					if (!array_key_exists($itemName, $allowNames)) {
+						unset($extraCondition['name'][$idxName]);
+					}
+				}
+			} else if (array_key_exists($extraCondition['name'], $allowNames)) {
+				$extraCondition['name'] = [$extraCondition['name']];
+			}
+
+			foreach ($extraCondition['name'] as $itemName) {
+				$nameConditions[] = " `$itemName` != '' ";
+			}
+
+			if (count($nameConditions)) {
+				$sqlCondition .= " AND (". implode(' OR ', $nameConditions) .") ";
+			}
+		} else {
+			$extraCondition['name'] = array_keys($allowNames);
+		}
 
 		if (!empty($extraCondition['advance']['name'])) {
 			$nameConditions = [];
@@ -356,6 +378,16 @@
 									</div>
 									
 									<div class="span5" style="">
+										<div style="display: inline-block; float: right;">
+											名稱: <select data-rel="chosen" multiple style="width: 330px;" onchange="ChangeName(this);">
+												<option value="blog_name" <?= (in_array('blog_name', $extraCondition['name']) ? 'selected' : ''); ?>>Blog</option>
+												<option value="fb_name" <?= (in_array('fb_name', $extraCondition['name']) ? 'selected' : ''); ?>>FB</option>
+												<option value="ig_name" <?= (in_array('ig_name', $extraCondition['name']) ? 'selected' : ''); ?>>Instagram</option>
+												<option value="youtube_name" <?= (in_array('youtube_name', $extraCondition['name']) ? 'selected' : ''); ?>>YouTube</option>
+											</select>
+										</div>
+										<br/>
+										<br/>
 										<div style="display: inline-block; float: right;">
 											標籤: <select data-rel="chosen" multiple style="width: 330px;" onchange="ChangeTag(this);">
 												<? foreach ($objTag->getRelationData('blogger') as $itemTag) : ?>

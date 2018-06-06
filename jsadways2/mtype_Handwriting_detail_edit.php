@@ -14,7 +14,7 @@
 
     $otherCost = 0;
     if (IsId($detailId)) {
-        $sqlDetail = sprintf("SELECT * FROM `media19_detail` WHERE `id` = %d AND `campaign_id` = %d AND `blogid` = %d;", $detailId, $objCampaign->getId(), $objBlogger->getId());
+        $sqlDetail = sprintf("SELECT * FROM `media162_detail` WHERE `id` = %d AND `campaign_id` = %d AND `blogid` = %d;", $detailId, $objCampaign->getId(), $objBlogger->getId());
         $db->query($sqlDetail);
         $itemDetail = $db->next_record();
         $otherCost = $itemDetail && strpos($itemDetail['type'], '其他') !== false ? $itemDetail['price'] : 0;
@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="box-content">
-                                <form class="form-horizontal" action="media19_detail_save.php" method="post">
+                                <form class="form-horizontal" action="mtype_Handwriting_edit_detail_save.php" method="post">
                                     <fieldset> 
                                         <div class="control-group">
                                             <label class="control-label">分類</label>

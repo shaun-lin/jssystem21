@@ -42,7 +42,7 @@
 						$row2 = mysql_fetch_array($result2);
 					?>
 					<div class="box-content">
-						<form class="form-horizontal" action="media71_add4.php" method="post">
+						<form class="form-horizontal" action="mtype_Youtuber_add4.php" method="post">
 						  <fieldset> 
                             <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
                             <script type="text/javascript" src="js/jquery.xml2json.js"></script>

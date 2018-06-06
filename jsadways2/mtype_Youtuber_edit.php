@@ -8,7 +8,9 @@
 	<meta charset="utf-8">
 	<title>Youtuber列表</title>
 	<?php include("public/head.php"); ?>
-	
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.xml2json.js"></script>
+
 </head>
 
 <body>
@@ -26,27 +28,6 @@
 
 			<div id="content" class="span10">
 			<!-- content starts -->
-			<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="js/jquery.xml2json.js"></script>
-	<script>
-								$(document).ready(function()
-								{
-									Page_Init();
-								});
-								function Page_Init()
-								{
-									//Abow Start
-									<?php 
-										include('campaign_required_select.php');
-										echo $Select_str;
-									?>
-
-									$('#SelectType').change(function(){
-										//ChangeSelectType();
-									});
-									//Abow end
-								}
-	</script>
 			<div class="row-fluid">
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
@@ -57,6 +38,7 @@
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
+								  <th>寫手名稱</th>
                                   <th>部落格名稱</th>
                                   <th>粉絲團名稱</th>
 								  <th>分類</th>
@@ -71,11 +53,12 @@
 									while($row2=mysql_fetch_array($result2)){
 							?>
 							<tr>
-								<td><a href="blogger_view.php?id=<?php echo $row2['id']; ?>&youtuber=1" target="_blank"><?php echo $row2['name2']; ?></a></td>
-                                <td><a href="blogger_view.php?id=<?php echo $row2['id']; ?>&youtuber=1" target="_blank"><?php echo $row2['name3']; ?></a></td>
+								<td><a href="blogger_view.php?id=<?php echo $row2['id']; ?>&youtuber=1" target="_blank"><?php echo $row2['name']; ?></a></td>
+                                <td><?php echo $row2['name2']; ?></td>
+                                <td><?php echo $row2['name3']; ?></td>
 								<td class="center"><?php echo $row2['class']; ?></td>
 								<td class="center">
-									<a class="btn btn-success" href="mtype_Youtuber_add3.php?id=<?php echo $_GET['id']; ?>&blogid=<?php echo $row2['id']; ?>">
+									<a class="btn btn-success" href="mtype_Youtuber_add3.php?id=<?php echo $_GET['campaign']; ?>&blogid=<?php echo $row2['id']; ?>&edit=1&editid=<?php echo $_GET['id']; ?>">
 										<i class="icon-zoom-in icon-white"></i>
 										Add
 									</a>
@@ -102,7 +85,7 @@
 						<table class="table table-striped table-bordered">
 						  <thead>
 							  <tr>
-								  <th>寫手</th>
+								  <th>Youtuber</th>
                                   <th>對外報價</th>
                                   <th>成本</th>
                                   <th>利潤</th>
@@ -111,7 +94,7 @@
 						  </thead>
 						  <tbody>
 						  	<?php
-								$sql2='SELECT * FROM media166_detail WHERE campaign_id = '.$_GET['id'];
+								$sql2='SELECT * FROM media166_detail WHERE campaign_id = '.$_GET['campaign'];
 								$result2=mysql_query($sql2);
 								if (mysql_num_rows($result2)>0){
 									while($row2=mysql_fetch_array($result2)){
@@ -125,8 +108,7 @@
                                 <td><?php echo $row2['price']; ?></td>
                                 <td><?php echo $row2['price3']; ?></td>
 								<td class="center">
-
-                                    <a class="btn btn-danger" href="#" onclick="if(window.confirm('確定要刪除')) location.href=mtype_Youtuber_del.php?campaign=<?php echo $_GET['id']; ?>&id=<?php echo $row2['id'];?>';">
+                                    <a class="btn btn-danger" href="#" onclick="if(window.confirm('確定要刪除')) location.href='mtype_Youtuber_del.php?campaign=<?php echo $_GET['campaign']; ?>&id=<?php echo $row2['id'];?>&edit=1&editid=<?php echo $_GET['id']; ?>';">
 										<i class="icon-trash icon-white"></i>
 										刪除
                                     </a>
@@ -138,8 +120,33 @@
 							?>
 						  </tbody>
 					  </table>
+                      <?php
+                      	$totalprice3=$totalprice2-$totalprice;
+					  	$sql4 = "SELECT * FROM media166 WHERE id= ".$_GET['id'];
+						$result4 = mysql_query($sql4);
+						$row4 = mysql_fetch_array($result4);
+					  ?>
+					  <script>
+								$(document).ready(function()
+								{
+									Page_Init();
+								});
+								function Page_Init()
+								{
+									//Abow Start
+									<?php 
+										include('campaign_required_select_edit.php');
+										echo $Select_str;
+									?>
+
+									$('#SelectType').change(function(){
+										//ChangeSelectType();
+									});
+									//Abow end
+								}
+	</script>
                       <div class="box-content">
-						<form class="form-horizontal" action="mtype_Youtuber_add2.php?id=<?php echo $_GET['id']; ?>" method="post">
+						<form class="form-horizontal" action="mtype_Youtuber_edit2.php?id=<?php echo $_GET['id']; ?>&campaign=<?php echo $_GET['campaign']; ?>&cue=<?php echo $_GET['cue']; ?>" method="post">
                            <div class="control-group">
 							  <label class="control-label" for="SelectType">類別(Type)</label>
 							  <div class="controls">
@@ -155,12 +162,12 @@
 							  </div>
 							</div>
                            <div class="control-group">
-                            <label class="control-label">對外報價總金額</label>
+                            <label class="control-label">報價總金額</label>
                             <div class="controls">
-                            <input class="input-xlarge" id="totalprice" name="totalprice" type="text" style="width:200px" value="<?php echo $totalprice2; ?>"  readonly>(<font color="#FF0000">請抓成本+2.5成利潤</font>)可往上再增加報價，不得低於金額<font color="#FF0000"><?php echo $totalprice*1.25; ?></font>
+                            <input class="input-xlarge" id="totalprice" name="totalprice" type="text" style="width:200px" value="<?php echo $totalprice2; ?>"   readonly>(<font color="#FF0000">請抓成本+2.5成利潤</font>)可往上再增加報價，不得低於金額<font color="#FF0000"><?php echo $totalprice*1.25; ?></font>
                             </div>
-                           </div>
-                           <div class="control-group">
+                          </div>
+                          <div class="control-group">
                             <label class="control-label">成本</label>
                             <div class="controls">
                             <input class="input-xlarge" id="totalprice2" name="totalprice2" type="text" style="width:200px" value="<?php echo $totalprice; ?>" readonly>
@@ -172,14 +179,24 @@
                             <input class="input-xlarge" id="totalprice3" name="totalprice3" type="text" style="width:200px" value="<?php echo $totalprice3; ?>" readonly>
                             </div>
                           </div>
+                          <?php if($_GET['cue']==1){ ?>
+							<!--
+							<div class="control-group">
+							  <label class="control-label" for="gearing">連動修改對內CUE</label>
+							  <div class="controls">
+								<input type="checkbox" name="gearing" value="1" ><p style="color:red">注意。若為對外一個媒體，對內多個媒體的情況，請逐個修改對內CUE</p>
+							  </div>
+							</div>
+							-->
+                            <?php } ?>
                           <div class="control-group">
                           <label class="control-label" for="others">備註</label>
                           <div class="controls">
-                            <textarea id="others" name="others" ></textarea>
+                            <textarea id="others" name="others" ><?php echo $row4['others']; ?></textarea>
                           </div>
                         </div>
                         <div class="form-actions">
-                          <button type="submit" class="btn btn-primary">完成Youtuber費</button>
+                          <button type="submit" class="btn btn-primary">修改Youtuber費</button>
                         </div>
                       </form>
                       </div>

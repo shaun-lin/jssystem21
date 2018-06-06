@@ -1377,7 +1377,8 @@
 						function SaveAccounting(campaignId, mediaOrdinal, mediaItem, accountingMonth)
 						{
 							var rowId = 'row_accounting_'+ campaignId +'_'+ mediaOrdinal +'_'+ mediaItem +'_'+ accountingMonth;
-							
+
+							//ken,要往後傳參數
 							if ($('#'+ rowId).length) {
 								var postData = {
 									accounting_campaign: campaignId,
@@ -1385,8 +1386,9 @@
 									accounting_media_item: mediaItem,
 									accounting_month: accountingMonth,
 									accounting_revenue: $('#'+ rowId).find('#accounting_revenue').val(),
-									accounting_cost: $('#'+ rowId).find('#accounting_cost').val(),
+									curr_cost: $('#'+ rowId).find('#curr_cost').val(),
 									currency_id: $('#'+ rowId).find('#currency_id').val(),
+									accounting_cost: $('#'+ rowId).find('#accounting_cost').val(),
 									invoice_number: $('#'+ rowId).find('#invoice_number').val(),
 									invoice_date: $('#'+ rowId).find('#invoice_date').val(),
 									accounting_comment: $('textarea#accounting_comment_'+ campaignId +'_'+ mediaOrdinal +'_'+ mediaItem).val()
@@ -1408,7 +1410,8 @@
 
 												if (typeof feedback == 'object' && 'data' in feedback) {
 													for (var idx in feedback.data) {
-														$('#'+ rowId).find('#'+ idx).val(feedback.data[idx]);
+														//$('#'+ rowId).find('#'+ idx).val(feedback.data[idx]);
+														$('#'+ rowId).find('#'+ idx).text(feedback.data[idx]);//ken,改成text
 													}
 												}
 
@@ -1488,6 +1491,7 @@
 												<table class="table table-striped table-bordered bootstrap-datatable ">
 													<thead>
 														<tr>
+															<th>流水號</th>
 															<th>編號</th>
 															<th>網站</th>
 															<? if (in_array($i, $parameter['detail_head_simple_media'])) : ?>
@@ -1522,6 +1526,9 @@
 																$total += $row3['totalprice'];
 																?>
 																	<tr>
+																		<td>
+																			<!-- 流水號 -->
+																			<?=$row3['item_seq']; ?> </td>
 																		<td>
 																			<!-- 編號 -->
 																			<?= $i .'-'. $row3['id']; ?>
@@ -1750,6 +1757,7 @@
 																?>
 																<thead class="internal_media_<?= $i; ?>_column_head">
 																	<tr>
+																		<th>流水號</th>
 																		<th>編號</th>
 																		<th>網站</th>
 																		<? if (in_array($i, $parameter['extra_fee_media'])) :?>
@@ -1781,6 +1789,9 @@
 																</thead>
 																<tbody>
 																	<tr class="row-yellow">
+																		<td>
+																			<!-- 流水號 -->
+																			<?= $row3['item_seq'];?> </td>
 																		<td>
 																			<!-- 編號 -->
 																			<?= $row3['a'] .'-'. $row3['a0']; ?>
@@ -1986,7 +1997,8 @@
 																						</tr>
 																					</thead>
 																					<tbody>
-																						<? foreach ($accountingMonth as $order => $specificMonth) : ?>
+																						<? //ken,新增幾個欄位(如果有新增欄位,記得儲存時候會呼叫javascript函數SaveAccounting,那邊也要一併調整)
+																						foreach ($accountingMonth as $order => $specificMonth) : ?>
 																							<tr id="row_accounting_<?= $row2['id']; ?>_<?= $i; ?>_<?= $row3['id']; ?>_<?= $order; ?>" class="<?= ($closeEntryFlag >= $order ? ($isNonGrantedForCampaignEntry ? 'jsadways-closed-entry' : 'jsadways-entry-for-finacial') : ''); ?>">
 																								<td>
 																									<span style="font-size: 1em;"><?= (int)$specificMonth; ?>月</span>
@@ -2026,7 +2038,7 @@
 																									<input name="invoice_date" id="invoice_date" type="text" style="margin-bottom: 0;" class="large_text_input" value="<?= $rowsAccounting[$i][$row3['id']][$order]['invoice_date']; ?>" >
 																								</td>
 																								<td class="jsadways-media-cost" data-month="<?= $order; ?>" data-media="<?= $i; ?>" data-item="<?= $row3['id']; ?>">
-																									<small style="font-size: .9em; color: #999;"><?= $rowsAccounting[$i][$row3['id']][$order]['input_invoice_month']; ?></small>
+																									<small name="input_invoice_month" id="input_invoice_month" style="font-size: .9em; color: #999;"><?= $rowsAccounting[$i][$row3['id']][$order]['input_invoice_month']; ?></small>
 																								</td>
 
 																								<? if (date('Ym', $row2['date11']) == $order) : ?>

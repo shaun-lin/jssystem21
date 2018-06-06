@@ -1,42 +1,12 @@
 <?php
 	session_start();
 	include('include/db.inc.php');
-	if($_POST['price1']!=null){
-		$type=$type.'BLOG文章價格、';
-	}
-	if($_POST['price2']!=null){
-		$type=$type.'fb文章連結轉po費用、';
-	}
-	if($_POST['price3']!=null){
-		$type=$type.'官網識別圖引用費、';
-	}
-	if($_POST['price4']!=null){
-		$type=$type.'出席費、';
-	}
-	if($_POST['price5']!=null){
-		$type=$type.'fb操作費、';
-	}
-	if($_POST['price6']!=null){
-		$type=$type.'平面廣編引用費、';
-	}
-	if($_POST['price7']!=null){
-		$type=$type.'網路全平台引用費、';
-	}
-	if($_POST['price8']!=null){
-		$type=$type.'棚拍費、';
-	}
-	if($_POST['price9']!=null){
-		$type=$type.'Youtuber費、';
-	}
-	$sql2='INSERT INTO media166_detail(campaign_id,blogid,blog,blog1,blog2,blog3,type,price,price2,price3,times,others,status) VALUES('.$_POST['id'].','.$_POST['blogid'].',"'.$_POST['blog'].'","'.$_POST['blog1'].'","'.$_POST['blog2'].'","'.$_POST['blog3'].'","'.$type.'",'.$_POST['totalprice'].','.$_POST['totalprice2'].','.$_POST['totalprice3'].','.time().',"'.$_POST['others'].'",0)';
-	mysql_query($sql2);
-	AddMediaMapping(__FILE__, $_GET['id'], mysql_insert_id());
-	
-	//echo $sql2;
-	if($_POST['edit']==1){
-		echo '<meta http-equiv=REFRESH CONTENT=1;url=mtype_Youtuber_edit.php?campaign='.$_POST['id'].'&id='.$_POST['editid'].'>';
+	$sql2='DELETE FROM media166_detail WHERE id='.$_GET['id'];
+    $result2=mysql_query($sql2); 
+	if($_GET['edit']==1){
+		echo '<meta http-equiv=REFRESH CONTENT=1;url=mtype_Youtuber_edit.php?campaign='.$_GET['campaign'].'&id='.$_GET['editid'].'>';
 	}else{
-		echo '<meta http-equiv=REFRESH CONTENT=1;url=mtype_Youtuber_add.php?id='.$_POST['id'].'>';
+		echo '<meta http-equiv=REFRESH CONTENT=2;url=mtype_Youtuber_add.php?id='.$_GET['campaign'].'>';
 	}
 ?>
 <!DOCTYPE html>
@@ -103,14 +73,14 @@
 			}
 
 		</style>
-		<title>Add</title>
+		<title>Delete</title>
 	</head>
 	<body>
 		<p class="error-code">
-			
+         
 		</p>
 		<p class="not-found"><br/></p>
 		<div class="clear"></div>
-		<div class="content">新增媒體成功</div>
+		<div class="content">刪除媒體成功</div>
 	</body>
 </html>

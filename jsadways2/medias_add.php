@@ -11,7 +11,7 @@
     $objMedias = CreateObject('Medias');
     $objCompanies = CreateObject('Companies');
     $objItems = CreateObject('Items');
-//echo $objMedia;
+    //echo $objMedia;
     // $mediaTypeList = [
     //     'CPC' => '`type` = 1 AND `display` = 1',
     //     'CPI' => '`type` = 2 AND `display` = 1',
@@ -55,7 +55,7 @@
                                     <label class="control-label">媒體</label>
                                     <div class="controls">
                                         <select id="media" name="media" size="<?= count($objMedias->searchAll('', 'id', 'ASC'));?>" >
-                                            <? foreach ($objMedias->searchAll('', 'name', 'ASC') as $itemMedias) : ?>
+                                            <? foreach ($objMedias->searchAll('`display` = 1', 'name', 'ASC') as $itemMedias) : ?>
                                                 <option value="<?= $itemMedias['id']; ?>"><?= $itemMedias['name']; ?></option>
                                                 <? endforeach; ?> 
                                         </select>
@@ -111,7 +111,13 @@
                 $('#saveExit').hide();
                 //依據選擇媒體載入商品
                 $('#media').change(function(){
-                     $('fieldset').empty();
+                    $('#save').hide();
+                    $('#saveExit').hide();
+                    $('fieldset').empty();
+                    $('#item').empty();
+                    $('#mtype').empty().append("<option value=' '>-- 請選擇項目 --</option>").attr('size',1);
+                    // $('#mtype').append("<option value=' '>-- 請選擇項目 --</option>");
+                    // $('#mtype').attr('size',1);
                      var media_id = $(this).val();
                     $.ajax({
                         url: 'medias_add_option.php',
@@ -124,7 +130,7 @@
                             // console.log(len);
                             $("#items").empty();
                             $('#items').attr('size',len + 1);
-                            $("#items").append("<option value=' '>--請選擇媒體--</option>");
+                            $("#items").append("<option value=' '>-- 請選擇媒體 --</option>");
                             for( var i = 0; i<len; i++){
                                 var id = response[i]['key'];
                                 var name = response[i]['name'];
@@ -149,12 +155,21 @@
                 });
                 //依據選擇商品載入賣法
                 $('#items').change(function(){
-                    $('fieldset:eq(3)').empty();
+                    $('#save').hide();
+                    $('#saveExit').hide();
+                    $('fieldset').empty();
+                    $('#item').empty();
+                    $('#mtype').empty();
                     var item_id = $(this).val();
+                    var media_id = $('#media').val();
+                    var campign_id = <?= $_GET["id"];?>;
+                    // console.log("item_id: "+item_id);
+                    // console.log("media_id: " + media_id);
+                    // console.log("campign_id: " + campign_id);
                       $.ajax({
                         url: 'medias_add_option.php',
                         type: 'post',
-                        data: {id:item_id,group:"items"},
+                        data: {id:item_id,media_id:media_id,campign_id:campign_id,group:"items"},
                         dataType: 'json',
                         success:function(response){
 
@@ -162,7 +177,7 @@
                             // console.log(len);
                             $("#mtype").empty();
                             $("#mtype").attr("size",len + 1);
-                            $("#mtype").append("<option value=' '>請選擇賣法</option>");
+                            $("#mtype").append("<option value=' '>-- 請選擇賣法 --</option>");
                             for( var i = 0; i<len; i++){
                                 var id = response[i]['key'];
                                 var name = response[i]['name'];
@@ -195,7 +210,16 @@
                     var cue = <?= GetVar('cue'); ?>;
                     var media_url = "";
                     var mtype_number = "";
-                    console.log($('#mtype').prop('selectedIndex'));
+                    var media_id = $('#media').val();
+                    var item_id = $('#items').val();
+                    var mtype_name = $('#mtype option:selected').text();
+
+                    //已做過設定的模板不做動作
+                    if(mtype_name.indexOf("已設定")>0){
+                        return false;
+                    }
+
+                    // console.log($('#mtype').prop('selectedIndex'));
                     if($('#mtype').prop('selectedIndex')!="0"){
                         switch(mtype_text){
                         case "CPV":
@@ -286,9 +310,7 @@
                             break;
                     }
                         media_url = "mtype_"+media_url + "?id="+id+"&cue="+cue+"&media="+media_id[0]+"&media2=&" + "copmpanies=" + company_id + "&mediaid=";
-                        var media_id = $('#media').val();
-                        var item_id = $('#items').val();
-                        var mtype_name = $('#mtype option:selected').text();
+                       
                         console.log("1.　" + media_url);
                         $.get(media_url, function(data) {
                             //抓取模板form表單
@@ -307,14 +329,15 @@
                                 $('.box-content .form-actions').hide();
                                 //隱藏模板的footer
                                 $('.box-content footer').hide();
-                                    console.log("2.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
+                                    //console.log("2.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
                                 //修改模板form的action
                                 $('.box-content .form-horizontal:eq(1)').attr('action',$('.box-content .form-horizontal:eq(1)').attr('action')+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id+"&media_name="+media_name);
-                                    console.log("3.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
+                                    //console.log("3.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
                             //將儲存按鈕show出來
                              $('#save').show();
                              $('#saveExit').show();
-                        });
+                             $('form :input:visible:enabled:first').focus()
+                        }); 
                     }else{
                         $('#save').hide();
                         $('#saveExit').hide();
@@ -324,7 +347,7 @@
                 $('#save').click(function(e){
                     $mediaform=$('form:eq(1)');
                     var valid = $mediaform[0].checkValidity(); 
-                    console.log(valid);
+                    // console.log(valid);
                         if(valid){
                         var formdata=$('.box-content .form-horizontal:eq(1)').serialize();
                         console.log(JSON.stringify(formdata));
@@ -349,7 +372,9 @@
                                     $('fieldset:eq(0)').empty();
                                     $('#save').hide();
                                     $('#saveExit').hide();
+                                    $('#mtype option:selected').text($('#mtype option:selected').text()+"(已設定)");
                                     $('#mtype').focus();
+
                                 }
                             },
                             error: function(xhr, status, error) {

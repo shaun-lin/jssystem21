@@ -34,7 +34,7 @@
     ];
 
     if (IsId($detailId)) {
-        $sqlUpdate = GenSqlFromArray($saveData, 'media19_detail', 'update', [
+        $sqlUpdate = GenSqlFromArray($saveData, 'media162_detail', 'update', [
             'id' => $detailId,
             'campaign_id' => $campaignId,
             'blogid' => $blogId,
@@ -47,7 +47,7 @@
             'status' => 0
         ];
 
-        $db->query(GenSqlFromArray($saveData, 'media19_detail', 'insert'));
+        $db->query(GenSqlFromArray($saveData, 'media162_detail', 'insert'));
     }
 
-    ShowMessageAndRedirect(IsId($detailId) ? '修改媒體成功' : '新增媒體成功', "media19_edit.php?campaign_id={$campaignId}&media_id={$mediaId}", false);
+    ShowMessageAndRedirect(IsId($detailId) ? '修改媒體成功' : '新增媒體成功', "mtype_Handwriting_edit.php?campaign_id={$campaignId}&media_id={$mediaId}", false);

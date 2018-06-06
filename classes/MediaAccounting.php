@@ -16,11 +16,11 @@ class MediaAccounting extends Adapter
         'accounting_gross_margin' => 0,
         'accounting_comment' => '',
         'accounting_modifier' => 0,
-        'currency_id' => 0,
+        'currency_id' => 'TWD',
         'curr_cost' => 0,
-        'input_invoice_month' => 0,
-        'invoice_number' => 0,
-        'invoice_date' => 0
+        'invoice_number' => '',
+        'invoice_date' => '',
+        'input_invoice_month' => ''
     ];
 
     public function __construct($id=0)

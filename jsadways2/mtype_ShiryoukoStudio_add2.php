@@ -1,44 +1,47 @@
 <?php
-	
-	require_once dirname(__DIR__) .'/autoload.php';
-	
-	include('include/db.inc.php');
-	$db = clone($GLOBALS['app']->db);
-		$TypeItem='GAME APP';
-		$website='【實況主】詩涼子SHIRYOUKO STUDIO';
-		$totalprice=$_POST['totalprice'];
-	
-	$TypeItem=null;
-	$TypeItem = $_POST['SelectType'];
-	$autoSerialNumberA=autoSerialNumber();
- 	$autoSerialNumberB=autoSerialNumber();
 
-	$total_days = 0;
-	$days = array(0,0,0,0,0);
-	for($i=1;$i<=5;$i++){
-		if($_POST['date'.$i]!=NULL){
-			$date[$i]=mktime (0,0,0,substr($_POST['date'.$i],0,2),substr($_POST['date'.$i],3,2),substr($_POST['date'.$i],6,4));
-			$total_days++;
-			$days[$i-1] = 1;
-		}else{
-			$date[$i]=0;
-		}
-	}
-	$sqlmedia = "SELECT * FROM media WHERE id=83";
-	$resultmedia = mysql_query($sqlmedia);
-	$rowmedia = mysql_fetch_array($resultmedia);
-	$profit=($_POST['totalprice']*$rowmedia['profit'])/100;
-	if($_GET['cue']==2){
-		$a=$_GET['media2'];
-		$a0=$_GET['mediaid'];
+require_once dirname(__DIR__) . '/autoload.php';
 
-	}
-	
+include 'include/db.inc.php';
+$db = clone ($GLOBALS['app']->db);
+$TypeItem = 'GAME APP';
+$website = '【實況主】詩涼子SHIRYOUKO STUDIO';
+$totalprice = $_POST['totalprice'];
 
+$TypeItem = null;
+$TypeItem = $_POST['SelectType'];
+$autoSerialNumberA = autoSerialNumber();
+$autoSerialNumberB = autoSerialNumber();
 
+$cp_id = $_GET['id'];
+$media_id = $_GET['mediaid'];
+$item_id = $_GET['itemid'];
+$mtype_name = $_GET['mtypename'];
+$mtype_number = $_GET['mtypenumber'];
+$mtype_id = $_GET['mtypeid'];
 
+$total_days = 0;
+$days = array(0, 0, 0, 0, 0);
+for ($i = 1; $i <= 5; $i++) {
+    if ($_POST['date' . $i] != null) {
+        $date[$i] = mktime(0, 0, 0, substr($_POST['date' . $i], 0, 2), substr($_POST['date' . $i], 3, 2), substr($_POST['date' . $i], 6, 4));
+        $total_days++;
+        $days[$i - 1] = 1;
+    } else {
+        $date[$i] = 0;
+    }
+}
+$sqlmedia = "SELECT * FROM media WHERE id=83";
+$resultmedia = mysql_query($sqlmedia);
+$rowmedia = mysql_fetch_array($resultmedia);
+$profit = ($_POST['totalprice'] * $rowmedia['profit']) / 100;
+if ($_GET['cue'] == 2) {
+    $a = $_GET['media2'];
+    $a0 = $_GET['mediaid'];
 
-	$sql2='INSERT INTO media164(campaign_id,
+}
+
+$sql2 = 'INSERT INTO media164(campaign_id,
 item_seq,
 cue,
 website,
@@ -64,44 +67,47 @@ a4,
 totalprice,
 others,
 items2,
-items3) VALUES('.$_GET['id'].',
-'.$autoSerialNumberA.',
-'.$_GET['cue'].',
-"'.$website.'",
-'.$date[1].',
-'.$date[1].',
-'.$date[2].',
-'.$date[2].',
-'.$date[3].',
-'.$date[3].',
-'.$date[4].',
-'.$date[4].',
-'.$date[5].',
-'.$date[5].',
-'.$total_days.',
-'.$days[0].',
-'.$days[1].',
-'.$days[2].',
-'.$days[3].',
-'.$days[4].',
-"'.$a.'",
-"'.$a0.'",
-'.$totalprice.',
-'.$totalprice.',
-"'.$_POST['others'].'",
-"'.$TypeItem.'",
-"'.$_POST['SelectSystem'].'")';
-	mysql_query($sql2);
-	AddMediaMapping('media164', $_GET['id'], mysql_insert_id());
-	//echo $sql2;
-	if($_POST['samecue']==1){
-		$sqlnew = "SELECT * FROM media164 ORDER BY id DESC LIMIT 1;";
-		$resultnew = mysql_query($sqlnew);
-		$rownew = mysql_fetch_array($resultnew);
+items3) VALUES(' . $_GET['id'] . ',
+' . $autoSerialNumberA . ',
+' . $_GET['cue'] . ',
+"' . $_GET['media_name'] . '",
+' . $date[1] . ',
+' . $date[1] . ',
+' . $date[2] . ',
+' . $date[2] . ',
+' . $date[3] . ',
+' . $date[3] . ',
+' . $date[4] . ',
+' . $date[4] . ',
+' . $date[5] . ',
+' . $date[5] . ',
+' . $total_days . ',
+' . $days[0] . ',
+' . $days[1] . ',
+' . $days[2] . ',
+' . $days[3] . ',
+' . $days[4] . ',
+"' . $a . '",
+"' . $a0 . '",
+' . $totalprice . ',
+' . $totalprice . ',
+"' . $_POST['others'] . '",
+"' . $TypeItem . '",
+"' . $_POST['SelectSystem'] . '")';
+mysql_query($sql2);
+AddMediaMapping('media164', $_GET['id'], mysql_insert_id());
+$sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`)
+	VALUES ('" . $cp_id . "','" . $media_id . "','0','" . $item_id . "','" . $mtype_name . "','" . $mtype_number . "','" . $item_id2 . "','" . $autoSerialNumberA . "','1')";
+mysql_query($sql3);
+//echo $sql2;
+if ($_POST['samecue'] == 1) {
+    $sqlnew = "SELECT * FROM media164 ORDER BY id DESC LIMIT 1;";
+    $resultnew = mysql_query($sqlnew);
+    $rownew = mysql_fetch_array($resultnew);
 
-		$a=$_GET['media'];
-		$a0=$rownew['id'];
-		$sql2='INSERT INTO media164(campaign_id,
+    $a = $_GET['media'];
+    $a0 = $rownew['id'];
+    $sql2 = 'INSERT INTO media164(campaign_id,
 item_seq,
 cue,
 website,
@@ -127,72 +133,61 @@ a4,
 totalprice,
 others,
 items2,
-items3) VALUES('.$_GET['id'].',
-'.$autoSerialNumberB.',
+items3) VALUES(' . $_GET['id'] . ',
+' . $autoSerialNumberB . ',
 2,
-"'.$website.'",
-'.$date[1].',
-'.$date[1].',
-'.$date[2].',
-'.$date[2].',
-'.$date[3].',
-'.$date[3].',
-'.$date[4].',
-'.$date[4].',
-'.$date[5].',
-'.$date[5].',
-'.$total_days.',
-'.$days[0].',
-'.$days[1].',
-'.$days[2].',
-'.$days[3].',
-'.$days[4].',
-"'.$a.'",
-"'.$a0.'",
-'.$totalprice.',
-'.$totalprice.',
-"'.$_POST['others'].'",
-"'.$TypeItem.'",
-"'.$_POST['SelectSystem'].'")';
-		mysql_query($sql2);
-		AddMediaMapping('media164', $_GET['id'], mysql_insert_id());
-	}
+"' . $_GET['media_name'] . '",
+' . $date[1] . ',
+' . $date[1] . ',
+' . $date[2] . ',
+' . $date[2] . ',
+' . $date[3] . ',
+' . $date[3] . ',
+' . $date[4] . ',
+' . $date[4] . ',
+' . $date[5] . ',
+' . $date[5] . ',
+' . $total_days . ',
+' . $days[0] . ',
+' . $days[1] . ',
+' . $days[2] . ',
+' . $days[3] . ',
+' . $days[4] . ',
+"' . $a . '",
+"' . $a0 . '",
+' . $totalprice . ',
+' . $totalprice . ',
+"' . $_POST['others'] . '",
+"' . $TypeItem . '",
+"' . $_POST['SelectSystem'] . '")';
+    mysql_query($sql2);
+    AddMediaMapping('media164', $_GET['id'], mysql_insert_id());
 
-	//jackie 2018/06/01 抓media***_id 填到cp_detail mtype_id
-	$item_id1=mysql_insert_id();
-	$item_id2=$item_id1-1;
+    $sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`)
+	VALUES ('" . $cp_id . "','" . $media_id . "','0','" . $item_id . "','" . $mtype_name . "','" . $mtype_number . "','" . $item_id1 . "','" . $autoSerialNumberB . "','2')";
+    mysql_query($sql4);
+}
 
-	$sql1 = "SELECT * FROM campaign WHERE id= ".$_GET['id'];
-	$result1 = mysql_query($sql1);
-	$row1 = mysql_fetch_array($result1);
-	if($row1['status']==5){
-		$sql2='INSERT INTO campaignstatus2(name,data,times,campaignid) VALUES("'.$_SESSION['username'].'","新增詩涼子SHIRYOUKO STUDIO媒體",'.time().','.$_GET['id'].')';
-		mysql_query($sql2);
-	}
-	
-	$cp_id = $_GET['id'];
-	$media_id = $_GET['mediaid'];
-	$item_id = $_GET['itemid'];
-	$mtype_name = $_GET['mtypename'];
-	$mtype_number = $_GET['mtypenumber'];
-	$mtype_id = $_GET['mtypeid'];
+//jackie 2018/06/01 抓media***_id 填到cp_detail mtype_id
+$item_id1 = mysql_insert_id();
+$item_id2 = $item_id1 - 1;
 
-	$goon=GetVar('goon');
-	
-	$sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
-		VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id2."','".$autoSerialNumberA."','1')";
-	mysql_query($sql3);
+$sql1 = "SELECT * FROM campaign WHERE id= " . $_GET['id'];
+$result1 = mysql_query($sql1);
+$row1 = mysql_fetch_array($result1);
+if ($row1['status'] == 5) {
+    $sql2 = 'INSERT INTO campaignstatus2(name,data,times,campaignid) VALUES("' . $_SESSION['username'] . '","新增詩涼子SHIRYOUKO STUDIO媒體",' . time() . ',' . $_GET['id'] . ')';
+    mysql_query($sql2);
+}
 
-	$sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
-		VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id1."','".$autoSerialNumberB."','2')";
-	mysql_query($sql4);
+$goon = GetVar('goon');
 
-		if ($goon=="Y") {
+if ($goon == "Y") {
 
-		$arrItems=array();
-				$arrItems[]=array("key"=>"result","name"=>"OK");
-		
-		echo json_encode($arrItems);
-	}else{
-	ShowMessageAndRedirect('新增媒體成功', 'campaign_view.php?id='. $_GET['id'], false);
-	}
+    $arrItems = array();
+    $arrItems[] = array("key" => "result", "name" => "OK");
+
+    echo json_encode($arrItems);
+} else {
+    ShowMessageAndRedirect('新增媒體成功', 'campaign_view.php?id=' . $_GET['id'], false);
+}
