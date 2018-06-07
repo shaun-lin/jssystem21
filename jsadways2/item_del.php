@@ -12,4 +12,4 @@
 
 	$db->query($sql2);
 	$db->query($sql3);
-	ShowMessageAndRedirect('刪除媒體成功', 'item_list.php', false);
+	ShowMessageAndRedirect('刪除品項成功', 'item_list.php', false);

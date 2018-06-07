@@ -62,13 +62,15 @@ require_once dirname(__DIR__) .'/autoload.php';
 			// 將所選取的資料全部新增進去
 			$id = $_GET["id"];
 			$Items = $_POST["tagtext2"];
+			if(isset($Items)){
 			$T_Sql_Info3 = "INSERT INTO  `rel_media_companies` ( ";
 			$T_Sql_Info3 .= "`companies_id`, `medias_id`)";
 			$T_Sql_Info3 .= " VALUES ";
 			foreach ($Items as $value) {
 				$T_Sql_Info3 .= "('". $id ."','". $value ."'),";
-			}
+				}
 			$T_Sql_Info3 = trim($T_Sql_Info3, ",");
+			}
 			
 			mysql_query($T_Sql_Info3);
 			//echo $T_Sql_Info3;

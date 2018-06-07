@@ -244,6 +244,12 @@
 								<select id="actions" name="actions">
                                  <option value="成為粉絲">成為粉絲</option>
                                  <option value="成為名單">成為名單</option>
+																 <option value="名單數">成為粉絲</option>
+                                 <option value="讚數">讚數</option>
+																 <option value="回覆次數">回覆次數</option>
+                                 <option value="轉換次數">轉換次數</option>
+																 <option value="加入官方帳號">加入官方帳號</option>
+                                 <option value="評論數">評論數</option>
 							    </select>
 							  </div>
 							</div>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,13 +19,11 @@
                         <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
                     </div>
                 </noscript>
-
                 <div id="content" class="span10">
                     <div class="row-fluid sortable">
                         <div class="box span12">
                             <div class="box-header well" data-original-title>
                                 <h2><i class="icon-edit"></i> <?= $row1['name']; ?>-編輯媒體-<?= $mediaName; ?></h2>
-
                             </div>
                             <div class="box-content">
                                 <?php
@@ -40,12 +37,12 @@
                                     $result1 = mysql_query($sql1);
                                     $row1 = mysql_fetch_array($result1);
 
-                                    $sql2 = sprintf("SELECT * FROM `media151` WHERE `id` = %d;", $mediaOrdinal, $_GET['id']);
+                                    $sql2 = sprintf("SELECT * FROM `media%d` WHERE `id` = %d;", $mediaOrdinal, $_GET['id']);
                                     $result2 = mysql_query($sql2);
                                     $row2 = mysql_fetch_array($result2);
 
                                 ?>
-                                <form class="form-horizontal" action="mtype_CPC_add_edit2.php?campaign=<?= $_GET['campaign']; ?>&id=<?= $_GET['id']; ?>&cue=<?= $_GET['cue']; ?>&media=<?= $_GET['media']; ?>" method="post">
+                                <form class="form-horizontal" action="mtype_CPC_edit2.php?campaign=<?= $_GET['campaign']; ?>&id=<?= $_GET['id']; ?>&cue=<?= $_GET['cue']; ?>&media=<?= $_GET['media']; ?>" method="post">
                                     <?php require ('mtype_CPC_add_edit.php'); ?>
                                 </form>
                             </div>
@@ -57,7 +54,6 @@
             <hr>
             <?php include("public/footer.php"); ?>
         </div>
-
         <?php include("public/js.php"); ?>
     </body>
 </html>

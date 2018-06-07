@@ -74,6 +74,9 @@
 										</tr>
 									</table>
 									<div>
+									<div class="box-header well" data-original-title>
+									<h2><i class="fa fa-cube"></i>&nbsp;品項 - <?= $objSizeformat->getVar('name'); ?></h2>
+									</div>
 									<?php
 										$sqlClass2 = "SELECT id,name FROM `items` where display='1' order by name ";
 										$resultClass2 = mysql_query($sqlClass2);

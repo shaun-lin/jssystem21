@@ -178,8 +178,6 @@
 
 	//開始準備填入資料
 	$cellNum=4;
-
-	$writeCount = 0;
 	$firstRow = true;
 	$mark = "X";//$mark=过账标识,如每筆匯出資料多複製一行 例 一二行為相同資料 但第一筆資料此欄打X
 	$markNumber = 31;//$markNumber=记账码,此項須建立在 (Posting Control 描述成立)第一筆為31 第二筆為40
@@ -296,42 +294,45 @@
 
 				//同一筆row要寫兩筆,這邊要做切換第二筆
 				if($firstRow){
+					$firstRow = false;
 					$mark = "";
 					$markNumber = 40;
-					$firstRow = false;
 				}
 				$cellNum++;
 			}//for ($writeCount=0; $writeCount < 2; $writeCount++) { 
 
 
-			//ken,如果有輸入發票,則再輸入兩筆實際成本+發票資訊
-			$sqlInvoice=sprintf("SELECT acc.accounting_id,acc.accounting_cost,acc.currency_id,acc.curr_cost,
-				acc.invoice_number,acc.invoice_date,
-				com.name as com_name,com.name2 as com_name2,com.eng_name as com_eng_name,com.tax_id as com_tax_id,
-				r.numberid,o.item_seq,o.jpc_seq
-				FROM media_accounting acc 
-				left join receipt r on r.receipt_number = acc.invoice_number COLLATE utf8_unicode_ci 
-				left join cp_detail o on o.cue='2' and o.cp_id = acc.accounting_campaign and o.mtype_number = acc.accounting_media_ordinal and o.mtype_id = acc.accounting_media_item 
-				left join companies com on com.id = o.comp_id 
-				where acc.input_invoice_month = '%d' and acc.accounting_id=%d ",$dateYearMonth,$drAcc['accounting_id']);
-
-			$dsInvoice=mysql_query($sqlInvoice); 
-			$checkRowCount = mysql_num_rows($dsInvoice);
-
-			if($checkRowCount<=0){
-				//準備換下一行
-				$firstRow = true;
-				$mark = "X";
-				$markNumber = 31;
-				continue;
-			}
-
+			//準備換下一行
 			$firstRow = true;
 			$mark = "X";
 			$markNumber = 31;
-			$dr = mysql_fetch_array($dsInvoice);
+		}//while($drAcc=mysql_fetch_array($dsAcc)){
+	}//if($drAccCount>0){
 
+
+	$firstRow = true;
+	$mark = "X";//$mark=过账标识,如每筆匯出資料多複製一行 例 一二行為相同資料 但第一筆資料此欄打X
+	$markNumber = 31;//$markNumber=记账码,此項須建立在 (Posting Control 描述成立)第一筆為31 第二筆為40
+
+	//ken,如果有輸入發票,則再輸入兩筆實際成本+發票資訊
+	$sqlInvoice=sprintf("SELECT acc.accounting_id,acc.accounting_cost,acc.currency_id,acc.curr_cost,
+		acc.invoice_number,acc.invoice_date,
+		com.name as com_name,com.name2 as com_name2,com.eng_name as com_eng_name,com.tax_id as com_tax_id,
+		r.numberid,o.item_seq,o.jpc_seq
+		FROM media_accounting acc 
+		left join receipt r on r.receipt_number = acc.invoice_number COLLATE utf8_unicode_ci 
+		left join cp_detail o on o.cue='2' and o.cp_id = acc.accounting_campaign and o.mtype_number = acc.accounting_media_ordinal and o.mtype_id = acc.accounting_media_item 
+		left join companies com on com.id = o.comp_id 
+		where acc.input_invoice_month = '%d' 
+		order by item_seq,invoice_date",$dateYearMonth);
+
+	$dsInvoice=mysql_query($sqlInvoice); 
+	$checkRowCount = mysql_num_rows($dsInvoice);
+
+	if($checkRowCount>0){
+		while($dr = mysql_fetch_array($dsInvoice)){
 			for ($writeCount=0; $writeCount < 2; $writeCount++) { 
+
 				$invoice_date = ($dr['invoice_date'] == null ? '' : $dr['invoice_date']);//date('Ymd',$dr['invoice_date'])
 				$currency_id = ($dr['currency_id'] == null ? '' : $dr['currency_id']);
 
@@ -340,9 +341,8 @@
 				$com_eng_name = ($dr['com_eng_name'] == null ? '' : $dr['com_eng_name']);
 				$com_tax_id = ($dr['com_tax_id'] == null ? '' : 'CD'.$dr['com_tax_id']);
 
-				$amt = ($currency_id=='TWD' || $currency_id=='' ? $dr['accounting_cost'] : '');//實際的發票金額,凭证货币金额
-				$forAmt = ($currency_id=='TWD' || $currency_id=='' ? '' : $dr['accounting_cost']);//實際的發票金額,本位币金额
-				
+				$amt = $dr['accounting_cost'];//實際的發票金額,凭证货币金额
+								
 
 				//$paydate=支付基准日,media_accounting.invoice_date的下個月1號往後加90天
 				//$now_month = date("Y-m",$dr['invoice_date']).'-01';
@@ -376,9 +376,9 @@
 				$sh->setCellValue("Q".$cellNum,"");//特殊G/L,空白
 				$sh->setCellValue("R".$cellNum,"");//固定资产事务类型,空白
 				$sh->setCellValue("S".$cellNum,"");//统驭科目,空白
-				$sh->setCellValue("T".$cellNum,$amt);//凭证货币金额,if media_accounting.currency_id = TWD,then accounting_cost else null
+				$sh->setCellValue("T".$cellNum,$amt);//凭证货币金额
 
-				$sh->setCellValue("U".$cellNum,$forAmt);//本位币金额,if media_accounting.currency_id = TWD,then null else accounting_cost
+				$sh->setCellValue("U".$cellNum,"");//本位币金额
 				$sh->setCellValue("V".$cellNum,"");//集团货币金额,空白
 				$sh->setCellValue("W".$cellNum,"");//全球公司金额,空白
 				$sh->setCellValue("X".$cellNum,"");//税码,空白
@@ -421,24 +421,27 @@
 				$sh->setCellValue("BC".$cellNum,"");//事务类型,空白
 
 				$sh->setCellValue("BD".$cellNum,"");//交易方,空白
-				$sh->setCellValue("BE".$cellNum,$drAcc['item_seq']);//編號,item_seq
-				$sh->setCellValue("BF".$cellNum,$drAcc['jpc_seq']);//SAP編號,jpc_seq
+				$sh->setCellValue("BE".$cellNum,$dr['item_seq']);//編號,item_seq
+				$sh->setCellValue("BF".$cellNum,$dr['jpc_seq']);//SAP編號,jpc_seq
 
 				//同一筆row要寫兩筆,這邊要做切換第二筆
 				if($firstRow){
+					$firstRow = false;
 					$mark = "";
 					$markNumber = 40;
-					$firstRow = false;
 				}
 				$cellNum++;
 			}//for ($writeCount=0; $writeCount < 2; $writeCount++) { 
+
 
 			//準備換下一行
 			$firstRow = true;
 			$mark = "X";
 			$markNumber = 31;
-		}//while($drAcc=mysql_fetch_array($dsAcc)){
+		}//while($dr = mysql_fetch_array($dsInvoice)){
 	}//if($drAccCount>0){
+
+
 
 	//ken,畫底色沒成功,有空再測試
 	$sh->getStyle('A1:BF3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);

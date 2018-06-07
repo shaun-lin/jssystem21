@@ -21,7 +21,7 @@
 		echo json_encode($arrItems);
 	}
 	//取得賣法資料
-	else if ($group=="items"){
+	else if ($group == "items"){
 		$id =GetVar('id');
 		$media_id = GetVar('media_id');
 		$campign_id = GetVar('campign_id');
@@ -42,7 +42,7 @@
 		
 		$sql=sprintf(" `id`  IN (SELECT `type_id` FROM `rel_items_type` WHERE `items_id` ='%d') and display = '1'",$id);
 		foreach($objItems->searchAll($sql,'name','ASC') as $itemItem){
-				$item_id=$itemItem['id'];
+				$item_id=$itemItem['dashboard'];
 				if(in_array($item_id, $arrCpdetail)){
 					$item_name = "(已設定)".$itemItem['name'];
 				}else{
@@ -51,6 +51,25 @@
 				$arrItems[] = array("key"=>$item_id,"name"=>$item_name);
 		}
 		// echo count($arrItems);
+		echo json_encode($arrItems);
+	}
+
+	//取得模板資料
+	else if ($group == "template"){
+		include('include/db.inc.php');
+		$id =GetVar('id');
+	 	$sqlmtype = sprintf("SELECT * FROM `lookup` WHERE `lookup_type` = '%s' and `item` = %d", 'mtype',$id);
+	 	$arrItems = array();
+	 	$resultmtype = mysql_query($sqlmtype); 
+        
+        if(mysql_num_rows($resultmtype) > 0 ){
+        	$rowmtype = mysql_fetch_array($resultmtype); 
+			$item_id=$rowmtype['item'];
+			$item_name=$rowmtype['value'];
+			$arrItems[]=array("key"=>$item_id,"name"=>$item_name);
+		}else{
+			$arrItems[]=array("key"=>"0","name"=>"查無此模板！");
+		}
 		echo json_encode($arrItems);
 	}
 

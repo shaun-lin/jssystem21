@@ -58,4 +58,4 @@
 	// ], 'campaignstatus', 'insert');
 	// $db->query($sqlInserLog);
 
-	ShowMessageAndRedirect('刪除媒體成功', 'mtype_list.php', false);
+	ShowMessageAndRedirect('刪除模板成功', 'mtype_list.php', false);

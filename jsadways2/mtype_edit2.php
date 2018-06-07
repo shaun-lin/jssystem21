@@ -58,4 +58,4 @@
 
 	// AddMailToQueue($mailTo, null, $mailContent, $mailSubject, $mailSender);
 	
-	ShowMessageAndRedirect('更新媒體格規成功', 'mtype_list.php?mtype='. GetVar('id', '') , false);
+	ShowMessageAndRedirect('更新模板成功', 'mtype_list.php?mtype='. GetVar('id', '') , false);

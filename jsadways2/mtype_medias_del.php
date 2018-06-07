@@ -7,7 +7,6 @@
 	$db = clone($GLOBALS['app']->db);
 
 	$message = '';
-
 	if (isset($_REQUEST['another_cue'])) {
 		if ($_REQUEST['another_cue'] == 1) {
 			$sqlMedia = sprintf("SELECT `a0` as `id` FROM `media%d` 
@@ -55,6 +54,21 @@
 		'campaignid' => $_GET['campaign']
 	], 'campaignstatus', 'insert');
 	$db->query($sqlInserLog);
-	$sqlDelSQL = "DELETE FROM `cp_detail` where `cp_id` = '".$_GET['campaign']." and `mtype_number` = '".$_GET['media']."' and `cue` = '".$_GET['cue']."' and `media_id` = '".$_GET['id']."'";
+
+	//jackie 2018/06/07 刪除對內/對外表
+	//從compaign_view以$_GET['item_seq']接值，如果是1就是單純刪對內/對外，如果是2就是一次刪對內外
+	if($itemMediaCue['cue']==1){
+	$sqlDelSQL = "DELETE FROM `cp_detail` where `item_seq` = '".$_GET['item_seq']."'";
+	$db->query($sqlDelSQL);
+	}
+	else{
+	//因為對內的流水編號是對外的流水編號+1，所以新變數接$_GET['item_seq']然後+1
+	//執行兩段sql結束
+	$item_seq=$_GET['item_seq']+1;
+	$sqlDelSQL = "DELETE FROM `cp_detail` where `item_seq` = '".$_GET['item_seq']."'";
+	$sqlDelSQL2 = "DELETE FROM `cp_detail` where `item_seq` = '".$item_seq."'";
+	$db->query($sqlDelSQL);
+	$db->query($sqlDelSQL2);
+	}
 
 	ShowMessageAndRedirect('刪除媒體成功', 'campaign_view.php?id='. $_GET['campaign'], false);

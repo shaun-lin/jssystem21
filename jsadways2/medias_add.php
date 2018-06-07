@@ -103,21 +103,17 @@
         </div>
         <script type="text/javascript" >
             $(document).ready(function(){
-                // $('#labCompany').hide();
-                // $('#labMedia').hide();
-                // $('#labItems').hide();
-
+console.log(2222);
                 $('#save').hide();
                 $('#saveExit').hide();
                 //依據選擇媒體載入商品
                 $('#media').change(function(){
+                    console.log(2222);
                     $('#save').hide();
                     $('#saveExit').hide();
                     $('fieldset').empty();
                     $('#item').empty();
                     $('#mtype').empty().append("<option value=' '>-- 請選擇項目 --</option>").attr('size',1);
-                    // $('#mtype').append("<option value=' '>-- 請選擇項目 --</option>");
-                    // $('#mtype').attr('size',1);
                      var media_id = $(this).val();
                     $.ajax({
                         url: 'medias_add_option.php',
@@ -163,9 +159,6 @@
                     var item_id = $(this).val();
                     var media_id = $('#media').val();
                     var campign_id = <?= $_GET["id"];?>;
-                    // console.log("item_id: "+item_id);
-                    // console.log("media_id: " + media_id);
-                    // console.log("campign_id: " + campign_id);
                       $.ajax({
                         url: 'medias_add_option.php',
                         type: 'post',
@@ -199,7 +192,7 @@
                 });
                 //載入Template Form
                 $('#mtype').change(function(){
-                         $('fieldset').empty();
+                    $('fieldset').empty();
 
                     var mtype_text = $('#mtype option:selected').text();
                     var company_id = $('#company').val();
@@ -221,95 +214,36 @@
 
                     // console.log($('#mtype').prop('selectedIndex'));
                     if($('#mtype').prop('selectedIndex')!="0"){
-                        switch(mtype_text){
-                        case "CPV":
-                            media_url = "CPV_add.php";
-                            mtype_number="154";
-                            break;
-                        case "CPC":
-                            media_url = "CPC_add.php";
-                            mtype_number="151";
-                            break;
-                        case "CPM":
-                            media_url = "CPM_add.php";
-                            mtype_number="153";
-                            break;
-                        case"CPI":
-                            media_url = "CPI_add.php";
-                            mtype_number="152";
-                            break;
-                        case"檔期":
-                            media_url = "Schedule_add.php";
-                            mtype_number="157";
-                            break;
-                        case"CPA":
-                            media_url = "CPA_add.php";
-                            mtype_number="170";
-                            break;
-                        case"CPE":
-                            media_url = "CPE_add.php";
-                            mtype_number="171";
-                            break;
-                        case"CPS":
-                            media_url = "CPS_add.php";
-                            mtype_number="156";
-                            break;
-                        case"CPT":
-                            media_url = "CPT_add.php";
-                            mtype_number="155";
-                            break;
-                        case"網誌廣告":
-                            media_url = "WebADV_add.php";
-                            mtype_number="158";
-                            break;
-                        case"【任務型】Line(企業贊助貼圖)":
-                            media_url = "LineCorpMap_add.php";
-                            mtype_number="159";
-                            break;
-                        case"【其他】手機簡訊":
-                            media_url = "MMS_add.php";
-                            mtype_number="160";
-                            break;
-                        case"【機制費】廣告素材製作":
-                            media_url = "Creative_add.php";
-                            mtype_number="161";
-                            break;
-                        case"寫手費":
-                            media_url = "Handwriting_edit.php";
-                            mtype_number="162";
-                            break;
-                        case"Facebook代操服務費":
-                            media_url = "FBFee_add.php";
-                            mtype_number="163";
-                            break;
-                        case"SHIRYOUKO STUDIO":
-                            media_url = "ShiryoukoStudio_add.php";
-                            mtype_number="164";
-                            break;
-                        case"HappyGo MMS":
-                            media_url = "HappyGoMMS_add.php";
-                            mtype_number="165";
-                            break;
-                        case"Youtuber":
-                            media_url = "Youtuber_add.php";
-                            mtype_number="166";
-                            break;
-                        case"【行動下載計費CPI】LINE(3DM)":
-                            media_url = "LINE3DM_add.php";
-                            mtype_number="167";
-                            break;
-                        case"預約TOP10":
-                            media_url = "TOPTen_add.php";
-                            mtype_number="168";
-                            break;
-                        case"錢包小豬(任務型)":
-                            media_url = "Mission_add.php";
-                            mtype_number="169";
-                            break;
-                        default:
-                            break;
-                    }
-                        media_url = "mtype_"+media_url + "?id="+id+"&cue="+cue+"&media="+media_id[0]+"&media2=&" + "copmpanies=" + company_id + "&mediaid=";
+                        // <?php 
+                        // include('include/db.inc.php');
+                        // $mtype_id =  mtype_id ;
+                        // $sqlmtype = sprintf("SELECT * FROM `lookup` WHERE `lookup_type` = '%s' and `dashboard` = %d", 'mtype',$mtype_id);
+                        // // echo $sqlmtype;
+                        // $resultmtype = mysql_query($sqlmtype); 
+                        // $rowmtype = mysql_fetch_array($resultmtype) or die(mysql_error());
+                        // // print_r($rowmtype);?>
+                        // media_url = "<?= $rowmtype['value']; ?> ";
+                        // mtype_number = mtype_id;
+
+
+                        $.ajax({
+                        url: 'medias_add_option.php',
+                        type: 'post',
+                        data: {id:mtype_id,group:"template"},
+                        dataType: 'json',
+                        success:function(response){
+                            console.log(response);
+                            var len = response.length;
+                             console.log(len);
+                            for( var i = 0; i<len; i++){
+                                var mtype_number = response[i]['key'];
+                                var media_url = response[i]['name'];
+                            }
+                            if (mtype_number == "0"){
+                                alert(media_url);
+                                return false;
+                            }
+                            media_url = "mtype_" + media_url.trim() + ".php?id="+id+"&cue="+cue+"&media="+media_id[0]+  "&media2=" + mtype_number + "&copmpanies=" + company_id + "&mediaid=";
                        
                         console.log("1.　" + media_url);
                         $.get(media_url, function(data) {
@@ -336,13 +270,113 @@
                             //將儲存按鈕show出來
                              $('#save').show();
                              $('#saveExit').show();
-                             $('form :input:visible:enabled:first').focus()
+                             $('form :input:visible:enabled:first').focus();
+                             $('#YoutuberAdd').click(function(){
+
+                                });
                         }); 
+                        },
+                        error: function(xhr, status, error) {
+                                 console.log(xhr.responseText);
+                                 console.log(status);
+                                 console.log(error);
+                        }
+                    });
+                    //     switch(mtype_text){
+                    //     case "CPV":
+                    //         media_url = "CPV_add.php";
+                    //         mtype_number="154";
+                    //         break;
+                    //     case "CPC":
+                    //         media_url = "CPC_add.php";
+                    //         mtype_number="151";
+                    //         break;
+                    //     case "CPM":
+                    //         media_url = "CPM_add.php";
+                    //         mtype_number="153";
+                    //         break;
+                    //     case"CPI":
+                    //         media_url = "CPI_add.php";
+                    //         mtype_number="152";
+                    //         break;
+                    //     case"檔期":
+                    //         media_url = "Schedule_add.php";
+                    //         mtype_number="157";
+                    //         break;
+                    //     case"CPA":
+                    //         media_url = "CPA_add.php";
+                    //         mtype_number="170";
+                    //         break;
+                    //     case"CPE":
+                    //         media_url = "CPE_add.php";
+                    //         mtype_number="171";
+                    //         break;
+                    //     case"CPS":
+                    //         media_url = "CPS_add.php";
+                    //         mtype_number="156";
+                    //         break;
+                    //     case"CPT":
+                    //         media_url = "CPT_add.php";
+                    //         mtype_number="155";
+                    //         break;
+                    //     case"網誌廣告":
+                    //         media_url = "WebADV_add.php";
+                    //         mtype_number="158";
+                    //         break;
+                    //     case"【任務型】Line(企業贊助貼圖)":
+                    //         media_url = "LineCorpMap_add.php";
+                    //         mtype_number="159";
+                    //         break;
+                    //     case"【其他】手機簡訊":
+                    //         media_url = "MMS_add.php";
+                    //         mtype_number="160";
+                    //         break;
+                    //     case"【機制費】廣告素材製作":
+                    //         media_url = "Creative_add.php";
+                    //         mtype_number="161";
+                    //         break;
+                    //     case"寫手費":
+                    //         media_url = "Handwriting_edit.php";
+                    //         mtype_number="162";
+                    //         break;
+                    //     case"Facebook代操服務費":
+                    //         media_url = "FBFee_add.php";
+                    //         mtype_number="163";
+                    //         break;
+                    //     case"SHIRYOUKO STUDIO":
+                    //         media_url = "ShiryoukoStudio_add.php";
+                    //         mtype_number="164";
+                    //         break;
+                    //     case"HappyGo MMS":
+                    //         media_url = "HappyGoMMS_add.php";
+                    //         mtype_number="165";
+                    //         break;
+                    //     case"Youtuber":
+                    //         media_url = "Youtuber_add.php";
+                    //         mtype_number="166";
+                    //         break;
+                    //     case"【行動下載計費CPI】LINE(3DM)":
+                    //         media_url = "LINE3DM_add.php";
+                    //         mtype_number="167";
+                    //         break;
+                    //     case"預約TOP10":
+                    //         media_url = "TOPTen_add.php";
+                    //         mtype_number="168";
+                    //         break;
+                    //     case"錢包小豬(任務型)":
+                    //         media_url = "Mission_add.php";
+                    //         mtype_number="169";
+                    //         break;
+                    //     default:
+                    //         break;
+                    // }
+                        
                     }else{
                         $('#save').hide();
                         $('#saveExit').hide();
                     }
                 });
+                  
                 //儲存後繼續新增按鈕
                 $('#save').click(function(e){
                     $mediaform=$('form:eq(1)');
@@ -387,6 +421,7 @@
                         $mediaform[0].reportValidity(); 
                     }
                 });
+
                 //儲存後關閉按鈕
                 $('#saveExit').click(function(){
                     console.log('submit');

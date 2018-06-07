@@ -290,6 +290,13 @@
 								<select id="actions" name="actions">
                                  <option value="成為粉絲" <?php if($row2['actions']=='成為粉絲'){echo 'selected';}?>>成為粉絲</option>
                                  <option value="成為名單" <?php if($row2['actions']=='成為名單'){echo 'selected';}?>>成為名單</option>
+																 <option value="名單數" <?php if($row2['actions']=='名單數'){echo 'selected';}?>>名單數</option>
+                                 <option value="讚數" <?php if($row2['actions']=='讚數'){echo 'selected';}?>>讚數</option>
+																 <option value="回覆次數" <?php if($row2['actions']=='回覆次數'){echo 'selected';}?>>回覆次數</option>
+                                 <option value="轉換次數" <?php if($row2['actions']=='轉換次數'){echo 'selected';}?>>轉換次數</option>
+																 <option value="加入官方帳號" <?php if($row2['actions']=='加入官方帳號'){echo 'selected';}?>>加入官方帳號</option>
+                                 <option value="評論數" <?php if($row2['actions']=='評論數'){echo 'selected';}?>>評論數</option>
+
 							    </select>
 							  </div>
 							</div>

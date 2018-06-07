@@ -77,15 +77,15 @@
 									<table class="table table-striped table-bordered bootstrap-datatable  ">
 									<thead>
 										<tr>
-											<td><h4>模板設定</h4></td>
-										</tr>
-										<tr>
 											<th>選擇</th>
 											<th>模板名稱</th>
 											<th>模板</th>
 										</tr>
 									</thead>
 									<tbody>
+									<div class="box-header well" data-original-title>
+									<h2><i class="fa fa-cube"></i>&nbsp;模板 - <?= $objSizeformat->getVar('name'); ?></h2>
+									</div>
                                     <?php
 									$sqlselect="SELECT (case when r.items_id is null then '' else 'Y' end) as checkp
 									,mtype.name
