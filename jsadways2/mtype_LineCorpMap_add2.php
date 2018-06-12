@@ -120,7 +120,7 @@ $sql2 = "INSERT INTO `media" . $mediaOrdinal . "` (" . implode(', ', $fieldsName
 $db->query($sql2);
 AddMediaMapping("media159", $_GET['id'], $db->get_last_insert_id());
 
-$item_id2=mysql_insert_id();
+$item_id2=$db->get_last_insert_id();
 $sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`)
     VALUES ('" . $cp_id . "','" . $media_id . "','0','" . $item_id . "','" . $mtype_name . "','" . $mtype_number . "','" . $item_id2 . "','" . $autoSerialNumberA . "','1')";
 $db->query($sql3);
@@ -185,15 +185,11 @@ if ($_POST['samecue'] == 1) {
     $db->query($sql2);
     AddMediaMapping('media159', $_GET['id'], $db->get_last_insert_id());
 
-    $item_id1=mysql_insert_id();
+    $item_id1=$db->get_last_insert_id();
     $sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`)
 		VALUES ('" . $cp_id . "','" . $media_id . "','0','" . $item_id . "','" . $mtype_name . "','" . $mtype_number . "','" . $item_id1 . "','" . $autoSerialNumberB . "','2')";
     $db->query($sql4);
 }
-
-//jackie 2018/06/01 抓media***_id 填到cp_detail mtype_id
-$item_id1 = $db->get_last_insert_id();
-$item_id2 = $item_id1 - 1;
 
 $sql1 = sprintf("SELECT * FROM `campaign` WHERE `id` = %d;", $_GET['id']);
 $db->query($sql1);

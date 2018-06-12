@@ -10,7 +10,7 @@
     $detailId = GetVar('detail_id');
 
     $objCampaign = CreateObject('Campaign', GetVar('campaign_id'));
-    $objBlogger = CreateObject('Blogger', GetVar('blog_id'));
+    $objBlogger = CreateObject('Blogger', GetVar('blogid'));
 
     $otherCost = 0;
     if (IsId($detailId)) {
@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="box-content">
-                                <form class="form-horizontal" action="media19_detail_save.php" method="post">
+                                <form class="form-horizontal" action="mtype_Handwriting_detail_save.php" method="post">
                                     <fieldset> 
                                         <div class="control-group">
                                             <label class="control-label">分類</label>
@@ -126,13 +126,14 @@
                                         </div>
                                         
                                         <input name="media_id" type="hidden" value="<?= $mediaId; ?>">
-                                        <input name="campaign_id" type="hidden" value="<?= $objCampaign->getId(); ?>">
+                                        <input name="campaign_id" type="hidden" value="<?= $_GET['campaign'] ?>">
                                         <input name="blog_id" type="hidden" value="<?= $objBlogger->getId(); ?>">
                                         <input name="detail_id" type="hidden" value="<?= $detailId; ?>">
                                         <input name="blog" type="hidden" value="<?= $objBlogger->getName(); ?>">
 
-                                        <div class="form-actions">
-                                            <button type="submit" class="btn btn-primary"><?= IsId($detailId) ? '修改寫手費' : '新增寫手費'; ?></button>
+                                        <div>
+                                            <button id="complete" class="btn btn-primary"><?= IsId($detailId) ? '修改寫手費' : '新增寫手費'; ?></button>
+                                            <button id="cancel" class="btn btn-danger">取消</button>
                                         </div>
                                     </fieldset>
                                 </form>   
@@ -143,7 +144,7 @@
             </div>
             <hr/>
 
-            <?php include("public/footer.php"); ?>
+            <!-- <?php include("public/footer.php"); ?> -->
         </div>
 
         <script>
@@ -155,24 +156,24 @@
 
             function ChangePlatform(platformSelector)
             {
-                switch ($(platformSelector).val()) {
-                    case '部落格':
-                        $('#blog2').val(Htmlspecialchars(blogger.blog_name));
-                        $('#blog3').val(Htmlspecialchars(blogger.blog_link));
-                        break;
-                    case '粉絲團':
-                        $('#blog2').val(Htmlspecialchars(blogger.fb_name));
-                        $('#blog3').val(Htmlspecialchars(blogger.fb_link));
-                        break;
-                    case 'Instagram':
-                        $('#blog2').val(Htmlspecialchars(blogger.ig_name));
-                        $('#blog3').val(Htmlspecialchars(blogger.ig_link));
-                        break;
-                    case 'YouTube':
-                        $('#blog2').val(Htmlspecialchars(blogger.youtube_name));
-                        $('#blog3').val(Htmlspecialchars(blogger.youtube_link));
-                        break;
-                }
+                // switch ($(platformSelector).val()) {
+                //     case '部落格':
+                //         $('#blog2').val(Htmlspecialchars(blogger.blog_name));
+                //         $('#blog3').val(Htmlspecialchars(blogger.blog_link));
+                //         break;
+                //     case '粉絲團':
+                //         $('#blog2').val(Htmlspecialchars(blogger.fb_name));
+                //         $('#blog3').val(Htmlspecialchars(blogger.fb_link));
+                //         break;
+                //     case 'Instagram':
+                //         $('#blog2').val(Htmlspecialchars(blogger.ig_name));
+                //         $('#blog3').val(Htmlspecialchars(blogger.ig_link));
+                //         break;
+                //     case 'YouTube':
+                //         $('#blog2').val(Htmlspecialchars(blogger.youtube_name));
+                //         $('#blog3').val(Htmlspecialchars(blogger.youtube_link));
+                //         break;
+                // }
             }
             
             function ChangePriceType()

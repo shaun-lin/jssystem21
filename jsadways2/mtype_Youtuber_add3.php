@@ -1,29 +1,7 @@
 <?php 
 	session_start();
 	include('include/db.inc.php');
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>新增媒體</title>
-	<?php include("public/head.php"); ?>
-		
-</head>
-
-<body>
-	<?php include("public/topbar.php"); ?>
-		<div class="container-fluid">
-		<div class="row-fluid">
-			<?php include("public/left.php"); ?>
-			
-			<noscript>
-				<div class="alert alert-block span10">
-					<h4 class="alert-heading">Warning!</h4>
-					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
-				</div>
-			</noscript>
-			
+?>			
 			<div id="content" class="span10">
 			<!-- content starts -->
 			<?php
@@ -42,6 +20,7 @@
 						$row2 = mysql_fetch_array($result2);
 					?>
 					<div class="box-content">
+						<p><h2>新增寫手</h2></p>
 						<form class="form-horizontal" action="mtype_Youtuber_add4.php" method="post">
 						  <fieldset> 
                             <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
@@ -203,14 +182,17 @@
 							  </div>
 							</div>
                             <input name="id" type="hidden" value="<?php echo $_GET['id']; ?>">
+                            <input name="campaign" type="hidden"  value="<?php echo $_GET['campaign']; ?>">
+                            <input name="isEdit" type="hidden" value="N">
                             <input name="blogid" type="hidden" value="<?php echo $_GET['blogid']; ?>">
                             <input name="blog" type="hidden" value="<?php echo $row2['name2']; ?>">
                             <?php if($_GET['edit']==1){ ?>
                             <input name="edit" type="hidden" value="1">
 							<input name="editid" type="hidden" value="<?php echo $_GET['editid']; ?>">
 							<?php } ?>
-							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">新增寫手費</button>
+							<div class="form-control">
+							  <button id="complete" class="btn btn-primary">新增寫手費</button>
+							  <button id="cancel" class="btn btn-danger">取消</button>
 							</div>
 						  </fieldset>
 						</form>   
@@ -224,14 +206,6 @@
 					<!-- content ends -->
 			</div><!--/#content.span10-->
 				</div><!--/fluid-row-->
-				
-		<hr>
-
-		<?php include("public/footer.php"); ?>
 		
 	</div><!--/.fluid-container-->
-
 	<?php include("public/js.php"); ?>
-		
-</body>
-</html>

@@ -1,5 +1,5 @@
 
-drop table if exists `media151`;
+drop table if exists `media172`;
 drop table if exists `media152`;
 drop table if exists `media153`;
 drop table if exists `media154`;
@@ -27,7 +27,7 @@ drop table if exists `media171`;
 
 
 
-CREATE TABLE IF NOT EXISTS `media151` (
+CREATE TABLE IF NOT EXISTS `media172` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_seq` varchar(10) NOT NULL,
   `jpc_seq` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,

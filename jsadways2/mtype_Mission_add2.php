@@ -188,6 +188,7 @@ VALUES('.$_GET['id'].',
 	mysql_query($sql2);
 	AddMediaMapping('media169', $_GET['id'], mysql_insert_id());
 	
+	$item_id2=mysql_insert_id();
 	$sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
 		VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id2."','".$autoSerialNumberA."','1')";
 	mysql_query($sql3);
@@ -333,16 +334,13 @@ VALUES('.$_GET['id'].',
 		mysql_query($sql2);
 		AddMediaMapping('media169', $_GET['id'], mysql_insert_id());
 			
+		$item_id1=mysql_insert_id();
 	$sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
 	VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id1."','".$autoSerialNumberB."','2')";
 	mysql_query($sql4);
 
 	}
 
-	//jackie 2018/06/01 抓media***_id 填到cp_detail mtype_id
-	$item_id1=mysql_insert_id();
-	$item_id2=$item_id1-1;
-	
 	//echo $sql2;
 	$sql1 = "SELECT * FROM campaign WHERE id= ".$_GET['id'];
 	$result1 = mysql_query($sql1);

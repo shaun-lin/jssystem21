@@ -62,7 +62,7 @@
 									</tr>
 									<tr>
 										<td><h4>英文名稱</h4></td>
-										<td><input type="text" name="eng_name" class="companies_text"></td>
+										<td><input type="text" name="eng_name" class="companies_text" ></td>
 									</tr>
 									<tr>
 										<td><h4>統編</h4></td>
@@ -75,6 +75,22 @@
 									<tr>
 										<td><h4>傳真</h4></td>
 										<td><input type="text" name="fax" class="companies_text"></td>
+									</tr>
+									<tr>
+										<td><h4>國家簡碼</h4></td>
+										<td><input type="text" name="country_code" class="companies_text" ></td>
+									</tr>
+									<tr>
+										<td><h4>語言</h4></td>
+										<td><input type="text" name="language" class="companies_text" ></td>
+									</tr>
+									<tr>
+										<td><h4>郵遞區號</h4></td>
+										<td><input type="text" name="area_code" class="companies_text"></td>
+									</tr>
+									<tr>
+										<td><h4>所在區域</h4></td>
+										<td><input type="text" name="city_name" class="companies_text"></td>
 									</tr>
 									<tr>
 										<td><h4>地址</h4></td>
@@ -131,7 +147,7 @@
 										</tr>
 										<tr>
 											<td><h4>英文名稱</h4></td>
-											<td><input type="text" name="eng_name" class="companies_text" value=<?=str_replace("\\n","\n",$objSizeformat->getVar('eng_name')); ?> ></td>
+											<td><input type="text" name="eng_name" class="companies_text" value=<?= '"' .$objSizeformat->getVar('eng_name') .'"'; ?> ></td>
 										</tr>
 										<tr>
 											<td><h4>統編</h4></td>
@@ -144,6 +160,22 @@
 										<tr>
 											<td><h4>傳真</h4></td>
 											<td><input type="text" name="fax" class="companies_text" value=<?=str_replace("\\n","\n",$objSizeformat->getVar('fax')); ?> ></td>
+										</tr>
+										<tr>
+											<td><h4>國家簡碼</h4></td>
+											<td><input type="text" name="country_code" class="companies_text" value=<?= '"' .$objSizeformat->getVar('country_code') .'"'; ?> ></td>
+										</tr>
+										<tr>
+											<td><h4>語言</h4></td>
+											<td><input type="text" name="language" class="companies_text" value=<?= '"' .$objSizeformat->getVar('language') .'"'; ?> ></td>
+										</tr>
+										<tr>
+											<td><h4>郵遞區號</h4></td>
+											<td><input type="text" name="area_code" class="companies_text" value=<?= '"' .$objSizeformat->getVar('area_code') .'"'; ?> ></td>
+										</tr>
+										<tr>
+											<td><h4>所在區域</h4></td>
+											<td><input type="text" name="city_name" class="companies_text" value=<?= '"' .$objSizeformat->getVar('city_name') .'"'; ?> ></td>
 										</tr>
 										<tr>
 											<td><h4>地址</h4></td>

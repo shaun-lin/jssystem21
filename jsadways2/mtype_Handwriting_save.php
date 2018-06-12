@@ -8,7 +8,7 @@
 	$db = clone($GLOBALS['app']->db);
 
 	$cue = GetVar('cue');
-	$campaignId = GetVar('campaign_id');
+	$campaignId = GetVar('campaign');
 	$mediaId = GetVar('media_id');
 	$items2 = GetVar('SelectType');
 	$items3 = GetVar('SelectSystem');
@@ -18,6 +18,9 @@
 	$others = GetVar('others');
 	$time = time();
 
+	$autoSerialNumberA=autoSerialNumber();
+	$autoSerialNumberB=autoSerialNumber();
+	
 	$bindDataForExtCue = [
 		'campaign_id' => $campaignId,
 		'website' => '寫手費',
@@ -28,6 +31,7 @@
 		'others' => $others,
 		'items2' => $items2,
 		'items3' => $items3,
+		'item_seq' => $autoSerialNumberA,
 	];
 
 	$bindDataForIntCue = [
@@ -40,6 +44,7 @@
 		'others' => $others,
 		'items2' => $items2,
 		'items3' => $items3,
+		'item_seq' => $autoSerialNumberB,
 	];
 
 	
@@ -63,6 +68,15 @@
 			}
 		}
 	} else {
+		
+
+		$cp_id = GetVar('id');
+		$item_id = GetVar('itemid');
+		$mtype_name = GetVar('mtypename');
+		$mtype_number = GetVar('mtypenumber');
+		$mtype_id = GetVar('mtypeid');
+		$media_Id = GetVar('mediaid');
+
 		$sqlInsertForExtCue = GenSqlFromArray($bindDataForExtCue + [
 			'cue' => 1,
 			'status' => 0,
@@ -71,8 +85,12 @@
 		$db->query($sqlInsertForExtCue);
 
 		$lastInsertId = $db->get_last_insert_id();
-		AddMediaMapping(162, $campaignId, $lastInsertId);
+		AddMediaMapping("media162", $campaignId, $lastInsertId);
 
+		$sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
+		VALUES ('".$cp_id."','".$media_Id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$lastInsertId."','".$autoSerialNumberA."','1')";
+		$db->query($sql3);
+		
 		$sqlInsertForIntCue = GenSqlFromArray($bindDataForIntCue + [
 			'cue' => 2,
 			'status' => 0,
@@ -83,8 +101,22 @@
 		$db->query($sqlInsertForIntCue);
 
 		$lastInsertId = $db->get_last_insert_id();
-		AddMediaMapping(162, $campaignId, $lastInsertId);
+		AddMediaMapping("media162", $campaignId, $lastInsertId);
+
+		$sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
+		VALUES ('".$cp_id."','".$media_Id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$lastInsertId."','".$autoSerialNumberB."','2')";
+		$db->query($sql4);
+	}
+	$goon=GetVar('goon');
+
+		if ($goon=="Y") {
+
+		$arrItems=array();
+				$arrItems[]=array("key"=>"result","name"=>"OK");
+		
+		echo json_encode($arrItems);
+	}else{
+	ShowMessageAndRedirect((IsId($mediaId) ? '編輯' : '新增') .'媒體成功', 'campaign_view.php?id='. $campaignId, false);
 	}
 	
-	ShowMessageAndRedirect((IsId($mediaId) ? '編輯' : '新增') .'媒體成功', 'campaign_view.php?id='. $campaignId, false);
 	

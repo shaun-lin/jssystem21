@@ -13,29 +13,28 @@ CREATE TABLE IF NOT EXISTS `mtype` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 
-
 INSERT INTO `mtype` (`id`, `name`, `creator`, `time`, `display`, `dashboard`) VALUES
 (1, 'CPV', 'jimmy', 1527163205, 1, '154'),
-(3, 'CPM', 'jimmy', 1527163190, 1, '153'),
-(4, 'CPI', 'jimmy', 1527163172, 1, '152'),
-(6, 'CPA', 'jimmy', 1527687727, 1, '160'),
-(7, 'CPE', 'jimmy', 1527163246, 1, '151'),
-(8, 'CPS', 'jimmy', 1527163224, 1, '156'),
-(11, 'CPT', 'jimmy', 1527163215, 1, '155'),
-(13, 'CPC', 'jimmy', 1527163161, 1, '151'),
-(19, '檔期', 'jimmy', 1527163233, 1, '157'),
-(22, '網誌廣告', 'jimmy', 1527163275, 1, '158'),
-(24, '【任務型】Line(企業贊助貼圖)', 'jimmy', 1527230833, 1, '159'),
-(25, '【其他】手機簡訊', 'jimmy', 1527230833, 1, '160'),
-(26, '【機制費】廣告素材製作', 'jimmy', 1527230833, 1, '161'),
-(27, '寫手費', 'jimmy', 1527230833, 1, '162'),
-(28, 'Facebook代操服務費', 'jimmy', 1527230833, 1, '163'),
-(29, 'SHIRYOUKO STUDIO', 'jimmy', 1527230833, 1, '164'),
-(30, 'HappyGo MMS', 'jimmy', 1527230833, 1, '165'),
-(31, 'Youtuber', 'jimmy', 1527230833, 1, '166'),
-(32, '【行動下載計費CPI】LINE(3DM)', 'jimmy', 1527230833, 1, '167'),
-(33, '預約TOP10', 'jimmy', 1527230833, 1, '168'),
-(34, '錢包小豬(任務型)', 'jimmy', 1527230833, 1, '169');
+(2, 'CPM', 'jimmy', 1527163190, 1, '153'),
+(3, 'CPI', 'jimmy', 1527163172, 1, '152'),
+(4, 'CPA', 'jimmy', 1527687727, 1, '170'),
+(5, 'CPE', 'jimmy', 1527163246, 1, '171'),
+(6, 'CPS', 'jimmy', 1527163224, 1, '156'),
+(7, 'CPT', 'jimmy', 1527163215, 1, '155'),
+(8, 'CPC', 'jimmy', 1527163161, 1, '172'),
+(9, '檔期', 'jimmy', 1527163233, 1, '157'),
+(10, '網誌廣告', 'jimmy', 1527163275, 1, '158'),
+(11, '【任務型】Line(企業贊助貼圖)', 'jimmy', 1527230833, 1, '159'),
+(12, '【其他】手機簡訊', 'jimmy', 1527230833, 1, '160'),
+(13, '【機制費】廣告素材製作', 'jimmy', 1527230833, 1, '161'),
+(14, '寫手費', 'jimmy', 1527230833, 1, '162'),
+(15, 'Facebook代操服務費', 'jimmy', 1527230833, 1, '163'),
+(16, 'SHIRYOUKO STUDIO', 'jimmy', 1527230833, 1, '164'),
+(17, 'HappyGo MMS', 'jimmy', 1527230833, 1, '165'),
+(18, 'Youtuber', 'jimmy', 1527230833, 1, '166'),
+(19, '【行動下載計費CPI】LINE(3DM)', 'jimmy', 1527230833, 1, '167'),
+(20, '預約TOP10', 'jimmy', 1527230833, 1, '168'),
+(21, '錢包小豬(任務型)', 'jimmy', 1527230833, 1, '169');
 
 
 
@@ -46,78 +45,100 @@ CREATE TABLE IF NOT EXISTS `items` (
   `time` int(11) DEFAULT NULL,
   `display` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 
-
-INSERT INTO `items` (`id`, `name`, `creator`, `time`, `display`) VALUES
-(1, '品牌知名度', 'Jackie', NULL, 1),
-(2, '觸及人數', 'Jackie', NULL, 1),
-(3, '觀看影片', 'Jackie', NULL, 1),
-(4, '應用程式安裝', 'Jackie', NULL, 1),
-(5, '網站點擊次數', 'Jackie', NULL, 1),
-(6, '應用程式互動次數', 'Jackie', NULL, 1),
-(7, '開發潛在客戶', 'Jackie', NULL, 1),
-(8, '粉絲專頁貼文互動', 'Jackie', NULL, 1),
-(9, '粉絲專頁的讚', 'Jackie', NULL, 1),
-(10, '活動回覆', 'Jackie', NULL, 1),
-(11, '優惠', 'Jackie', NULL, 1),
-(12, '發送訊息', 'Jackie', NULL, 1),
-(13, '網站轉換次數', 'Jackie', NULL, 1),
-(14, '應用程式轉換次數', 'Jackie', NULL, 1),
-(15, '目錄銷售', 'Jackie', NULL, 1),
-(16, '來店客流量', 'Jackie', NULL, 1),
-(17, '離線轉換', 'Jackie', NULL, 1),
-(18, 'GDN', 'Jackie', NULL, 1),
-(19, '關鍵字', 'Jackie', NULL, 1),
-(20, 'YouTube', 'Jackie', NULL, 1),
-(21, 'UAC', 'Jackie', NULL, 1),
-(22, '360°環景Banner', 'jimmy', 1526283500, 0),
-(23, '影音廣告', 'Jackie', NULL, 1),
-(24, '輪播Banner', 'Jackie', NULL, 1),
-(25, 'Turning Over翻頁', 'Jackie', NULL, 1),
-(26, 'Slide-in滑動', 'Jackie', NULL, 1),
-(27, 'Rotation翻轉', 'Jackie', NULL, 1),
-(28, '多圖輪播Banner', 'Jackie', NULL, 1),
-(29, '三件式目錄型Banner', 'Jackie', NULL, 1),
-(30, '客製化 API Banner', 'Jackie', NULL, 1),
-(31, '刮刮樂', 'Jackie', NULL, 1),
-(32, '活動倒數Banner', 'Jackie', NULL, 1),
-(33, '原生廣告', 'Jackie', NULL, 1),
-(34, 'Line Points Ads(CPI)', 'Jackie', NULL, 1),
-(35, 'Line Points Ads(3DM)', 'Jackie', NULL, 1),
-(36, 'Line Points Ads(CPE)', 'Jackie', NULL, 1),
-(37, 'Line Points Ads(CPWL)', 'Jackie', NULL, 1),
-(38, 'Line Points Ads(CPA)', 'Jackie', NULL, 1),
-(39, 'Line Points Ads(CPV)', 'Jackie', NULL, 1),
-(40, 'Line Points Ads(BSP)', 'Jackie', NULL, 1),
-(41, 'Line Points Ads(FBV)', 'Jackie', NULL, 1),
-(42, 'Line Points Ads(CPF)', 'jimmy', 1526365715, 1),
-(43, 'Line Ads Platform(LAP)', 'Jackie', NULL, 1),
-(44, 'LINE Ads Platform (First View)', 'Jackie', NULL, 1),
-(45, 'Line企業贊助貼圖', 'Jackie', NULL, 1),
-(46, 'LINE TODAY(原生廣告)', 'Jackie', NULL, 1),
-(47, 'LINE TODAY(情報快遞)', 'Jackie', NULL, 1),
-(48, 'LINE TODAY(方案)', 'Jackie', NULL, 1),
-(49, 'LINE官方帳號', 'Jackie', NULL, 1),
-(50, 'LINE TV', 'Jackie', NULL, 1),
-(51, 'LINE Moretab Expand Ad', 'Jackie', NULL, 1),
-(52, 'LINE POINT CODE', 'Jackie', NULL, 1),
-(53, '平台月租費(訊息流量費)', 'Jackie', NULL, 1),
-(54, '建置費', 'Jackie', NULL, 1),
-(55, '程式開發費', 'Jackie', NULL, 1),
-(56, '寫手', 'Jackie', NULL, 1),
-(57, 'APP下載', 'Jackie', NULL, 1),
-(58, '小豬福利社(小豬啦啦隊)', 'Jackie', NULL, 1),
-(59, '小豬福利社(口碑培養皿)', 'Jackie', NULL, 1),
-(60, '小豬福利社(小豬特派員)', 'Jackie', NULL, 1),
-(61, 'VIDEO ADS', 'Jackie', NULL, 1),
-(62, 'Recommend Article ADS', 'Jackie', NULL, 1),
-(63, 'unity', 'Jackie', NULL, 1),
-(64, 'AppLovin', 'jimmy', 1526365704, 0),
-(65, 'Unicorn', 'Jackie', NULL, 1),
-(66, '差價', 'Jackie', NULL, 1),
-(67, '翻譯製作', 'Jackie', NULL, 1),
-(68, '內部人員製作', 'Jackie', NULL, 1),
-(69, '日本EC', 'Jackie', NULL, 1);
-
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (1, '品牌知名度', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (2, '觸及人數', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (3, '觀看影片', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (4, '應用程式安裝', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (5, '網站點擊次數', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (6, '應用程式互動次數', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (7, '開發潛在客戶', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (8, '粉絲專頁貼文互動', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (9, '粉絲專頁的讚', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (10, '活動回覆', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (11, '優惠', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (12, '發送訊息', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (13, '網站轉換次數', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (14, '應用程式轉換次數', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (15, '目錄銷售', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (16, '來店客流量', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (17, '離線轉換', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (18, '粉絲專頁的讚(讚數)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (19, 'GDN', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (20, 'google關鍵字', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (21, 'YouTube', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (22, 'UAC', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (23, '360°環景Banner', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (24, '影音廣告', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (25, '輪播Banner：Turning Over 翻頁 Slide-in 滑動 Rotation翻轉', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (26, '多圖輪播Banner', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (27, '三件式目錄型Banner', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (28, '客製化 API Banner', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (29, '刮刮樂', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (30, '活動倒數Banner', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (31, 'yahoo關鍵字', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (32, 'yahoo原生廣告', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (33, 'LINE Points Ads(CPI)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (34, 'LINE Points Ads(3DM)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (35, 'LINE Points Ads(CPE)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (36, 'LINE Points Ads(CPWL)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (37, 'LINE Points Ads (CPA)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (38, 'LINE Points Ads (CPV)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (39, 'LINE Points Ads (BSP)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (40, 'LINE Points Ads (FBV)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (41, 'LINE Points Ads (CPF)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (42, 'LINE Ads Platform (LAP)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (43, 'LINE Ads Platform (First View)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (44, 'LINE企業贊助貼圖', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (45, 'LINE TODAY (原生廣告)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (46, 'LINE TODAY (情報快遞)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (47, 'LINE TODAY (方案)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (48, 'LINE官方帳號', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (49, 'LINE TV', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (50, 'LINE Moretab Expand Ad', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (51, 'LINE POINT CODE', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (52, '平台月租費(訊息流量費)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (53, '建置費', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (54, '程式開發費', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (55, '寫手', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (56, 'APP下載', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (57, '小豬福利社(小豬啦啦隊)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (58, '小豬福利社(口碑培養皿)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (59, '小豬福利社(小豬特派員)', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (60, 'VIDEO ADS', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (61, 'Recommend Article ADS', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (62, '原生廣告', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (63, 'LINE代操服務費', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (64, 'Google代操服務費', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (65, 'Facebook代操服務費', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (66, '廣告素材製作', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (67, 'unity', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (68, 'AppLovin', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (69, 'Unicorn', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (70, '差價', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (71, '翻譯製作', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (72, '內部人員製作', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (73, '日本EC', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (74, '分潤收入', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (75, 'Oct-pass EC', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (76, 'Octpass', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (77, '貼文分享', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (78, '心得撰寫', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (79, '成果網CPS', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (80, '代墊服務費', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (81, '戶外多媒體廣告', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (82, '實況主', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (83, '五星評論', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (84, '下載', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (85, '手機簡訊', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (86, 'Party使用費', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (87, '網紅', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (88, '聯播網', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (89, '預約登錄', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (90, '影片觀看', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (91, 'MMS', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (92, 'Mobile Site', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (93, 'APP', NULL, 1);
+INSERT INTO `items` (`id`, `name`, `time`, `display`) VALUES (94, '廣編稿', NULL, 1);

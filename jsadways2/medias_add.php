@@ -11,16 +11,6 @@
     $objMedias = CreateObject('Medias');
     $objCompanies = CreateObject('Companies');
     $objItems = CreateObject('Items');
-    //echo $objMedia;
-    // $mediaTypeList = [
-    //     'CPC' => '`type` = 1 AND `display` = 1',
-    //     'CPI' => '`type` = 2 AND `display` = 1',
-    //     'CPM' => '`type` = 0 AND `display` = 1',
-    //     'CPV' => '`type` = 9 AND `display` = 1',
-    //     'CPT' => '`type` = 10 AND `display` = 1',
-    //     '網站廣告' => '`type` = 3 AND `display` = 1',
-    // ];
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -91,24 +81,21 @@
                             </fieldset>
                             <button id="save" type="button" class="btn btn-primary">儲存後繼續新增</button> 
                             <button id="saveExit" type="button" class="btn btn-primary">儲存後離開</button>
-                            <button type="submit" class="hide"></button> 
                             <a class="btn btn-danger" href="campaign_view.php?id=<?= $_GET['id']; ?>">離開</a>
                         </form>   
                     </div>
                 </div>
             </div>
-           </div>  
+           </div> 
             <hr/>
             <?php include("public/footer.php"); ?>
         </div>
         <script type="text/javascript" >
             $(document).ready(function(){
-console.log(2222);
                 $('#save').hide();
                 $('#saveExit').hide();
                 //依據選擇媒體載入商品
                 $('#media').change(function(){
-                    console.log(2222);
                     $('#save').hide();
                     $('#saveExit').hide();
                     $('fieldset').empty();
@@ -208,185 +195,243 @@ console.log(2222);
                     var mtype_name = $('#mtype option:selected').text();
 
                     //已做過設定的模板不做動作
-                    if(mtype_name.indexOf("已設定")>0){
-                        return false;
-                    }
+                    // if(mtype_name.indexOf("已設定")>0){
+                    //     return false;
+                    // }
 
                     // console.log($('#mtype').prop('selectedIndex'));
                     if($('#mtype').prop('selectedIndex')!="0"){
-                        // <?php 
-                        // include('include/db.inc.php');
-                        // $mtype_id =  mtype_id ;
-                        // $sqlmtype = sprintf("SELECT * FROM `lookup` WHERE `lookup_type` = '%s' and `dashboard` = %d", 'mtype',$mtype_id);
-                        // // echo $sqlmtype;
-                        // $resultmtype = mysql_query($sqlmtype); 
-                        // $rowmtype = mysql_fetch_array($resultmtype) or die(mysql_error());
-                        // // print_r($rowmtype);?>
-                        // media_url = "<?= $rowmtype['value']; ?> ";
-                        // mtype_number = mtype_id;
+                            $.ajax({
+                            url: 'medias_add_option.php',
+                            type: 'post',
+                            data: {id:mtype_id,group:"template"},
+                            dataType: 'json',
+                            success:function(response){
+                                // console.log(response);
+                                var len = response.length;
+                                 // console.log(len);
+                                for( var i = 0; i<len; i++){
+                                    var mtype_number = response[i]['key'];
+                                    var media_url = response[i]['name'];
+                                }
+                                if (mtype_number == "0"){
+                                    alert(media_url);
+                                    return false;
+                                }
+                                media_url = "mtype_" + media_url.trim() + ".php?id="+id+"&cue="+cue+"&media=" + mtype_id +  "&media2=" + mtype_number + "&copmpanies=" + company_id + "&campaign=" + id;
+                           
+                            // console.log("1.　" + media_url);
+                            $.get(media_url, function(data) {
+                                //抓取模板form表單
+                                //Youtuber及寫手費特殊處理
+                                if (mtype_id=="166" || mtype_id=="162"){
+                                    var new_html_index = data.indexOf('content');
+                                    var new_html = data.substring(new_html_index-12);
+                                }else{
+                                    var new_html_index = data.indexOf('box-content');
+                                    var new_html = data.substring(new_html_index-12);
+                                }
+                                    //console.log(new_html);
+                                     // $('fieldset:eq(3)').append(new_script);
+                                     //將表單放入fieldset中
+                                    $('fieldset').append(new_html);
+                                    $('#addForm').hide();
+                                    //隱藏原模板新增媒體按鈕
+                                    $('.box-content .form-actions').hide();
+                                    //隱藏模板的footer
+                                    $('.box-content footer').hide();
+                                        //console.log("2.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
+                                    //修改模板form的action
+                                    $('.box-content .form-horizontal:eq(1)').attr('action',$('.box-content .form-horizontal:eq(1)').attr('action')+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id+"&media_name="+media_name+"&mediaid="+media_id);
+                                    // console.log('2.'+$('#templateForm').attr('action'));
+                                    // $('#templateForm').attr('action', $('#templateForm').attr('action')+"&mediaid="+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id+"&media_name="+media_name);
+                                        console.log("3.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
+                                        // console.log('3.'+$('#templateForm').attr('action'));
+                                //將儲存按鈕show出來
+                                 $('#save').show();
+                                 $('#saveExit').show();
+                                 $('form :input:visible:enabled:first').focus();
+                                 //處理寫手模板Youtuber新增按鈕
+                                  if (mtype_id == "166" || mtype_id == "162"){
+                                    // console.log(mtype_id);
+                                    //新增寫手Youtuber新增按鈕
+                                    $('a[name^="PersonAdd"]').each(function(){
 
+                                        // var idx = $(this).attr('href').indexOf('href');
+                                        //  getVal[k++] = $(this).attr('href').substring(idx);
+                                        var getVal = $(this).attr('href');
+                                        $(this).removeAttr('href');
+                                        // console.log(getVal);
+                                        $(this).unbind().click(function(){
+                                            console.log("ajax");
+                                            $.get(getVal,function(data){
+                                                var new_html_index = data.indexOf('box-content');
+                                                var new_html = data.substring(new_html_index-12);
+                                                $('#addForm').append(new_html);
+                                                $('#addForm').show();
+                                                $('#addList .form-actions').hide();
+                                                // $('fieldset').empty();
+                                                // $('fieldset').append(new_html);
+                                                $('#addForm .form-horizontal').submit(false);
+                                                $('#list').hide();
+                                                //新增寫手費
+                                                $('#complete').click(function(){
+                                                    // console.log('complete');
+                                                    $mediaform = $('#addForm .form-horizontal');
+                                                    console.log($mediaform);
+                                                    var valid = $mediaform[0].checkValidity();
+                                                    // console.log(valid);
+                                                    if( valid){
+                                                    var post_url= $('#addForm').find('form').attr('action');
+                                                    var formdata=$mediaform.serialize();
+                                                    // console.log("post" + post_url);
+                                                    // console.log(formdata);
+                                                    // console.log(JSON.stringify(formdata));
+                                                    
+                                                   //return false;
+                                                    $.ajax({
+                                                    url: post_url,
+                                                    type: 'post',
+                                                    data: formdata,
+                                                    dataType: 'json',
+                                                    success:function(response){
+                                                        // alert("success");
+                                                        // return false;
+                                                         var len = response.length;
+                                                         // console.log(media_url);
+                                                            var msg="";
+                                                            var msgval="";
+                                                            for( var i = 0; i<len; i++){
+                                                                 msg = response[i]['key'];
+                                                                 msgval = response[i]['name'];
+                                                            }
+                                                            if(msgval == "OK"){
+                                                                alert("新增成功");
+                                                               $.get(media_url, function(data){
+                                                                var new_html_index = data.indexOf('addList');
+                                                                var new_html_end = data.indexOf('addForm');
+                                                                if(mtype_id == "162"){
+                                                                var new_html = data.substring(new_html_index + 9, new_html_end - 54);
+                                                            }else if(mtype_id == "166"){
+                                                                var new_html = data.substring(new_html_index);
+                                                            }
+                                                                // console.log(new_html);
+                                                                $('#addForm').empty();
+                                                                $('#addForm').hide();
+                                                                $('#list').show();
+                                                                $('#addList').empty();
+                                                                $('#addList').append(new_html);
+                                                                $('#addList .form-actions').hide();
+                                                               
+                                                               });
 
-                        $.ajax({
-                        url: 'medias_add_option.php',
-                        type: 'post',
-                        data: {id:mtype_id,group:"template"},
-                        dataType: 'json',
-                        success:function(response){
-                            console.log(response);
-                            var len = response.length;
-                             console.log(len);
-                            for( var i = 0; i<len; i++){
-                                var mtype_number = response[i]['key'];
-                                var media_url = response[i]['name'];
+                                                            }
+                                                    },
+                                                    error: function(xhr, status, error) {
+                                                     console.log(xhr.responseText);
+                                                     console.log(status);
+                                                     console.log(error);
+                                                    }
+                                                });//ajax
+                                            }//if(valid)
+                                        });//$('#complete').click(function()
+                                        $('#cancel').click(function(){
+                                            $(this).submit(false);
+                                            $('#addForm').empty();
+                                            $('#addForm').hide();
+                                            $('#list').show();
+                                        });
+                                    });
+                                });//click
+                            });//each
+                                    //刪除按鈕
+                                    PersonDel(media_url,media_id,item_id,mtype_name,mtype_number,mtype_id,media_name);
+                                    
+                                    //each
+                                }//if
+                            }); 
+                            },
+                            error: function(xhr, status, error) {
+                                     console.log(xhr.responseText);
+                                     console.log(status);
+                                     console.log(error);
                             }
-                            if (mtype_number == "0"){
-                                alert(media_url);
-                                return false;
-                            }
-                            media_url = "mtype_" + media_url.trim() + ".php?id="+id+"&cue="+cue+"&media="+media_id[0]+  "&media2=" + mtype_number + "&copmpanies=" + company_id + "&mediaid=";
-                       
-                        console.log("1.　" + media_url);
-                        $.get(media_url, function(data) {
-                            //抓取模板form表單
-                            if (mtype_text=="Youtuber" || mtype_text=="寫手費"){
-                                var new_html_index = data.indexOf('content');
-                                var new_html = data.substring(new_html_index-12);
-                            }else{
-                                var new_html_index = data.indexOf('box-content');
-                                var new_html = data.substring(new_html_index-12);
-                            }
-                                //console.log(new_html);
-                                 // $('fieldset:eq(3)').append(new_script);
-                                 //將表單放入fieldset中
-                                $('fieldset').append(new_html);
-                                //隱藏原模板新增媒體按鈕
-                                $('.box-content .form-actions').hide();
-                                //隱藏模板的footer
-                                $('.box-content footer').hide();
-                                    //console.log("2.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
-                                //修改模板form的action
-                                $('.box-content .form-horizontal:eq(1)').attr('action',$('.box-content .form-horizontal:eq(1)').attr('action')+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id+"&media_name="+media_name);
-                                    //console.log("3.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
-                            //將儲存按鈕show出來
-                             $('#save').show();
-                             $('#saveExit').show();
-                             $('form :input:visible:enabled:first').focus();
-                             $('#YoutuberAdd').click(function(){
-
-                                });
-                        }); 
-                        },
-                        error: function(xhr, status, error) {
-                                 console.log(xhr.responseText);
-                                 console.log(status);
-                                 console.log(error);
-                        }
-                    });
-                    //     switch(mtype_text){
-                    //     case "CPV":
-                    //         media_url = "CPV_add.php";
-                    //         mtype_number="154";
-                    //         break;
-                    //     case "CPC":
-                    //         media_url = "CPC_add.php";
-                    //         mtype_number="151";
-                    //         break;
-                    //     case "CPM":
-                    //         media_url = "CPM_add.php";
-                    //         mtype_number="153";
-                    //         break;
-                    //     case"CPI":
-                    //         media_url = "CPI_add.php";
-                    //         mtype_number="152";
-                    //         break;
-                    //     case"檔期":
-                    //         media_url = "Schedule_add.php";
-                    //         mtype_number="157";
-                    //         break;
-                    //     case"CPA":
-                    //         media_url = "CPA_add.php";
-                    //         mtype_number="170";
-                    //         break;
-                    //     case"CPE":
-                    //         media_url = "CPE_add.php";
-                    //         mtype_number="171";
-                    //         break;
-                    //     case"CPS":
-                    //         media_url = "CPS_add.php";
-                    //         mtype_number="156";
-                    //         break;
-                    //     case"CPT":
-                    //         media_url = "CPT_add.php";
-                    //         mtype_number="155";
-                    //         break;
-                    //     case"網誌廣告":
-                    //         media_url = "WebADV_add.php";
-                    //         mtype_number="158";
-                    //         break;
-                    //     case"【任務型】Line(企業贊助貼圖)":
-                    //         media_url = "LineCorpMap_add.php";
-                    //         mtype_number="159";
-                    //         break;
-                    //     case"【其他】手機簡訊":
-                    //         media_url = "MMS_add.php";
-                    //         mtype_number="160";
-                    //         break;
-                    //     case"【機制費】廣告素材製作":
-                    //         media_url = "Creative_add.php";
-                    //         mtype_number="161";
-                    //         break;
-                    //     case"寫手費":
-                    //         media_url = "Handwriting_edit.php";
-                    //         mtype_number="162";
-                    //         break;
-                    //     case"Facebook代操服務費":
-                    //         media_url = "FBFee_add.php";
-                    //         mtype_number="163";
-                    //         break;
-                    //     case"SHIRYOUKO STUDIO":
-                    //         media_url = "ShiryoukoStudio_add.php";
-                    //         mtype_number="164";
-                    //         break;
-                    //     case"HappyGo MMS":
-                    //         media_url = "HappyGoMMS_add.php";
-                    //         mtype_number="165";
-                    //         break;
-                    //     case"Youtuber":
-                    //         media_url = "Youtuber_add.php";
-                    //         mtype_number="166";
-                    //         break;
-                    //     case"【行動下載計費CPI】LINE(3DM)":
-                    //         media_url = "LINE3DM_add.php";
-                    //         mtype_number="167";
-                    //         break;
-                    //     case"預約TOP10":
-                    //         media_url = "TOPTen_add.php";
-                    //         mtype_number="168";
-                    //         break;
-                    //     case"錢包小豬(任務型)":
-                    //         media_url = "Mission_add.php";
-                    //         mtype_number="169";
-                    //         break;
-                    //     default:
-                    //         break;
-                    // }
-                        
+                        });
                     }else{
                         $('#save').hide();
                         $('#saveExit').hide();
                     }
                 });
-                  
+                  function PersonDel(media_url,media_id,item_id,mtype_name,mtype_number,mtype_id,media_name){
+                    $('a[name^="PersonDel"]').each(function(){
+                         var getVal = $(this).attr('href');
+                         console.log(getVal);
+                        $(this).removeAttr('href');
+                        $(this).unbind().click(function(){
+                            if(!confirm("確定要刪除")){
+                                return false;
+                            }else{
+                                $.ajax({
+                                url:getVal,
+                                type: 'post',
+                                data: {},
+                                dataType: 'json',
+                                success:function(response){
+                                     var len = response.length;
+                                     // console.log(media_url);
+                                        var msg="";
+                                        var msgval="";
+                                        for( var i = 0; i<len; i++){
+                                             msg = response[i]['key'];
+                                             msgval = response[i]['name'];
+                                        }
+                                        if(msgval == "OK"){
+                                            PersonDelReload(media_url,media_id,item_id,mtype_name,mtype_number,mtype_id,media_name);
+                                            $('.box-content .form-horizontal:eq(1)').attr('action',$('.box-content .form-horizontal:eq(1)').attr('action')+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id+"&media_name="+media_name);
+                                           alert("刪除成功");
+                                        }
+                                    },
+                                // complete: function(XMLHttpRequest, textStatus) { 
+                                //     //$(this).dialog("close");
+                                // },
+                                error: function(xhr, status, error) {
+                                    console.log(xhr.responseText);
+                                    console.log(status);
+                                    console.log(error);
+                                    }
+                                });
+                            }
+                          });//click
+                    });
+                  }//PersonDel
+                  function PersonDelReload(media_url,media_id,item_id,mtype_name,mtype_number,mtype_id,media_name){
+                    $.get(media_url, function(data){
+                    var new_html_index = data.indexOf('addList');
+                    var new_html = data.substring(new_html_index+9);
+                       var new_html_end = data.indexOf('addForm');
+                    if(mtype_id == "162"){
+                        var new_html = data.substring(new_html_index + 9, new_html_end - 54);
+                    }else if(mtype_id == "166"){
+                        var new_html = data.substring(new_html_index);
+                    }
+                    // console.log(new_html);
+                    $('#addList').empty();
+                    $('#addList').append(new_html);
+                    $('#addList .form-actions').hide();
+                    $('.box-content .form-horizontal:eq(1)').attr('action',$('.box-content .form-horizontal:eq(1)').attr('action')+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id+"&media_name="+media_name);
+                    PersonDel(media_url,media_id,item_id,mtype_name,mtype_number,mtype_id,media_name );
+                    });//$.get
+                  }//PersonDelReload
                 //儲存後繼續新增按鈕
                 $('#save').click(function(e){
                     $mediaform=$('form:eq(1)');
                     var valid = $mediaform[0].checkValidity(); 
                     // console.log(valid);
                         if(valid){
-                        var formdata=$('.box-content .form-horizontal:eq(1)').serialize();
-                        console.log(JSON.stringify(formdata));
-                        var ajax_url=$('.box-content .form-horizontal:eq(1)').attr('action')+"&goon=Y";
-                        console.log( ajax_url);
+                        var formdata = $('.box-content .form-horizontal:eq(1)').serialize();
+                        // console.log(JSON.stringify(formdata));
+                        var ajax_url = $('.box-content .form-horizontal:eq(1)').attr('action')+"&goon=Y";
+                        // console.log( ajax_url);
                         $.ajax({
                             url: ajax_url,
                             type: 'post',
@@ -425,6 +470,7 @@ console.log(2222);
                 //儲存後關閉按鈕
                 $('#saveExit').click(function(){
                     console.log('submit');
+                    console.log($('.box-content .form-actions button'));
                     $('.box-content .form-actions button').trigger('click');
                 });
             });

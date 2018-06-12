@@ -9,8 +9,6 @@ $TypeItem = null;
 $TypeItem = $_POST['SelectType'];
 $member = $_POST["member"];
 $unitcost = $_POST["unitcost"];
-$autoSerialNumberA = autoSerialNumber();
-$autoSerialNumberB = autoSerialNumber();
 
 $cp_id = $_GET['id'];
 $media_id = $_GET['mediaid'];
@@ -32,6 +30,7 @@ for ($i = 0; $i < count($member); $i++) {
         $a0 = $_GET['mediaid'];
         $a4 = $totalprice;
     }
+    $autoSerialNumberA = autoSerialNumber();
     $sql2 = 'INSERT INTO media161(campaign_id,
 item_seq,
 cue,
@@ -61,13 +60,13 @@ items3) VALUES(' . $_GET['id'] . ',
 "' . $a . '",
 "' . $TypeItem . '",
 "' . $_POST['SelectSystem'] . '")';
-    mysql_query($sql2);
+
     mysql_query($sql2);
     AddMediaMapping('media161', $_GET['id'], mysql_insert_id());
-
+    
     $item_id2=mysql_insert_id();
     $sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`)
-    VALUES ('" . $cp_id . "','" . $media_id . "','0','" . $item_id . "','" . $mtype_name . "','" . $mtype_number . "','" . $mtype_id . "','" . $autoSerialNumberA . "','1')";
+    VALUES ('" . $cp_id . "','" . $media_id . "','0','" . $item_id . "','" . $mtype_name . "','" . $mtype_number . "','" . $item_id2 . "','" . $autoSerialNumberA . "','1')";
     $db->query($sql3);
     if ($_POST['samecue'] == 1) {
         $sqlnew = "SELECT * FROM media161 ORDER BY id DESC LIMIT 1;";
@@ -75,6 +74,7 @@ items3) VALUES(' . $_GET['id'] . ',
         $rownew = mysql_fetch_array($resultnew);
         $a0 = $rownew['id'];
         $totalprice = $unitcost[$i] * $unit[$i];
+        $autoSerialNumberB = autoSerialNumber();
         $sql2 = 'INSERT INTO media161(campaign_id,
 item_seq,
 cue,
@@ -109,7 +109,7 @@ items3) VALUES(' . $_GET['id'] . ',
 
         $item_id1=mysql_insert_id();
         $sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`)
-			VALUES ('" . $cp_id . "','" . $media_id . "','0','" . $item_id . "','" . $mtype_name . "','" . $mtype_number . "','" . $mtype_id . "','" . $autoSerialNumberB . "','2')";
+			VALUES ('" . $cp_id . "','" . $media_id . "','0','" . $item_id . "','" . $mtype_name . "','" . $mtype_number . "','" . $item_id1 . "','" . $autoSerialNumberB . "','2')";
         $db->query($sql4);
     }
 }

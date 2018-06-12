@@ -9,7 +9,7 @@ require_once dirname(__DIR__) .'/autoload.php';
 		if ($I_U == "0"){
 			$Dates=time();
 			$T_Sql_Info = "INSERT INTO  `companies` ( ";
-			$T_Sql_Info .= "`id`, `name`, `name2`, `eng_name`, `tax_id`, `tel`, `fax`, `address`, `payinfo`, `paydays`, `refund`, `update_user`, `update_date`)";
+			$T_Sql_Info .= "`id`, `name`, `name2`, `eng_name`, `tax_id`, `tel`, `fax`,`area_code`,`city_name`,`country_code`,`language`, `address`, `payinfo`, `paydays`, `refund`, `update_user`, `update_date`)";
 			$T_Sql_Info .= " VALUES (";
     	    $T_Sql_Info .= "NULL ,";
 			$T_Sql_Info .= "'" . $_POST["name"] ."',";
@@ -18,6 +18,10 @@ require_once dirname(__DIR__) .'/autoload.php';
 			$T_Sql_Info .= "'" . $_POST["tax_id"] ."',";
 			$T_Sql_Info .= "'" . $_POST["tel"] ."',";
 			$T_Sql_Info .= "'" . $_POST["fax"] ."',";
+			$T_Sql_Info .= "'" . $_POST["area_code"] ."',";
+			$T_Sql_Info .= "'" . $_POST["city_name"] ."',";
+			$T_Sql_Info .= "'" . $_POST["country_code"] ."',";
+			$T_Sql_Info .= "'" . $_POST["language"] ."',";
 			$T_Sql_Info .= "'" . $_POST["address"] ."',";
 			$T_Sql_Info .= "'" . $_POST["payinfo"] ."',";
 			$T_Sql_Info .= "'" . $_POST["paydays"] ."',";
@@ -46,6 +50,10 @@ require_once dirname(__DIR__) .'/autoload.php';
 			$T_Sql_Info .= "`tax_id` ='" . $_POST["tax_id"] ."',";
 			$T_Sql_Info .= "`tel` ='" . $_POST["tel"] ."',";
 			$T_Sql_Info .= "`fax` ='" . $_POST["fax"] ."',";
+			$T_Sql_Info .= "`area_code` ='" . $_POST["area_code"] ."',";
+			$T_Sql_Info .= "`city_name` ='" . $_POST["city_name"] ."',";
+			$T_Sql_Info .= "'" . $_POST["country_code"] ."',";
+			$T_Sql_Info .= "'" . $_POST["language"] ."',";
 			$T_Sql_Info .= "`address` ='" . $_POST["address"] ."',";
 			$T_Sql_Info .= "`payinfo` ='" . $_POST["payinfo"] ."',";
 			$T_Sql_Info .= "`paydays` ='" . $_POST["paydays"] ."',";
@@ -76,7 +84,7 @@ require_once dirname(__DIR__) .'/autoload.php';
 			//echo $T_Sql_Info3;
 			//echo $_POST["Companies_id"];
 
-			ShowMessageAndRedirect('媒體公司修改成功', 'companies_edit.php?id='. $_GET["id"] , false);
+			ShowMessageAndRedirect('媒體公司修改成功', 'companies_list.php' , false);
 			
 		}
 

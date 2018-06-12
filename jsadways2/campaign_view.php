@@ -958,6 +958,12 @@
 																		$a3 += $row3['a3'];
 																		$a4 += $row3['a4'];
 
+																		if(is_null($row3['a3']) || empty($row3['a4'])){
+																			$row3['a4'] = 0;
+																		}
+																		if(is_null($row3['a4']) || empty($row3['a4'])){
+																			$row3['a4'] = 0;
+																		}
 																		//額外媒體判斷 
 																		if (in_array($i, $parameter['extra_media_id'])) {
 																			if ($row3['media_type'] == 'CPM') {		//CPM顯示為 曝光數
@@ -1668,7 +1674,7 @@
 																										編輯
 																									</a>
 																								<? else : ?>
-																									<a class="btn btn-info" href="mtype_medias_edit.php?campaign=<?= $campaignId; ?>&cue=1&id=<?= $row3['id']; ?>&media=<?= $i; ?>">
+																									<a class="btn btn-info" href="mtype_medias_edit.php?campaign=<?= $campaignId; ?>&cue=1&id=<?= $row3['id']; ?>&media=<?= $i; ?>&media_id=<?= $i; ?>">
 																										<i class="icon-edit icon-white"></i>
 																										編輯
 																									</a>
@@ -1855,6 +1861,9 @@
 																		<td>
 																			<!-- 參考定價 -->
 																			$<?php
+																				if(is_null($row3['a4']) || empty($row3['a4'])){
+																					$row3['a4'] = 0;
+																				}
 																				if (in_array($i, $parameter['direct_income'])) {
 																					echo number_format($row3['totalprice']);
 																				} else if (in_array($i, $parameter['extra_media_id']) && $row3['media_type'] == 'CPM') {

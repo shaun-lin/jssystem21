@@ -1,0 +1,109 @@
+
+{% if rowsBlogger | length %}
+    {% for bloggerItem in rowsBlogger %}
+        <tr>
+            {% if listMode is empty %}
+                <td><input type="checkbox" name="select_id[]" onclick="addID({{ bloggerItem.id }});" {{ session.blogger[bloggerItem.id] is defined ? 'checked' : '' }} value="{{ bloggerItem.id }}"></td>
+                <td class="center">{{ bloggerItem.ac_id }}</td>
+            {% else %}
+                <td>
+                    {% if bloggerItem.photo is not empty %}
+                        <img src="{{ bloggerItem.photo | raw }}" style="height: auto; width: 140px; max-width: 140px;">
+                    {% else %}
+                        <i class="fa fa-picture-o" style="opacity: .1; font-size: 4em;"></i>
+                    {% endif %}
+                </td>
+            {% endif %}
+            <td style="text-align:left" nowrap>
+                {% if 'blog_name' in displayName and bloggerItem.blog_name is not empty %}
+                    <p>{{ ('<b><img src="images/blogspot.png" style="width: auto; height: 13px; border-radius: 2px;">&nbsp;Blog</b>：&nbsp;&nbsp;'~ bloggerItem.blog_name ~'<br/>') | raw }}</p>
+                {% endif %}
+
+                {% if 'fb_name' in displayName and bloggerItem.fb_name is not empty %}
+                    <p>{{ ('<b><i class="fa fa-facebook-official" style="color: #5a5aff; font-size: 1em !important;"></i>&nbsp;FB</b>：&nbsp;&nbsp;'~ bloggerItem.fb_name ~'<br/>') | raw }}</p>
+                {% endif %}
+
+                {% if 'ig_name' in displayName and bloggerItem.ig_name is not empty %}
+                <p>{{ ('<b><i class="fa fa-instagram" style="color: #fe99ff; font-size: 1em !important;"></i>&nbsp;Instagram</b>：&nbsp;&nbsp;'~ bloggerItem.ig_name ~'<br/>') | raw }}</p>
+                {% endif %}
+
+                {% if 'youtube_name' in displayName and bloggerItem.youtube_name is not empty %}
+                <p>{{ ('<b><i class="fa fa-youtube-play" style="color: #ff4c4c; font-size: 1em !important;"></i>&nbsp;YouTube</b>：&nbsp;&nbsp;'~ bloggerItem.youtube_name ~'<br/>') | raw }}</p>
+                {% endif %}
+                
+                {% if listMode is empty %}
+                    {% if rowsBloggerTag[bloggerItem.id] is defined %}
+                        <div style="font-size: .9em;">
+                            {% for itemTag in rowsBloggerTag[bloggerItem.id] %}
+                                <span class="blogger-tag" style="background-color: {{ itemTag.tag_color }};">&nbsp;<i class="fa fa-tag"></i>&nbsp;{{ itemTag.tag_name }}&nbsp;</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </td>
+            {% if listMode is empty %}
+                <td>
+                    {% if bloggerItem.photo is not empty %}
+                        <img src="{{ bloggerItem.photo | raw }}" style="height: auto; width: 140px; max-width: 140px;">
+                    {% else %}
+                        <i class="fa fa-picture-o" style="opacity: .1; font-size: 4em;"></i>
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if listMode is empty %}
+                <td class="text-shadow-none" style="text-align: left;" nowrap>
+                    {% if 'blog_name' in displayName and bloggerItem.blog_cost %}
+                        <p>
+                            <b><img src="images/blogspot.png" style="width: auto; height: 13px; border-radius: 2px;">&nbsp;Blog</b>：
+                            <span style="font-size: 1.2em;">{{ bloggerItem.blog_cost }}</span>
+                        </p>
+                    {% endif %}
+                    {% if 'fb_name' in displayName and bloggerItem.fb_cost %}
+                        <p>
+                            <b><i class="fa fa-facebook-official" style="color: #5a5aff; font-size: 1em !important;"></i>&nbsp;FB</b>：
+                            <span style="font-size: 1.2em;">{{ bloggerItem.fb_cost }}</span>
+                        </p>
+                    {% endif %}
+                    {% if 'ig_name' in displayName and bloggerItem.ig_cost %}
+                        <p>
+                            <b><i class="fa fa-instagram" style="color: #fe99ff; font-size: 1em !important;"></i>&nbsp;Instagram</b>：
+                            <span style="font-size: 1.2em;">{{ bloggerItem.ig_cost }}</span>
+                        </p>
+                    {% endif %}
+                    {% if 'youtube_name' in displayName and bloggerItem.youtube_cost %}
+                        <p>
+                            <b><i class="fa fa-youtube-play" style="color: #ff4c4c; font-size: 1em !important;"></i>&nbsp;YouTube</b>：
+                            <span style="font-size: 1.2em;">{{ bloggerItem.youtube_cost }}</span>
+                        </p>
+                    {% endif %}
+                </td>
+            {% else %}
+                <td class="text-shadow-none" style="text-align: left;" nowrap>
+                    {{ bloggerItem.class }}
+                </td>
+            {% endif %}
+            <td class="center" style="font-size: .9em;">
+                {% if listMode is empty %}
+                    <a class="btn btn-success" style="font-size: 1.5em;" href="blogger_view.php?id={{ bloggerItem.id }}" target="_blank">
+                        <i class="fa fa-search-plus"></i> <span style="font-size: .6em;">檢視</span>
+                    </a>
+                    {% if isGrantEdit %}
+                        <br/><a class="btn btn-info" style="font-size: 1.5em; margin-top: 3px;" href="blogger_edit.php?id={{ bloggerItem.id }}" target="_blank">
+                            <i class="fa fa-pencil"></i> <span style="font-size: .6em;">編輯</span>
+                        </a>
+                    {% endif %}
+                    {% if isGrantDelete %}
+                        <br/><a class="btn btn-danger" style="font-size: 1.5em; margin-top: 3px;" onclick="if (window.confirm('確定要刪除')) { DelBlogger('{{ bloggerItem.id }}', this); }">
+                            <i class="fa fa-trash-o"></i> <span style="font-size: .6em;">刪除</span>
+                        </a>
+                        <i class="fa fa-spin fa-refresh" style="display: none; font-size: 2.4em; margin-top: 8px; color: brown;"></i>
+                    {% endif %}
+                {% elseif listMode == 'media_detail_edit' %}
+                    <a class="btn btn-success" id="PersonAdd" name="PersonAdd[]" style="font-size: 1.5em;" href="media19_detail_edit.php?campaign_id={{ campaignId }}&blog_id={{ bloggerItem.id }}{{ mediaId ? ('&media_id='~ mediaId) | raw : '' }}">
+                        <i class="fa fa-search-plus"></i> <span style="font-size: .6em;">Add</span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}

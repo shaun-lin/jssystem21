@@ -13,6 +13,7 @@
 	$name = str_replace(["\n", "\r"], ["\\n", ""], GetVar('name'));
 	$display = str_replace(["\n", "\r"], ["\\n", ""], GetVar('display'));
 	$dashboard= str_replace(["\n","\r"],["\\n",""],GetVar('dashboard'));
+	if($dashboard>=151 && $dashboard<=171){
     $objSizeformat->setVar('id',getVar('id'));
 	$objSizeformat->setVar('name', $name);
 	$objSizeformat->setVar('display', $display);
@@ -20,8 +21,11 @@
 	$objSizeformat -> setVar('dashboard',$dashboard);
 	$objSizeformat->setVar('time', time());
 	$objSizeformat->store();
-	
-	
+	}
+	else{
+		ShowMessageAndRedirect('無此模板編號', 'mtype_edit.php?mtype='. GetVar('id', '') , true);
+	exit;	
+	}
 	// if ($GLOBALS['env']['flag']['pos'] == 'ff') {
 	// 	$mailTo = [
 	// 		'bluebee@js-adways.com.tw' => '豐富媒體',

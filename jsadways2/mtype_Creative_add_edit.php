@@ -36,7 +36,7 @@
 							var obj4 = document.getElementsByName("total[]");
 							for (i=0; i<=a; i=i+1)
 							{
-								/*if(obj1[i].selectedIndex=='1')
+								if(obj1[i].selectedIndex=='1')
 								{
 									obj2[i].value = "3375";
 								}
@@ -51,7 +51,7 @@
 								else if(obj1[i].selectedIndex=='4')
 								{
 									obj2[i].value = "1080";
-								}*/
+								}
 								obj4[i].value=obj2[i].value*obj3[i].value;
 
 							}

@@ -3,7 +3,7 @@
 	require_once dirname(__DIR__) .'/autoload.php';
 
 	IncludeFunctions('jsadways');
-
+    include('include/db.inc.php');
     $mediaId = GetVar('media_id');
 	$campaignId = GetVar('campaign_id');
     $blogId = GetVar('blog_id');
@@ -50,4 +50,12 @@
         $db->query(GenSqlFromArray($saveData, 'media162_detail', 'insert'));
     }
 
-    ShowMessageAndRedirect(IsId($detailId) ? '修改媒體成功' : '新增媒體成功', "mtype_Handwriting_edit.php?campaign_id={$campaignId}&media_id={$mediaId}", false);
+    // ShowMessageAndRedirect(IsId($detailId) ? '修改媒體成功' : '新增媒體成功', "mtype_Handwriting_edit.php?campaign_id={$campaignId}&media_id={$mediaId}", false);
+    // $result = mysql_query($sql2) or die(mysql_error());
+    // AddMediaMapping("media162", $_GET['id'], mysql_insert_id());
+
+    $arrItems = array();
+    $arrItems[] = array("key" => "result", "name" => "OK");
+
+    echo json_encode($arrItems);
+    ?>

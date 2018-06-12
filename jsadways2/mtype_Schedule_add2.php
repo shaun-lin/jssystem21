@@ -52,7 +52,7 @@ for ($i = 1; $i <= 10; $i++) {
         $date[$i] = 0;
     }
 }
-$sqlmedia = "SELECT * FROM media WHERE id=128";
+$sqlmedia = "SELECT * FROM media WHERE id=157";
 $resultmedia = mysql_query($sqlmedia);
 $rowmedia = mysql_fetch_array($resultmedia);
 $profit = ($_POST['totalprice'] * $rowmedia['profit']) / 100;

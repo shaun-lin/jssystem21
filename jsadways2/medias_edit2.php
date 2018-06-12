@@ -9,7 +9,7 @@
 	if($status==1){
 		savetoDB();
 		saveRel();
-		ShowMessageAndRedirect('更新媒體格規成功', 'medias_list.php' , false);
+		ShowMessageAndRedirect('更新模板成功', 'medias_list.php' , false);
 	}
 	else if($status==2){
 		savetoDB();	

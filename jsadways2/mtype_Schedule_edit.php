@@ -29,7 +29,6 @@
 			<?php
 				$sql1 = "SELECT * FROM campaign WHERE id= ".$_GET['campaign'];
 				$result1 = mysql_query($sql1);
-				echo $sql1;
 				$row1 = mysql_fetch_array($result1);
 				$sql2 = "SELECT * FROM media157 WHERE id= ".$_GET['id'];
 				$result2 = mysql_query($sql2);

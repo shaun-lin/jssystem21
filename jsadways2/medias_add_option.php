@@ -72,4 +72,21 @@
 		}
 		echo json_encode($arrItems);
 	}
-
+//編輯模板資料
+	else if ($group == "templateedit"){
+		include('include/db.inc.php');
+		$id =GetVar('id');
+	 	$sqlmtype = sprintf("SELECT * FROM `lookup` WHERE `lookup_type` = '%s' and `item` = %d", 'mtypeedit',$id);
+	 	$arrItems = array();
+	 	$resultmtype = mysql_query($sqlmtype); 
+        
+        if(mysql_num_rows($resultmtype) > 0 ){
+        	$rowmtype = mysql_fetch_array($resultmtype); 
+			$item_id=$rowmtype['item'];
+			$item_name=$rowmtype['value'];
+			$arrItems[]=array("key"=>$item_id,"name"=>$item_name);
+		}else{
+			$arrItems[]=array("key"=>"0","name"=>"查無此模板！");
+		}
+		echo json_encode($arrItems);
+	}

@@ -60,8 +60,8 @@
 											$rowsOrdinal = GetUsedMediaOrdinal($sql2_sub, 'sql');
 											foreach ($rowsOrdinal as $mediaId) {
 												$sql3 = 'SELECT `campaign_id`, SUM(`totalprice`) AS `totalprice` FROM `media'. $mediaId .'` WHERE `campaign_id` IN ('. $sql2_sub .') AND `cue` = 1 GROUP BY `campaign_id`;';
-													
-												$result3 = mysql_query($sql3); 
+												$result3 = mysql_query($sql3);
+
 												if (mysql_num_rows($result3) > 0) {
 													while ($row3 = mysql_fetch_array($result3)) {
 														if (!isset($totalprice1[$row3['campaign_id']])) {

@@ -2,57 +2,17 @@
 	session_start();
 	include('include/db.inc.php');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Youtuber列表</title>
-	<?php include("public/head.php"); ?>
-	
-</head>
-
-<body>
-	<?php include("public/topbar.php"); ?>
 		<div class="container-fluid">
 		<div class="row-fluid">
-			<?php include("public/left.php"); ?>
-
-			<noscript>
-				<div class="alert alert-block span10">
-					<h4 class="alert-heading">Warning!</h4>
-					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
-				</div>
-			</noscript>
 
 			<div id="content" class="span10">
-			<!-- content starts -->
-			<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="js/jquery.xml2json.js"></script>
-	<script>
-								$(document).ready(function()
-								{
-									Page_Init();
-								});
-								function Page_Init()
-								{
-									//Abow Start
-									<?php 
-										include('campaign_required_select.php');
-										echo $Select_str;
-									?>
-
-									$('#SelectType').change(function(){
-										//ChangeSelectType();
-									});
-									//Abow end
-								}
-	</script>
-			<div class="row-fluid">
-				<div class="box span12">
+	
+			<div class="row-fluid" >
+				<div class="box span12" id="list" >
 					<div class="box-header well" data-original-title>
 						<h2><i class="icon-edit"></i> Youtuber列表</h2>
-
 					</div>
+					<br/>
 					<div class="box-content">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
@@ -75,7 +35,7 @@
                                 <td><a href="blogger_view.php?id=<?php echo $row2['id']; ?>&youtuber=1" target="_blank"><?php echo $row2['name3']; ?></a></td>
 								<td class="center"><?php echo $row2['class']; ?></td>
 								<td class="center">
-									<a class="btn btn-success" href="mtype_Youtuber_add3.php?id=<?php echo $_GET['id']; ?>&blogid=<?php echo $row2['id']; ?>">
+									<a class="btn btn-success" id="PersonAdd" name="PersonAdd[]" href="mtype_Youtuber_add3.php?id=<?php echo $_GET['id']; ?>&blogid=<?php echo $row2['id']; ?>">
 										<i class="icon-zoom-in icon-white"></i>
 										Add
 									</a>
@@ -91,9 +51,31 @@
 					</div>
 				</div><!--/span-->
 			</div><!--/row-->
-
+			<div class="row-fluid" >
+				<div class="box span12" id="addForm">
+				</div>
+			</div>
             <div class="row-fluid">
-				<div class="box span12">
+				<div class="box span12" id="addList">
+					<script>
+								$(document).ready(function()
+								{
+									Page_Init();
+								});
+								function Page_Init()
+								{
+									//Abow Start
+									<?php 
+										include('campaign_required_select.php');
+										echo $Select_str;
+									?>
+
+									$('#SelectType').change(function(){
+										//ChangeSelectType();
+									});
+									//Abow end
+								}
+					</script>
 					<div class="box-header well" data-original-title>
 						<h2><i class="icon-edit"></i> 已增加Youtuber列表</h2>
 
@@ -126,7 +108,7 @@
                                 <td><?php echo $row2['price3']; ?></td>
 								<td class="center">
 
-                                    <a class="btn btn-danger" href="#" onclick="if(window.confirm('確定要刪除')) location.href=mtype_Youtuber_del.php?campaign=<?php echo $_GET['id']; ?>&id=<?php echo $row2['id'];?>';">
+                                    <a class="btn btn-danger" data-toggle="modal" data-target="#dialog" id="PersonDel" name="PersonDel" href="mtype_Youtuber_del.php?campaign=<?php echo $_GET['id']; ?>&id=<?php echo $row2['id'];?>">
 										<i class="icon-trash icon-white"></i>
 										刪除
                                     </a>
@@ -139,7 +121,7 @@
 						  </tbody>
 					  </table>
                       <div class="box-content">
-						<form class="form-horizontal" action="mtype_Youtuber_add2.php?id=<?php echo $_GET['id']; ?>" method="post">
+						<form class="form-horizontal" id="templateForm" action="mtype_Youtuber_add2.php?id=<?php echo $_GET['id']; ?>&cue=<?php echo $_GET['cue']; ?>&mediaid=" method="post">
                            <div class="control-group">
 							  <label class="control-label" for="SelectType">類別(Type)</label>
 							  <div class="controls">
@@ -175,7 +157,8 @@
                           <div class="control-group">
                           <label class="control-label" for="others">備註</label>
                           <div class="controls">
-                            <textarea id="others" name="others" ></textarea>
+							<textarea id="others" name="others" ></textarea>
+							<input type='hidden' name='bloggerid' value="A" />
                           </div>
                         </div>
                         <div class="form-actions">
@@ -183,25 +166,10 @@
                         </div>
                       </form>
                       </div>
-
-
 					</div>
 				</div><!--/span-->
 			</div><!--/row-->
-
-
-
-					<!-- content ends -->
 			</div><!--/#content.span10-->
 				</div><!--/fluid-row-->
-
-		<hr>
-
-		<?php include("public/footer.php"); ?>
-
 	</div><!--/.fluid-container-->
 
-	<?php include("public/js.php"); ?>
-
-</body>
-</html>

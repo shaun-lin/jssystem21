@@ -23,6 +23,7 @@
             <li><a class="ajax-link" href="item_list.php"><i class="icon-folder-open"></i><span class="hidden-tablet">品項維護作業</span></a></li>
             <li><a class="ajax-link" href="mtype_list.php"><i class="icon-folder-open"></i><span class="hidden-tablet">模板維護作業</span></a></li>
             <li><a class="ajax-link" href="campaign_report.php"><i class="icon-folder-open"></i><span class="hidden-tablet">SAP成本表</span></a></li>
+            <li><a class="ajax-link" href="sap_excel.php"><i class="icon-folder-open"></i><span class="hidden-tablet">總公司編號匯入</span></a></li>
             
             <? if ($listCampaignGroup) : ?>
                 <li><a class="ajax-link" href="campaign_listall.php?group"><i class="icon-folder-open"></i><span class="hidden-tablet"> 組員案件列表</span></a></li>

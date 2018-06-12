@@ -138,11 +138,11 @@
 		'item_seq' => $autoSerialNumberA,
 	];
 
-	$sql2 = GenSqlFromArray($addDataForCue1, "media151", 'insert');
+	$sql2 = GenSqlFromArray($addDataForCue1, "media172", 'insert');
 	$db->query($sql2);
-	AddMediaMapping("media151", $_GET['id'], $db->get_last_insert_id());
+	AddMediaMapping("media172", $_GET['id'], $db->get_last_insert_id());
 
-	$item_id2=mysql_insert_id();
+	$item_id2=$db->get_last_insert_id();
 	$sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
     VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id2."','".$autoSerialNumberA."','1')";
  	$db->query($sql3);
@@ -152,7 +152,7 @@
 		$db->query($sql1);
 		$row1 = $db->next_record();
 
-		$sqlnew = sprintf("SELECT * FROM `media151` ORDER BY `id` DESC LIMIT 1;", $mediaOrdinal);
+		$sqlnew = sprintf("SELECT * FROM `media172` ORDER BY `id` DESC LIMIT 1;", $mediaOrdinal);
 		$db->query($sqlnew);
 		$rownew = $db->next_record();
 
@@ -193,11 +193,11 @@
 		$addDataForCue2['a3'] = $profit;
 		$addDataForCue2['a4'] = $_POST['totalprice'] - $commission1 - $commission4 - $profit;
 
-		$sql2 = GenSqlFromArray($addDataForCue2, "media151", 'insert');
+		$sql2 = GenSqlFromArray($addDataForCue2, "media172", 'insert');
 		$db->query($sql2);
-		AddMediaMapping("media151", $_GET['id'], $db->get_last_insert_id());
+		AddMediaMapping("media172", $_GET['id'], $db->get_last_insert_id());
 
-		$item_id1=mysql_insert_id();
+		$item_id1=$db->get_last_insert_id();
 		$sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
 		VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id1."','".$autoSerialNumberB."','2')";
 		$db->query($sql4);

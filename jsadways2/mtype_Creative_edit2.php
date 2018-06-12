@@ -33,7 +33,7 @@
 		$campaign = mysql_query($sql_campaign);
 		$campaign_row = mysql_num_rows($campaign);
 		if($campaign_row == 2){
-			$sql2='UPDATE media18 SET itemname="'.$_POST['itemname'].'" , price="'.$_POST['price'].'" , quantity="'.$_POST['quantity'].'" , totalprice="'.$totalprice.'" ,a4="'.$totalprice.'", other="'.$_POST['other'].'", times='.time().',items2="'.$TypeItem.'",items3="'.$_POST['SelectSystem'].'" WHERE campaign_id	= '.$_GET['campaign']; 
+			$sql2='UPDATE media161 SET itemname="'.$_POST['itemname'].'" , price="'.$_POST['price'].'" , quantity="'.$_POST['quantity'].'" , totalprice="'.$totalprice.'" ,a4="'.$totalprice.'", other="'.$_POST['other'].'", times='.time().',items2="'.$TypeItem.'",items3="'.$_POST['SelectSystem'].'" WHERE campaign_id	= '.$_GET['campaign']; 
 			mysql_query($sql2);
 		}
 

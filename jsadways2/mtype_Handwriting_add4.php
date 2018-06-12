@@ -30,15 +30,20 @@
 	if($_POST['price9']!=null){
 		$type=$type.'Youtuber費、';
 	}
-	$id = $_POST['id'];
-	if($_POST['isEdit']=='Y')
-	{
-		$id = $_POST['campaign'];
-	}
-	$sql2='INSERT INTO media166_detail(campaign_id,blogid,blog,blog1,blog2,blog3,type,price,price2,price3,times,others,status) VALUES("'.$id.'","'.$_POST['blogid'].'","'.$_POST['blog'].'","'.$_POST['blog1'].'","'.$_POST['blog2'].'","'.$_POST['blog3'].'","'.$type.'",'.$_POST['totalprice'].','.$_POST['totalprice2'].','.$_POST['totalprice3'].','.time().',"'.$_POST['others'].'",0)';
-
+	$sql2='INSERT INTO media166_detail(campaign_id,blogid,blog,blog1,blog2,blog3,type,price,price2,price3,times,others,status) VALUES('.$_POST['id'].','.$_POST['blogid'].',"'.$_POST['blog'].'","'.$_POST['blog1'].'","'.$_POST['blog2'].'","'.$_POST['blog3'].'","'.$type.'",'.$_POST['totalprice'].','.$_POST['totalprice2'].','.$_POST['totalprice3'].','.time().',"'.$_POST['others'].'",0)';
+	// $sql2='INSERT INTO media166_detail(campaign_id,blogid,blog,blog1,blog2,blog3,type,price,price2,price3,times,others,status) VALUES(53,2,"","","\xe6\xb1\x9f\xe5\xb0\x8fM_Fantasy.TW","BBB","",0,10,10,1528306865,"",0)';
+	//echo $sql2;
+	// error_log($sql2);
+	// exit;
 	$result = mysql_query($sql2) or die(mysql_error());
 	AddMediaMapping("media166", $_GET['id'], mysql_insert_id());
+	
+	//echo $sql2;
+	// if($_POST['edit']==1){
+	// 	echo '<meta http-equiv=REFRESH CONTENT=1;url=mtype_Youtuber_edit.php?campaign='.$_POST['id'].'&id='.$_POST['editid'].'>';
+	// }else{
+	// 	echo '<meta http-equiv=REFRESH CONTENT=1;url=mtype_Youtuber_add.php?id='.$_POST['id'].'>';
+	// }
 
     $arrItems = array();
     $arrItems[] = array("key" => "result", "name" => "OK");

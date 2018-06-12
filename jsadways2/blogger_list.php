@@ -569,9 +569,9 @@
                                     <tbody id="content_loader"><tr><td colspan="7"><i class="fa fa-spin fa-refresh" style="font-size: 3em; padding: 20px;"></i></td></tr></tbody>
                                     <tbody id="content_list"></tbody>
 								</table>
-                                <div id="bottom_pagination">
-                                    <?= $pagination->setConfig(['start' => 0, 'total' => 0])->getBottomContent(); ?>
-                                </div>
+                                <!-- <div id="bottom_pagination">-->
+                                    <!-- <?= $pagination->setConfig(['start' => 0, 'total' => 0])->getBottomContent(); ?> -->
+                                <!-- </div>  -->
 							</div>
 						</div>
 					</div>

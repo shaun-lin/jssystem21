@@ -153,7 +153,7 @@
 	$db->query($sql2);
 	AddMediaMapping("media153", $_GET['id'], $db->get_last_insert_id());
 
-	$item_id2=mysql_insert_id();
+	$item_id2=$db->get_last_insert_id();
 	$sql3 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
     VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id2."','".$autoSerialNumberA."','1')";
 	$db->query($sql3);
@@ -219,7 +219,7 @@
 		$db->query($sql2);
 		AddMediaMapping("media153", $_GET['id'], $db->get_last_insert_id());
 
-		$item_id1=mysql_insert_id();
+		$item_id1=$db->get_last_insert_id();
 		$sql4 = "INSERT INTO `cp_detail`( `cp_id`, `media_id`, `comp_id`, `item_id`, `mtype_name`, `mtype_number`, `mtype_id`,`item_seq`,`cue`) 
 		VALUES ('".$cp_id."','".$media_id."','0','".$item_id."','".$mtype_name."','".$mtype_number."','".$item_id1."','".$autoSerialNumberB."','2')";
 	}
