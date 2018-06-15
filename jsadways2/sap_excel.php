@@ -38,7 +38,7 @@
 											</div>
 											<div class="contol-group">
 											<h3>Tip:</h5>
-											<h4>1.檔案僅接受副檔名xls檔，Excel版本2003版。</h4>
+											<h4 style="red">1.檔案僅接受副檔名xls檔，Excel版本2003版。</h4>
 											<h4>2.若無總公司編號，請勿上傳。</h4>
 											<h4>3.Excel表單結構請勿擅自更改。</h4>
 											<h4>(列BE為Jasdways內部編號；列BF為總公司編號)</h4>

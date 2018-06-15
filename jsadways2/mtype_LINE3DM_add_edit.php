@@ -1,9 +1,8 @@
  <fieldset>
 
                           	  <div class="control-group">
-                                <label class="control-label">項目(Website)</label>
                                 <div class="controls">
-                                  <input class="input-xlarge" id="website" name="website" type="text" value="LINE(3DM)" readonly>
+                                  <input class="input-xlarge" id="website" name="website" type="hidden" value="LINE(3DM)" readonly>
                                 </div>
                               </div>
                               <div class="control-group">

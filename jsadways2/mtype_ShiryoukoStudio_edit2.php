@@ -62,18 +62,61 @@
 	}
 	
 
-	if($_POST['gearing']==1){
-		$sql_campaign = "SELECT * FROM media164 where campaign_id = ".$_GET['campaign']; 
-		$campaign = mysql_query($sql_campaign);
-		$campaign_row = mysql_num_rows($campaign);
-		if($campaign_row == 2){
-			$sql2='UPDATE media83 SET date1='.$date[1].' ,date2='.$date[1].',date3='.$date[2].' ,date4='.$date[2].',date5='.$date[3].' ,date6='.$date[3].',date7='.$date[4].' ,date8='.$date[4].',date9='.$date[5].' ,date10='.$date[5].',days='.$total_days.',days1='.$days[0].',days2='.$days[1].',days3='.$days[2].',days4='.$days[3].',days5='.$days[4].' , totalprice="'.$_POST['totalprice'].'", a4="'.$_POST['totalprice'].'", others="'.$_POST['others'].'" WHERE campaign_id = '.$_GET['campaign']; 
+	if($_GET['cue']==1){
+
+			$sql2='UPDATE media164 SET 
+			date1='.$date[1].' ,
+			date2='.$date[1].',
+			date3='.$date[2].' ,
+			date4='.$date[2].',
+			date5='.$date[3].' ,
+			date6='.$date[3].',
+			date7='.$date[4].' ,
+			date8='.$date[4].',
+			date9='.$date[5].' ,
+			date10='.$date[5].',
+			days='.$total_days.',
+			days1='.$days[0].',
+			days2='.$days[1].',
+			days3='.$days[2].',
+			days4='.$days[3].',
+			days5='.$days[4].' ,
+			others="' . $_POST['others'] . '",
+			items2="' . $_POST['SelectType'] . '",
+			items3="' . $_POST['SelectSystem'] . '",
+			totalprice="'.$_POST['totalprice'].'",
+			 a4="'.$_POST['totalprice'].'",
+			 others="'.$_POST['others'].'" WHERE cue=1 and  campaign_id = '.$_GET['campaign']; 
 			mysql_query($sql2);
-		}
+	}
+	else{
+	$sql2='UPDATE media164 SET 
+	date1='.$date[1].' ,
+	date2='.$date[1].',
+	date3='.$date[2].' ,
+	date4='.$date[2].',
+	date5='.$date[3].' ,
+	date6='.$date[3].',
+	date7='.$date[4].' ,
+	date8='.$date[4].',
+	date9='.$date[5].' ,
+	date10='.$date[5].',
+	days='.$total_days.',
+	days1='.$days[0].',
+	days2='.$days[1].',
+	days3='.$days[2].',
+	days4='.$days[3].',
+	days5='.$days[4].' ,
+	others="' . $_POST['others'] . '",
+	items2="' . $_POST['SelectType'] . '",
+	items3="' . $_POST['SelectSystem'] . '",
+	totalprice="'.$_POST['totalprice'].'",
+	 a4="'.$_POST['totalprice'].'",
+	 others="'.$_POST['others'].'" WHERE cue=2 and campaign_id = '.$_GET['campaign']; 
+	 mysql_query($sql2);
 	}
 
-	$sql2='UPDATE media164 SET date1='.$date[1].' ,date2='.$date[1].',date3='.$date[2].' ,date4='.$date[2].',date5='.$date[3].' ,date6='.$date[3].',date7='.$date[4].' ,date8='.$date[4].',date9='.$date[5].' ,date10='.$date[5].',days='.$total_days.',days1='.$days[0].',days2='.$days[1].',days3='.$days[2].',days4='.$days[3].',days5='.$days[4].' , totalprice="'.$_POST['totalprice'].'", a4="'.$_POST['totalprice'].'", others="'.$_POST['others'].'" WHERE id ='.$_GET['id'];
-	mysql_query($sql2);
+
 	
 	ShowMessageAndRedirect('修改媒體成功', 'campaign_view.php?id='. $_GET['campaign'], false);
 	

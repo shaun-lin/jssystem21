@@ -1,8 +1,7 @@
 <fieldset>
                           	  <div class="control-group">
-                                <label class="control-label">項目(Website)</label>
                                 <div class="controls">
-                                  <input class="input-xlarge" id="website" name="website" type="text" value="錢包小豬(任務型)" readonly>
+                                  <input class="input-xlarge" id="website" name="website" type="hidden" value="錢包小豬(任務型)" readonly>
                                 </div>
                               </div>
                               <div class="control-group">

@@ -20,7 +20,7 @@
 		} else {
 			$sqlMedia = null;
 		}
-		
+
 		if ($sqlMedia) {
 			$db->query($sqlMedia);
 			
@@ -31,6 +31,9 @@
 			}
 		}
 	}
+	// echo $_REQUEST['another_cue'];
+	// print_r($_REQUEST);
+	// 	exit();
 
 	$objMedia = CreateObject('Media', $_GET['media']);
 

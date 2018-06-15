@@ -44,9 +44,8 @@
 						<form class="form-horizontal" action="mtype_Mission_edit2.php?campaign=<?php echo $_GET['campaign']; ?>&id=<?php echo $_GET['id']; ?>&cue=<?php echo $_GET['cue']; ?>&media=<?php echo $_GET['media']; ?>" method="post">
 						  <fieldset>
                           	  <div class="control-group">
-                                <label class="control-label">項目(Website)</label>
                                 <div class="controls">
-                                  <input class="input-xlarge" id="website" name="website" type="text" value="<?php echo $row2['website']; ?>" readonly>
+                                  <input class="input-xlarge" id="website" name="website" type="hidden" value="<?php echo $row2['website']; ?>" readonly>
                                 </div>
                               </div>
                               <div class="control-group">

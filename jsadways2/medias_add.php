@@ -11,6 +11,11 @@
     $objMedias = CreateObject('Medias');
     $objCompanies = CreateObject('Companies');
     $objItems = CreateObject('Items');
+    $objCpdetail = CreateObject('Cp_detail');
+    $cue = GetVar('cue');
+    if($cue == "2"){
+    $result = $objCpdetail->searchAll('item_seq = '. $_GET['item_seq']);
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,7 +30,7 @@
                 /*margin-right: 8px;*/
             }
             option:hover { 
-                background-color: LightCyan;
+                background-color: #00bfff;
             }
         </style>
     </head>
@@ -92,6 +97,73 @@
         </div>
         <script type="text/javascript" >
             $(document).ready(function(){
+                $(window).on('load', function(){
+                    //新增對內表時需要鎖定選單
+                    var media_id = "<?=$_GET['media2'];?>";
+                    var cue = "<?= $_GET['cue'];?>";
+
+
+
+                    if(cue == "2"){
+
+                        $('#media').val("<?= $result[0]['media_id']?>").attr("disabled","disabled");
+                        var media_id = $('#media').val();
+                        //set item select
+                        $.ajax({
+                            url: 'medias_add_option.php',
+                            type: 'post',
+                            data: {id:media_id,group:"media"},
+                            dataType: 'json',
+                            success:function(response){
+
+                                var len = response.length;
+
+                                $("#items").empty();
+                                $('#items').attr('size',len + 1);
+                                $("#items").append("<option value=' '>-- 請選擇媒體 --</option>");
+                                for( var i = 0; i<len; i++){
+                                    var id = response[i]['key'];
+                                    var name = response[i]['name'];
+                                    $("#items").append("<option value='"+id+"'>"+name+"</option>");
+                                }
+                                var campign_id = "<?= $_GET['id'];?>";
+                                $('#items').val("<?= $result[0]['item_id']?>").attr("disabled","disabled");
+                                var item_id = $('#items').val();
+                                  $.ajax({
+                                    url: 'medias_add_option.php',
+                                    type: 'post',
+                                    data: {id:item_id,media_id:media_id,campign_id:campign_id,group:"items"},
+                                    dataType: 'json',
+                                    success:function(response){
+
+                                        var len = response.length;
+                                        $("#mtype").empty();
+                                        $("#mtype").attr("size",len + 1);
+                                        $("#mtype").append("<option value=' '>-- 請選擇賣法 --</option>");
+                                        for( var i = 0; i<len; i++){
+                                            var id = response[i]['key'];
+                                            var name = response[i]['name'];
+                                            $("#mtype").append("<option value='"+id+"'>"+name+"</option>");
+                                        }
+                                        $('#mtype').val("<?= $result[0]['mtype_number']?>").attr('disabled','disabled');
+                                        LoadMtype();
+                                    },
+                                    error: function(xhr, status, error) {
+                                             console.log(xhr.responseText);
+                                             console.log(status);
+                                             console.log(error);
+                                    }
+                                });
+                            },
+                            error: function(xhr, status, error) {
+                                     console.log(xhr.responseText);
+                                     console.log(status);
+                                     console.log(error);
+                            }
+                        });
+
+                    }
+                });
                 $('#save').hide();
                 $('#saveExit').hide();
                 //依據選擇媒體載入商品
@@ -102,6 +174,7 @@
                     $('#item').empty();
                     $('#mtype').empty().append("<option value=' '>-- 請選擇項目 --</option>").attr('size',1);
                      var media_id = $(this).val();
+
                     $.ajax({
                         url: 'medias_add_option.php',
                         type: 'post',
@@ -110,16 +183,15 @@
                         success:function(response){
 
                             var len = response.length;
-                            // console.log(len);
+
                             $("#items").empty();
                             $('#items').attr('size',len + 1);
                             $("#items").append("<option value=' '>-- 請選擇媒體 --</option>");
                             for( var i = 0; i<len; i++){
                                 var id = response[i]['key'];
                                 var name = response[i]['name'];
-                                // console.log(id);
-                                // console.log(name);
                                 $("#items").append("<option value='"+id+"'>"+name+"</option>");
+
 
                             }
                         },
@@ -129,12 +201,6 @@
                                  console.log(error);
                         }
                     });
-                    console.log($('#media option:selected').text());
-
-                    //隱藏選單
-                    // $('#media').hide();
-                    // $('#labMedia').show();
-                    // $('#labMedia').text($('#media option:selected').text());
                 });
                 //依據選擇商品載入賣法
                 $('#items').change(function(){
@@ -154,15 +220,12 @@
                         success:function(response){
 
                             var len = response.length;
-                            // console.log(len);
                             $("#mtype").empty();
                             $("#mtype").attr("size",len + 1);
                             $("#mtype").append("<option value=' '>-- 請選擇賣法 --</option>");
                             for( var i = 0; i<len; i++){
                                 var id = response[i]['key'];
                                 var name = response[i]['name'];
-                                // console.log(id);
-                                // console.log(name);
                                 $("#mtype").append("<option value='"+id+"'>"+name+"</option>");
                             }
                         },
@@ -173,13 +236,13 @@
                         }
                     });
                     //隱藏選單  
-                    // $('#items').hide();
-                    // $('#labItems').show();
-                    // $('#labItems').text($('#items option:selected').text());
                 });
                 //載入Template Form
                 $('#mtype').change(function(){
-                    $('fieldset').empty();
+                  LoadMtype();
+                });
+                function LoadMtype(){
+                      $('fieldset').empty();
 
                     var mtype_text = $('#mtype option:selected').text();
                     var company_id = $('#company').val();
@@ -194,12 +257,6 @@
                     var item_id = $('#items').val();
                     var mtype_name = $('#mtype option:selected').text();
 
-                    //已做過設定的模板不做動作
-                    // if(mtype_name.indexOf("已設定")>0){
-                    //     return false;
-                    // }
-
-                    // console.log($('#mtype').prop('selectedIndex'));
                     if($('#mtype').prop('selectedIndex')!="0"){
                             $.ajax({
                             url: 'medias_add_option.php',
@@ -207,9 +264,7 @@
                             data: {id:mtype_id,group:"template"},
                             dataType: 'json',
                             success:function(response){
-                                // console.log(response);
                                 var len = response.length;
-                                 // console.log(len);
                                 for( var i = 0; i<len; i++){
                                     var mtype_number = response[i]['key'];
                                     var media_url = response[i]['name'];
@@ -219,8 +274,7 @@
                                     return false;
                                 }
                                 media_url = "mtype_" + media_url.trim() + ".php?id="+id+"&cue="+cue+"&media=" + mtype_id +  "&media2=" + mtype_number + "&copmpanies=" + company_id + "&campaign=" + id;
-                           
-                            // console.log("1.　" + media_url);
+
                             $.get(media_url, function(data) {
                                 //抓取模板form表單
                                 //Youtuber及寫手費特殊處理
@@ -231,8 +285,6 @@
                                     var new_html_index = data.indexOf('box-content');
                                     var new_html = data.substring(new_html_index-12);
                                 }
-                                    //console.log(new_html);
-                                     // $('fieldset:eq(3)').append(new_script);
                                      //將表單放入fieldset中
                                     $('fieldset').append(new_html);
                                     $('#addForm').hide();
@@ -240,13 +292,8 @@
                                     $('.box-content .form-actions').hide();
                                     //隱藏模板的footer
                                     $('.box-content footer').hide();
-                                        //console.log("2.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
                                     //修改模板form的action
                                     $('.box-content .form-horizontal:eq(1)').attr('action',$('.box-content .form-horizontal:eq(1)').attr('action')+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id+"&media_name="+media_name+"&mediaid="+media_id);
-                                    // console.log('2.'+$('#templateForm').attr('action'));
-                                    // $('#templateForm').attr('action', $('#templateForm').attr('action')+"&mediaid="+media_id+"&itemid="+item_id+"&mtypename="+mtype_name+"&mtypenumber="+mtype_number+"&mtypeid="+mtype_id+"&media_name="+media_name);
-                                        console.log("3.　" + $('.box-content .form-horizontal:eq(1)').attr('action'));
-                                        // console.log('3.'+$('#templateForm').attr('action'));
                                 //將儲存按鈕show出來
                                  $('#save').show();
                                  $('#saveExit').show();
@@ -256,49 +303,34 @@
                                     // console.log(mtype_id);
                                     //新增寫手Youtuber新增按鈕
                                     $('a[name^="PersonAdd"]').each(function(){
-
-                                        // var idx = $(this).attr('href').indexOf('href');
-                                        //  getVal[k++] = $(this).attr('href').substring(idx);
                                         var getVal = $(this).attr('href');
                                         $(this).removeAttr('href');
-                                        // console.log(getVal);
                                         $(this).unbind().click(function(){
-                                            console.log("ajax");
                                             $.get(getVal,function(data){
                                                 var new_html_index = data.indexOf('box-content');
                                                 var new_html = data.substring(new_html_index-12);
                                                 $('#addForm').append(new_html);
                                                 $('#addForm').show();
                                                 $('#addList .form-actions').hide();
-                                                // $('fieldset').empty();
-                                                // $('fieldset').append(new_html);
+
                                                 $('#addForm .form-horizontal').submit(false);
                                                 $('#list').hide();
                                                 //新增寫手費
                                                 $('#complete').click(function(){
-                                                    // console.log('complete');
                                                     $mediaform = $('#addForm .form-horizontal');
-                                                    console.log($mediaform);
+                                                    // 檢查html5必填欄位
                                                     var valid = $mediaform[0].checkValidity();
-                                                    // console.log(valid);
                                                     if( valid){
                                                     var post_url= $('#addForm').find('form').attr('action');
                                                     var formdata=$mediaform.serialize();
-                                                    // console.log("post" + post_url);
-                                                    // console.log(formdata);
-                                                    // console.log(JSON.stringify(formdata));
                                                     
-                                                   //return false;
                                                     $.ajax({
                                                     url: post_url,
                                                     type: 'post',
                                                     data: formdata,
                                                     dataType: 'json',
                                                     success:function(response){
-                                                        // alert("success");
-                                                        // return false;
                                                          var len = response.length;
-                                                         // console.log(media_url);
                                                             var msg="";
                                                             var msgval="";
                                                             for( var i = 0; i<len; i++){
@@ -315,14 +347,12 @@
                                                             }else if(mtype_id == "166"){
                                                                 var new_html = data.substring(new_html_index);
                                                             }
-                                                                // console.log(new_html);
                                                                 $('#addForm').empty();
                                                                 $('#addForm').hide();
                                                                 $('#list').show();
                                                                 $('#addList').empty();
                                                                 $('#addList').append(new_html);
                                                                 $('#addList .form-actions').hide();
-                                                               
                                                                });
 
                                                             }
@@ -361,11 +391,12 @@
                         $('#save').hide();
                         $('#saveExit').hide();
                     }
-                });
+                }
+                    //寫手與Youtuber刪除按鈕動作
                   function PersonDel(media_url,media_id,item_id,mtype_name,mtype_number,mtype_id,media_name){
                     $('a[name^="PersonDel"]').each(function(){
                          var getVal = $(this).attr('href');
-                         console.log(getVal);
+                         // console.log(getVal);
                         $(this).removeAttr('href');
                         $(this).unbind().click(function(){
                             if(!confirm("確定要刪除")){
@@ -391,9 +422,6 @@
                                            alert("刪除成功");
                                         }
                                     },
-                                // complete: function(XMLHttpRequest, textStatus) { 
-                                //     //$(this).dialog("close");
-                                // },
                                 error: function(xhr, status, error) {
                                     console.log(xhr.responseText);
                                     console.log(status);
@@ -404,6 +432,8 @@
                           });//click
                     });
                   }//PersonDel
+
+                  //寫手與Youtuber刪除後畫面重新整理
                   function PersonDelReload(media_url,media_id,item_id,mtype_name,mtype_number,mtype_id,media_name){
                     $.get(media_url, function(data){
                     var new_html_index = data.indexOf('addList');
@@ -414,7 +444,6 @@
                     }else if(mtype_id == "166"){
                         var new_html = data.substring(new_html_index);
                     }
-                    // console.log(new_html);
                     $('#addList').empty();
                     $('#addList').append(new_html);
                     $('#addList .form-actions').hide();
@@ -422,16 +451,15 @@
                     PersonDel(media_url,media_id,item_id,mtype_name,mtype_number,mtype_id,media_name );
                     });//$.get
                   }//PersonDelReload
+
                 //儲存後繼續新增按鈕
                 $('#save').click(function(e){
                     $mediaform=$('form:eq(1)');
+                    //檢查html5必填欄位
                     var valid = $mediaform[0].checkValidity(); 
-                    // console.log(valid);
                         if(valid){
                         var formdata = $('.box-content .form-horizontal:eq(1)').serialize();
-                        // console.log(JSON.stringify(formdata));
                         var ajax_url = $('.box-content .form-horizontal:eq(1)').attr('action')+"&goon=Y";
-                        // console.log( ajax_url);
                         $.ajax({
                             url: ajax_url,
                             type: 'post',
@@ -451,7 +479,6 @@
                                     $('fieldset:eq(0)').empty();
                                     $('#save').hide();
                                     $('#saveExit').hide();
-                                    $('#mtype option:selected').text($('#mtype option:selected').text()+"(已設定)");
                                     $('#mtype').focus();
 
                                 }

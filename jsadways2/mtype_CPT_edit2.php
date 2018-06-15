@@ -29,7 +29,7 @@
 		$a2=$_POST['a2'];
 		$a3=$_POST['a3'];
 		$a4=$_POST['a4'];
-		$sqlmedia = "SELECT * FROM media WHERE id=91";
+		$sqlmedia = "SELECT * FROM media WHERE id=155";
 		$resultmedia = mysql_query($sqlmedia);
 		$rowmedia = mysql_fetch_array($resultmedia);
 		$profit=($_POST['totalprice']*$rowmedia['profit'])/100;
@@ -89,7 +89,7 @@
 	}
 
 	if($_POST['gearing']==1){
-		$sql_campaign = "SELECT * FROM media91 where campaign_id = ".$_GET['campaign']; 
+		$sql_campaign = "SELECT * FROM media155 where campaign_id = ".$_GET['campaign']; 
 		$campaign = mysql_query($sql_campaign);
 		$campaign_row = mysql_num_rows($campaign);
 		if($campaign_row == 2){
@@ -98,7 +98,7 @@
 		}
 	}
 	
-	$sql2='UPDATE media155 SET website="'.$_POST['website'].'" , actions="'.$_POST['actions'].'"'.$phonesystem.' , position="'.$_POST['position'].'" , format1="'.$_POST['format1'].'" , format2="'.$_POST['format2'].'" , wheel="'.$_POST['wheel'].'" , date1='.$date[1].' , date2='.$date[2].' , date3='.$date[3].' , date4='.$date[4].' , date5='.$date[5].' , date6='.$date[6].' , date7='.$date[7].' , date8='.$date[8].'  , date9='.$date[9].' , date10='.$date[10].' , days="'.$_POST['days'].'" , due="'.$_POST['due'].'" , quantity="'.$_POST['quantity'].'" , price="'.$_POST['price'].'" , totalprice="'.$_POST['totalprice'].'" , times='.time().' , items="'.$_POST['items'].'" , others="'.$_POST['others'].'"  , days1="'.$_POST['days1'].'", days2="'.$_POST['days2'].'", days3="'.$_POST['days3'].'", days4="'.$_POST['days4'].'", days5="'.$_POST['days5'].'", price1="'.$_POST['price1'].'", price2="'.$_POST['price2'].'", price3="'.$_POST['price3'].'", price4="'.$_POST['price4'].'", price5="'.$_POST['price5'].'", totalprice1="'.$_POST['totalprice1'].'", totalprice2="'.$_POST['totalprice2'].'", totalprice3="'.$_POST['totalprice3'].'", totalprice4="'.$_POST['totalprice4'].'", totalprice5="'.$_POST['totalprice5'].'", click1="'.$_POST['click1'].'", click2="'.$_POST['click2'].'", click3="'.$_POST['click3'].'", click4="'.$_POST['click4'].'", click5="'.$_POST['click5'].'",a1="'.$_POST['a1'].'",a2="'.$_POST['a2'].'",a3="'.$_POST['a3'].'",a4="'.$_POST['a4'].'",a5="'.$a5.'",items2="'.$TypeItem.'",items3="'.$_POST['SelectSystem'].'"  WHERE id ='.$_GET['id'];
+	$sql2='UPDATE media155 SET actions="'.$_POST['actions'].'"'.$phonesystem.' , position="'.$_POST['position'].'" , format1="'.$_POST['format1'].'" , format2="'.$_POST['format2'].'" , wheel="'.$_POST['wheel'].'" , date1='.$date[1].' , date2='.$date[2].' , date3='.$date[3].' , date4='.$date[4].' , date5='.$date[5].' , date6='.$date[6].' , date7='.$date[7].' , date8='.$date[8].'  , date9='.$date[9].' , date10='.$date[10].' , days="'.$_POST['days'].'" , due="'.$_POST['due'].'" , quantity="'.$_POST['quantity'].'" , price="'.$_POST['price'].'" , totalprice="'.$_POST['totalprice'].'" , times='.time().' , items="'.$_POST['items'].'" , others="'.$_POST['others'].'"  , days1="'.$_POST['days1'].'", days2="'.$_POST['days2'].'", days3="'.$_POST['days3'].'", days4="'.$_POST['days4'].'", days5="'.$_POST['days5'].'", price1="'.$_POST['price1'].'", price2="'.$_POST['price2'].'", price3="'.$_POST['price3'].'", price4="'.$_POST['price4'].'", price5="'.$_POST['price5'].'", totalprice1="'.$_POST['totalprice1'].'", totalprice2="'.$_POST['totalprice2'].'", totalprice3="'.$_POST['totalprice3'].'", totalprice4="'.$_POST['totalprice4'].'", totalprice5="'.$_POST['totalprice5'].'", click1="'.$_POST['click1'].'", click2="'.$_POST['click2'].'", click3="'.$_POST['click3'].'", click4="'.$_POST['click4'].'", click5="'.$_POST['click5'].'",a1="'.$_POST['a1'].'",a2="'.$_POST['a2'].'",a3="'.$_POST['a3'].'",a4="'.$_POST['a4'].'",a5="'.$a5.'",items2="'.$TypeItem.'",items3="'.$_POST['SelectSystem'].'"  WHERE id ='.$_GET['id'];
 	mysql_query($sql2);
 	
 	ShowMessageAndRedirect('修改媒體成功', 'campaign_view.php?id='. $_GET['campaign'], false);

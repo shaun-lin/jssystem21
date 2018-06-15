@@ -4,7 +4,17 @@
     $mediaOrdinal = 171;
 
     $mediaSizeformatDefinition = [
-        218 => 1,
+        235 => 1,
+        236 => 2,
+        237 => 3,
+        238 => 4,
+        239 => 5,
+        240 => 6,
+        241 => 7,
+        242 => 8,
+        243 => 9,
+        244 => 10,
+
     ];
 
     $mediaCategoryDefinition = [

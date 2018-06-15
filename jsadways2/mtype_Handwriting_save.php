@@ -17,13 +17,14 @@
 	$totalprice3 = GetVar('totalprice3');
 	$others = GetVar('others');
 	$time = time();
+	$media_name=$_GET['media_name'];
+
 
 	$autoSerialNumberA=autoSerialNumber();
 	$autoSerialNumberB=autoSerialNumber();
-	
 	$bindDataForExtCue = [
 		'campaign_id' => $campaignId,
-		'website' => '寫手費',
+		'website' => $media_name,
 		'totalprice' => $totalprice,
 		'totalprice2' => $totalprice2,
 		'totalprice3' => $totalprice3,
@@ -36,7 +37,7 @@
 
 	$bindDataForIntCue = [
 		'campaign_id' => $campaignId,
-		'website' => '寫手費',
+		'website' => $media_name,
 		'totalprice' => $totalprice,
 		'a4' => $totalprice2,
 		'a3' => $totalprice3,
@@ -47,7 +48,6 @@
 		'item_seq' => $autoSerialNumberB,
 	];
 
-	
 	if (IsId($mediaId)) {
 		$sqlMedia = sprintf("SELECT * FROM `media162` WHERE `id` = %d;", $mediaId);
 		$db->query($sqlMedia);

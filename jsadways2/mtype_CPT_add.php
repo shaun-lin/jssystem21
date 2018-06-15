@@ -54,9 +54,8 @@
 							</div>
                             <?php } ?>
                           	  <div class="control-group">
-                                <label class="control-label">項目(Website)</label>
                                 <div class="controls">
-                                  <input class="input-xlarge" id="website" name="website" type="text" value="ADPLAY" readonly>
+                                  <input class="input-xlarge" id="website" name="website" type="hidden" value="ADPLAY" readonly>
                                 </div>
                               </div>
                               <div class="control-group">

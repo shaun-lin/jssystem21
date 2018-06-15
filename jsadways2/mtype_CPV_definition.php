@@ -4,7 +4,7 @@
     $mediaOrdinal = 154;
 
     $mediaSizeformatDefinition = [
-        218 => 1,
+        221 => 1,
     ];
 
     $mediaCategoryDefinition = [

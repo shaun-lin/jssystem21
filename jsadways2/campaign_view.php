@@ -2,7 +2,7 @@
 	
 	if (!isset($parameter)) {
 		$parameter = [
-			'blogger_media_id' => [19],
+			'blogger_media_id' => [19,162],
 			'extra_media_id' => [94],
 			'cpm_media_list' => [32, 40, 41, 51, 58, 69, 72, 75, 76, 77, 78, 86, 87, 90, 95, 102, 110, 112, 113, 114, 115, 129, 136, 151, 152, 153, 154, 155, 156, 157],
 			'detail_head_simple_media' => [133, 137, 144],
@@ -958,8 +958,8 @@
 																		$a3 += $row3['a3'];
 																		$a4 += $row3['a4'];
 
-																		if(is_null($row3['a3']) || empty($row3['a4'])){
-																			$row3['a4'] = 0;
+																		if(is_null($row3['a3']) || empty($row3['a3'])){
+																			$row3['a3'] = 0;
 																		}
 																		if(is_null($row3['a4']) || empty($row3['a4'])){
 																			$row3['a4'] = 0;
@@ -1618,7 +1618,7 @@
 																								$totalQTY++;
 																							}
 																						}
-																					} else if (in_array($i, [36, 47, 54])) {
+																					} else if (in_array($i, [36, 47, 54, 160])) {
 																						echo number_format($row3['quantity']);
 																					} else if ($i == 45) {
 																						//顯示為總曝光的媒體
@@ -1664,7 +1664,7 @@
 																					if (empty($isReceipted)) {
 																						if (!in_array($i, $parameter['direct_income'])) {
 																							?>
-																								<a class="btn btn-info" href="medias_add.php?id=<?= $campaignId; ?>&cue=2&media2=<?= $i; ?>&mediaid=<?= $row3['id']; ?>">
+																								<a class="btn btn-info" href="medias_add.php?id=<?= $campaignId; ?>&cue=2&media2=<?= $i; ?>&mediaid=<?= $row3['id']; ?>&item_seq=<?= $row3['item_seq'];?>">
 																									<i class="icon-edit icon-white"></i>
 																									新增媒體 (對內)
 																								</a>
@@ -1683,11 +1683,11 @@
 																						}
 																					?>
 																						<div class="dropdown">
-																							<button class="btn btn-danger" onclick="if (window.confirm('確定要刪除對外媒體「<?= addslashes($row3['website']); ?>」')) location.href='mtype_medias_del.php?campaign=<?= $campaignId; ?>&DEcue=1&media=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>';">
+																							<button class="btn btn-danger" onclick="if (window.confirm('確定要刪除對外媒體「<?= addslashes($row4['name']); ?> - <?= addslashes($row4['costper']); ?> - <?= addslashes($row3['website']); ?>」')) location.href='mtype_medias_del.php?campaign=<?= $campaignId; ?>&DEcue=1&media=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>&id=<?= $row3['id']; ?>';">
 																								<i class="fa fa-trash"></i>&nbsp;刪除&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
 																							</button>
 																							<div class="dropdown-content" style="display: none;" data-media-ordinal="<?= $i; ?>" data-media-id="<?= $row3['id']; ?>">
-																								<a href="#" onclick="if (window.confirm('確定要同時刪除內外媒體「<?= addslashes($row3['website']); ?>」')) location.href='mtype_medias_del.php?campaign=<?= $campaignId; ?>&DEcue=2&media=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>';">
+																								<a href="#" onclick="if (window.confirm('確定要同時刪除內外媒體「<?= addslashes($row4['name']); ?> - <?= addslashes($row4['costper']); ?> - <?= addslashes($row3['website']); ?>」')) location.href='mtype_medias_del.php?campaign=<?= $campaignId; ?>&DEcue=2&media=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>&id=<?= $row3['id']; ?>&another_cue=2';">
 																									<i class="fa fa-trash"></i>&nbsp;一併刪除對內媒體
 																								</a>
 																							</div>
@@ -1969,11 +1969,11 @@
 
 																				<? if ($isDeal === false) : ?>
 																					<div class="dropdown">
-																						<button class="btn btn-danger" onclick="if (window.confirm('確定要刪除對內媒體「<?= addslashes($row3['website']); ?>」')) location.href='mtype_medias_del.php?campaign=<?= $campaignId; ?>&DEcue=1&media=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>';">
+																						<button class="btn btn-danger" onclick="if (window.confirm('確定要刪除對內媒體「<?= addslashes($row4['name']); ?> - <?= addslashes($row4['costper']); ?> - <?= addslashes($row3['website']); ?>」')) location.href='mtype_medias_del.php?campaign=<?= $campaignId; ?>&DEcue=1&media=<?= $i; ?>&id=<?= $row3['id']; ?>&item_seq=<?= $row3['item_seq']; ?>';">
 																							<i class="fa fa-trash"></i>&nbsp;刪除&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
 																						</button>
 																						<div class="dropdown-content">
-																							<a href="#" onclick="if (window.confirm('確定要同時刪除內外媒體「<?= addslashes($row3['website']); ?>」')) location.href='mtype_medias_del.php?campaign=<?= $campaignId; ?>&DEcue=2&media=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>';">
+																							<a href="#" onclick="if (window.confirm('確定要同時刪除內外媒體「<?= addslashes($row4['name']); ?> - <?= addslashes($row4['costper']); ?> - <?= addslashes($row3['website']); ?>」')) location.href='mtype_medias_del.php?campaign=<?= $campaignId; ?>&DEcue=2&media=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>&id=<?= $row3['id']; ?>&another_cue=1';">
 																								<i class="fa fa-trash"></i>&nbsp;一併刪除對外媒體
 																							</a>
 																						</div>

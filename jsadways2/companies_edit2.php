@@ -30,6 +30,7 @@ require_once dirname(__DIR__) .'/autoload.php';
 			$T_Sql_Info .= "'" . $Dates ."'";
 			$T_Sql_Info .= ");";
 			$resultCampaign = mysql_query($T_Sql_Info);
+
 			//echo $T_Sql_Info;
 			$New_Sql_Info = "SELECT id FROM companies WHERE companies.name ='". $_POST["name"]."'"; 
 			$resultCampaign = mysql_query($New_Sql_Info);
@@ -52,8 +53,8 @@ require_once dirname(__DIR__) .'/autoload.php';
 			$T_Sql_Info .= "`fax` ='" . $_POST["fax"] ."',";
 			$T_Sql_Info .= "`area_code` ='" . $_POST["area_code"] ."',";
 			$T_Sql_Info .= "`city_name` ='" . $_POST["city_name"] ."',";
-			$T_Sql_Info .= "'" . $_POST["country_code"] ."',";
-			$T_Sql_Info .= "'" . $_POST["language"] ."',";
+			$T_Sql_Info .= "`country_code`='" . $_POST["country_code"] ."',";
+			$T_Sql_Info .= "`language`='" . $_POST["language"] ."',";
 			$T_Sql_Info .= "`address` ='" . $_POST["address"] ."',";
 			$T_Sql_Info .= "`payinfo` ='" . $_POST["payinfo"] ."',";
 			$T_Sql_Info .= "`paydays` ='" . $_POST["paydays"] ."',";
@@ -61,6 +62,7 @@ require_once dirname(__DIR__) .'/autoload.php';
 			$T_Sql_Info .= "`update_user` ='" . $_SESSION['name'] ."'";
 			$T_Sql_Info .= " WHERE `id` ='" . $_GET["id"] ."';";
 			mysql_query($T_Sql_Info);
+
 			//echo $T_Sql_Info;
 			// 移除公司在rel_media_companies的所有資料
 			$T_Sql_Info2 = "DELETE FROM `rel_media_companies` ";

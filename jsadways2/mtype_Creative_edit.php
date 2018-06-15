@@ -138,22 +138,13 @@
 							</div>
 						  </fieldset>
 						</form>
-
 					</div>
 				</div><!--/span-->
-
 			</div><!--/row-->
-
-
-
 					<!-- content ends -->
 			</div><!--/#content.span10-->
 				</div><!--/fluid-row-->
-
 		<hr>
-
-		<?php include("public/footer.php"); ?>
-
 	</div><!--/.fluid-container-->
 
 	<?php include("public/js.php"); ?>

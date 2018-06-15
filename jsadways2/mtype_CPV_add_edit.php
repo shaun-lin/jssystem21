@@ -133,9 +133,11 @@
             $jsVariable = [];
             $jsStatement = [];
             $sqlSize = sprintf("SELECT * FROM `sizeformat` WHERE `mediaid` = %d;", $mediaOrdinal);
+
             $resultSize = mysql_query($sqlSize);
 
             while ($rowSize = mysql_fetch_array($resultSize)) {
+                
                 $jsVariable[$mediaSizeformatDefinition[$rowSize['id']]] = [
                     'format1' => $rowSize['format1'],
                     'format2' => $rowSize['format2']

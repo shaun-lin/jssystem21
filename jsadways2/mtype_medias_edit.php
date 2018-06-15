@@ -50,7 +50,6 @@
                             <fieldset>
                             </fieldset>
                             <button id="saveExit" type="button" class="btn btn-primary">確定修改</button>
-                            <button type="submit" class="hide"></button> 
                             <a class="btn btn-danger" href="campaign_view.php?id=<?= $_GET['campaign']; ?>">離開</a>
                         </form>   
                     </div>
@@ -110,7 +109,8 @@
                                         $('.box-content .form-actions').hide();
                                         //隱藏模板的footer
                                         $('.box-content footer').hide();
-                                        console.log($('.box-content .form-horizontal:eq(1)').attr('action'));
+                                        // console.log($('.box-content .form-horizontal:eq(1)').attr('action'));
+                                        console.log(new_html);
                                          $('form :input:visible:enabled:first').focus();
                                          //處理寫手模板Youtuber新增按鈕
                                           if (media == "166" || media == "162"){
@@ -176,7 +176,7 @@
                                                                                 }else if(media == "166"){
                                                                         var new_html = data.substring(new_html_index);
                                                                             }
-                                                                        // console.log(new_html);
+                                                                         console.log(new_html);
                                                                         $('#addList').empty();
                                                                         $('#addList').append(new_html);
                                                                         $('#addList .form-actions').hide();
@@ -284,7 +284,7 @@
                   }//PersonDelReload
                 //儲存後關閉按鈕
                 $('#saveExit').click(function(){
-                    // console.log('submit');
+                     console.log('submit');
                     $('.box-content .form-actions button').trigger('click');
                 });
             });//$(document).ready

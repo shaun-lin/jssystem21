@@ -16,7 +16,7 @@
 
 	$autoSerialNumberA = autoSerialNumber();
 	$autoSerialNumberB = autoSerialNumber();
-	$sql2='INSERT INTO media166(item_seq,campaign_id,cue,website,totalprice,totalprice2,totalprice3,times,others,status,items2,items3) VALUES('.$autoSerialNumberA.','.$_GET['id'].',1,"Youtuber費","'.$_POST['totalprice'].'","'.$_POST['totalprice2'].'","'.$_POST['totalprice3'].'",'.time().',"'.$_POST['others'].'",0,"'.$TypeItem.'","'.$_POST['SelectSystem'].'")';
+	$sql2='INSERT INTO media166(item_seq,campaign_id,cue,website,totalprice,totalprice2,totalprice3,times,others,status,items2,items3) VALUES('.$autoSerialNumberA.','.$_GET['id'].',1,"'.$_GET['media_name'].'","'.$_POST['totalprice'].'","'.$_POST['totalprice2'].'","'.$_POST['totalprice3'].'",'.time().',"'.$_POST['others'].'",0,"'.$TypeItem.'","'.$_POST['SelectSystem'].'")';
 	mysql_query($sql2);
 	AddMediaMapping('media166', $_GET['id'], mysql_insert_id());
 
@@ -34,7 +34,7 @@
 	}else{
 		$a5='';
 	}
-	$sql2='INSERT INTO media166(item_seq,campaign_id,cue,website,totalprice,a4,a3,a0,a,a5,times,others,status,items2,items3) VALUES('.$autoSerialNumberA.','.$_GET['id'].',2,"Youtuber費","'.$_POST['totalprice'].'","'.$_POST['totalprice2'].'","'.$_POST['totalprice3'].'","'.$a0.'","166","'.$a5.'",'.time().',"'.$_POST['others'].'",0,"'.$TypeItem.'","'.$_POST['SelectSystem'].'")';
+	$sql2='INSERT INTO media166(item_seq,campaign_id,cue,website,totalprice,a4,a3,a0,a,a5,times,others,status,items2,items3) VALUES('.$autoSerialNumberB.','.$_GET['id'].',2,"'.$_GET['media_name'].'","'.$_POST['totalprice'].'","'.$_POST['totalprice2'].'","'.$_POST['totalprice3'].'","'.$a0.'","166","'.$a5.'",'.time().',"'.$_POST['others'].'",0,"'.$TypeItem.'","'.$_POST['SelectSystem'].'")';
 	mysql_query($sql2);
 	AddMediaMapping('media166', $_GET['id'], mysql_insert_id());
 

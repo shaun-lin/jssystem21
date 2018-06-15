@@ -155,7 +155,6 @@
                     'format1' => $rowSize['format1'],
                     'format2' => $rowSize['format2']
                 ];
-
                 $jsStatement[] = "if (subCategoryId == '{$mediaSizeformatDefinition[$rowSize['id']]}') {
                     document.getElementById('format1').value = dataSizeFormat['{$mediaSizeformatDefinition[$rowSize['id']]}']['format1'];
                     document.getElementById('format2').value = dataSizeFormat['{$mediaSizeformatDefinition[$rowSize['id']]}']['format2'];

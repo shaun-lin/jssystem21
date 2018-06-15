@@ -45,9 +45,8 @@
 						  <fieldset>
 
                           	<div class="control-group">
-								<label class="control-label">網站(Website)</label>
 								<div class="controls">
-								  <input class="input-xlarge" id="website" name="website" type="text" value="<?php echo $row2['website']; ?>" readonly>
+								  <input class="input-xlarge" id="website" name="website" type="hidden" value="<?php echo $row2['website']; ?>" readonly>
 								</div>
 							  </div>
                           	<div class="control-group">

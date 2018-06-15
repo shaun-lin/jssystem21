@@ -246,4 +246,25 @@
 	    }
 	}
 
+	//ken,2018/6/13,改寫底層的function.inc.php的GetMedia函數,避開讀取media table,改讀取cp_detail
+	function GetMediaNew($cp_Id,$media_Id,$mtype_number,$cue=1)
+	{
+		try{
+	        include("db.inc.php");
+	        $sqlRead="SELECT t.name, c.mtype_name as costper, m.typename
+						FROM cp_detail c
+						left join items t on t.id = c.item_id
+						left join media m on m.sortid = c.mtype_number
+						WHERE c.cp_id=".$campaignId.
+						" and c.media_id=".$media_id.
+						" and c.mtype_number=".$mtype_number.
+						" and c.cue=".$cue;
+	        $result=mysql_query($sqlRead);
+
+			return $result;
+	    }catch(Exception $e){
+	        throw $e;
+	    }
+	}
+
 		
