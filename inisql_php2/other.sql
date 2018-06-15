@@ -126,7 +126,7 @@ INSERT INTO `media` (`id`, `name`, `company`, `costper`, `type`, `type2`, `typen
 (169, '錢包小豬(任務型)', NULL, '錢包小豬(任務型)', 9, 'SP広告売上', '錢包小豬(任務型)', 169, 169, 0, 1),
 (170, 'CPA模組', NULL, 'CPA模組', 9, 'SP広告売上', 'CPA模組', 170, 170, 0, 1),
 (171, 'CPE模組', NULL, 'CPE模組', 9, 'SP広告売上', 'CPE模組', 171, 171, 0, 1);
-(172, 'CPC模組', NULL, 'CPC', 9, 'SP広告売上', 'CPC', 172, 172, 0, 1);
+(172, 'CPC模組', NULL, 'CPC', 9, 'SP広告売上', 'CPC', 172, 172, 0, 1),
 
 
 
@@ -137,6 +137,106 @@ CREATE TABLE IF NOT EXISTS `media_seq` (
 
 INSERT INTO `media_seq` (`seq`) VALUES
 (170);
+
+
+
+
+
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'154', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE `mediaid`='150';
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (194);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (195);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (196);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (197);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (198);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (199);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (200);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (201);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (205);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'153', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (206);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (208);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (209);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (210);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (211);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (212);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (213);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (214);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (215);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (216);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'171', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (217);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'155', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (171);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (208);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (209);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (210);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (211);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (212);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (213);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (214);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (215);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (216);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (217);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (204);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (205);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (206);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'157', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (193);告
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'158', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (168);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'158', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (169);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'160', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (97);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'160', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (98);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'160', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (99);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'160', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (100);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'160', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (101);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'160', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (102);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'169', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (188);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'169', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (189);
+INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
+  (SELECT MAX(id)+1 From `sizeformat`),'169', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (190);
+
 
 
 alter table `media_accounting` add column `curr_cost` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '預估金額';
