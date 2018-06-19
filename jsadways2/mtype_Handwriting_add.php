@@ -25,13 +25,15 @@
 						  <tbody>
 							<?php
 								if (isset($_GET['campaign']) && ($_GET['campaign'] < 0 || $_GET['campaign'] !="")){
-									$sql2='SELECT * FROM media162_detail WHERE campaign_id = '.$_GET['campaign'];
+									$sql2='SELECT * FROM media162_detail WHERE campaign_id = '.$_GET['campaign'].' AND item_seq =""' ;
 									$result2=mysql_query($sql2);
+									$bloggerid=array();
 									if (mysql_num_rows($result2)>0){
 										while($row2=mysql_fetch_array($result2)){
 											$totalprice=$totalprice+$row2['price'];
 											$totalprice2=$totalprice2+$row2['price2'];
 											$totalprice3=$totalprice3+$row2['price3'];
+											array_push($bloggerid,$row2['id']);
 								
 							?>
 							<tr>
@@ -126,6 +128,7 @@
                           <label class="control-label" for="others">備註</label>
                           <div class="controls">
                             <textarea id="others" name="others" ><?php echo $row4['others']; ?></textarea>
+                            <input type="hidden" id="bloggerlist" name="bloggerlist" value="<?=implode(",",$bloggerid)?>"/>
                           </div>
                         </div>
                          <div class="form-actions">
@@ -133,9 +136,8 @@
                         </div>
                       </form>
                       </div>
-
-
 					</div>
+
 				</div><!--/span-->
 			</div><!--/row-->
 			<div class="row-fluid" >

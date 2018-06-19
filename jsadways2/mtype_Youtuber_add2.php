@@ -13,6 +13,7 @@
 	$mtype_name = $_GET['mtypename'];
 	$mtype_number = $_GET['mtypenumber'];
 	$mtype_id = $_GET['mtypeid'];
+	$bloggerid=GetVar('bloggerlist');
 
 	$autoSerialNumberA = autoSerialNumber();
 	$autoSerialNumberB = autoSerialNumber();
@@ -25,6 +26,13 @@
 		VALUES ('" . $cp_id . "','" . $media_id . "','0','" . $item_id . "','" . $mtype_name . "','" . $mtype_number . "','" . $item_id2 . "','" . $autoSerialNumberA . "','1')";
 
 	mysql_query($sql3);
+	//Austin 更新寫手列表與原模組對應流水號
+		$sql5 = "UPDATE media166_detail SET item_seq = '".$autoSerialNumberA."' WHERE id in (".$bloggerid.")";
+		$db->query($sql5);
+
+		$sql6 = "INSERT INTO `media166_detail`( `item_seq`, `campaign_id`, `blogid`, `blog`, `blog1`, `blog2`, `blog3`, `type`, `price`, `price2`, `price3`, `times`, `others`, `status`)  (SELECT ".$autoSerialNumberB.", `campaign_id`, `blogid`, `blog`, `blog1`, `blog2`, `blog3`, `type`, `price`, `price2`, `price3`, `times`, `others`, `status` FROM `media166_detail` WHERE item_seq=".$autoSerialNumberA.")";
+		$db->query($sql6);
+
 	$sqlnew = "SELECT * FROM media166 ORDER BY id DESC LIMIT 1;";
 	$resultnew = mysql_query($sqlnew);
 	$rownew = mysql_fetch_array($resultnew);

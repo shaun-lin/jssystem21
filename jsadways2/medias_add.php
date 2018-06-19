@@ -345,7 +345,7 @@
                                                                 if(mtype_id == "162"){
                                                                 var new_html = data.substring(new_html_index + 9, new_html_end - 54);
                                                             }else if(mtype_id == "166"){
-                                                                var new_html = data.substring(new_html_index);
+                                                                var new_html = data.substring(new_html_index+9);
                                                             }
                                                                 $('#addForm').empty();
                                                                 $('#addForm').hide();
@@ -353,6 +353,7 @@
                                                                 $('#addList').empty();
                                                                 $('#addList').append(new_html);
                                                                 $('#addList .form-actions').hide();
+                                                                PersonDel(media_url,media_id,item_id,mtype_name,mtype_number,mtype_id,media_name);
                                                                });
 
                                                             }

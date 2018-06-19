@@ -93,13 +93,15 @@
 						  </thead>
 						  <tbody>
 						  	<?php
-								$sql2='SELECT * FROM media166_detail WHERE campaign_id = '.$_GET['id'];
+								$sql2='SELECT * FROM media166_detail WHERE campaign_id = '.$_GET['id'].' AND item_seq=""';
 								$result2=mysql_query($sql2);
+								$bloggerid=array();
 								if (mysql_num_rows($result2)>0){
 									while($row2=mysql_fetch_array($result2)){
 										$totalprice=$totalprice+$row2['price'];
 										$totalprice2=$totalprice2+$row2['price2'];
 										$totalprice3=$totalprice3+$row2['price3'];
+										array_push($bloggerid,$row2['id']);
 							?>
 							<tr>
 								<td><a href="blogger_view.php?id=<?php echo $row2['id']; ?>&youtuber=1" target="_blank"><?php echo $row2['blog']; ?><?php if($row2['blog']==NULL){echo $row2['blog2'];} ?></a></td>
@@ -159,6 +161,7 @@
                           <div class="controls">
 							<textarea id="others" name="others" ></textarea>
 							<input type='hidden' name='bloggerid' value="A" />
+							 <input type="hidden" id="bloggerlist" name="bloggerlist" value="<?=implode(",",$bloggerid)?>"/>
                           </div>
                         </div>
                         <div class="form-actions">

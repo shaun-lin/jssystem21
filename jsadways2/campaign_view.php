@@ -1669,12 +1669,12 @@
 																									新增媒體 (對內)
 																								</a>
 																								<? if (in_array($i, $parameter['blogger_media_id'])) : ?>
-																									<a class="btn btn-info" href="mtype_medias_edit.php?campaign_id=<?= $campaignId; ?>&cue=1&media_id=<?= $row3['id']; ?>&media=<?= $i; ?>">
+																									<a class="btn btn-info" href="mtype_medias_edit.php?campaign=<?= $campaignId; ?>&cue=1&media_id=<?= $row3['id']; ?>&media=<?= $i; ?>&item_seq=<?= $row3['item_seq'];?>">
 																										<i class="icon-edit icon-white"></i>
 																										編輯
 																									</a>
 																								<? else : ?>
-																									<a class="btn btn-info" href="mtype_medias_edit.php?campaign=<?= $campaignId; ?>&cue=1&id=<?= $row3['id']; ?>&media=<?= $i; ?>&media_id=<?= $i; ?>">
+																									<a class="btn btn-info" href="mtype_medias_edit.php?campaign=<?= $campaignId; ?>&cue=1&id=<?= $row3['id']; ?>&media=<?= $i; ?>&media_id=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>">
 																										<i class="icon-edit icon-white"></i>
 																										編輯
 																									</a>
@@ -1956,12 +1956,12 @@
 																			?>
 																			<? if ($displayActionBtns && in_array($row2['status'], [1, 5]) || $_SESSION['usergroup'] == 6) : ?>
 																				<? if (in_array($i, $parameter['blogger_media_id'])) : ?>
-																					<a class="btn btn-info"  href="mtype_medias_edit.php?campaign_id=<?= $campaignId; ?>&cue=2&media_id=<?= $row3['id']; ?>&media=<?= $i; ?>">
+																					<a class="btn btn-info"  href="mtype_medias_edit.php?campaign=<?= $campaignId; ?>&cue=2&media_id=<?= $row3['id']; ?>&media=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>">
 																						<i class="icon-edit icon-white"></i>
 																						編輯
 																					</a>
 																				<? elseif (!in_array($i, $parameter['direct_income'])) : ?>
-																					<a class="btn btn-info"  href="mtype_medias_edit.php?campaign=<?= $campaignId; ?>&cue=2&id=<?= $row3['id']; ?>&media=<?= $i; ?>">
+																					<a class="btn btn-info"  href="mtype_medias_edit.php?campaign=<?= $campaignId; ?>&cue=2&id=<?= $row3['id']; ?>&media=<?= $i; ?>&item_seq=<?= $row3['item_seq']; ?>">
 																						<i class="icon-edit icon-white"></i>
 																						編輯
 																					</a>

@@ -90,7 +90,6 @@
 	//	SetExcelCellCenter($sh, [$title.$cellNum]);
 	//}
 
-
 	//寫入第1排欄位名稱,共56欄位(A~BD)+2
 	$pos = 0;
 	$cellNum=1;
@@ -194,7 +193,7 @@
 		left join receipt r on r.receipt_number = acc.invoice_number COLLATE utf8_unicode_ci 
 		left join cp_detail o on o.cue='2' and o.cp_id = acc.accounting_campaign and o.mtype_number = acc.accounting_media_ordinal and o.mtype_id = acc.accounting_media_item  
 		left join companies com on com.id = o.comp_id
-		where acc.accounting_month = '%d'",$dateYearMonth);
+		where  acc.curr_cost > 0  and acc.accounting_month = '%d'",$dateYearMonth);
 
 	$dsAcc=mysql_query($sql); 
 	$checkRowCount = mysql_num_rows($dsAcc);
@@ -221,6 +220,8 @@
 				$paydate = date("Ymd", strtotime ($nextMonthFirstDay ."+90 days"));
 
 				$number_id = ($drAcc['numberid'] == null ? '' : $drAcc['numberid']);
+				$itemSeq = str_pad($drAcc['item_seq'],6,'0',STR_PAD_LEFT);
+
 
 				$sh->setCellValue("A".$cellNum,$mark);//过账标识,如每筆匯出資料多複製一行 例 一二行為相同資料 但第一筆資料此欄打X
 				$sh->setCellValue("B".$cellNum,$drAcc['accounting_id']);//分类账,空白//ken,test
@@ -289,7 +290,8 @@
 				$sh->setCellValue("BC".$cellNum,"");//事务类型,空白
 
 				$sh->setCellValue("BD".$cellNum,"");//交易方,空白
-				$sh->setCellValue("BE".$cellNum,$drAcc['item_seq']);//編號,item_seq
+				//$sh->setCellValue("BE".$cellNum,$itemSeq);//編號,item_seq
+				$sh->setCellValueExplicit("BE".$cellNum,$itemSeq,PHPExcel_Cell_DataType::TYPE_STRING);//編號,item_seq
 				$sh->setCellValue("BF".$cellNum,$drAcc['jpc_seq']);//SAP編號,jpc_seq
 
 				//同一筆row要寫兩筆,這邊要做切換第二筆
@@ -323,7 +325,7 @@
 		left join receipt r on r.receipt_number = acc.invoice_number COLLATE utf8_unicode_ci 
 		left join cp_detail o on o.cue='2' and o.cp_id = acc.accounting_campaign and o.mtype_number = acc.accounting_media_ordinal and o.mtype_id = acc.accounting_media_item 
 		left join companies com on com.id = o.comp_id 
-		where acc.input_invoice_month = '%d' 
+		where acc.accounting_cost > 0  and  acc.input_invoice_month = '%d' 
 		order by item_seq,invoice_date",$dateYearMonth);
 
 	$dsInvoice=mysql_query($sqlInvoice); 
@@ -353,6 +355,7 @@
 
 				$invoice_number = ($dr['invoice_number'] == null ? '' : $dr['invoice_number']);
 				$number_id = ($dr['numberid'] == null ? '' : $dr['numberid']);
+				$itemSeq = str_pad($drAcc['item_seq'],6,'0',STR_PAD_LEFT);
 
 				$sh->setCellValue("A".$cellNum,$mark);//过账标识,如每筆匯出資料多複製一行 例 一二行為相同資料 但第一筆資料此欄打X
 				$sh->setCellValue("B".$cellNum,$dr['accounting_id']);//分类账,空白//ken,test
@@ -421,7 +424,8 @@
 				$sh->setCellValue("BC".$cellNum,"");//事务类型,空白
 
 				$sh->setCellValue("BD".$cellNum,"");//交易方,空白
-				$sh->setCellValue("BE".$cellNum,$dr['item_seq']);//編號,item_seq
+				//$sh->setCellValue("BE".$cellNum,$itemSeq);//編號,item_seq
+				$sh->setCellValueExplicit("BE".$cellNum,$itemSeq,PHPExcel_Cell_DataType::TYPE_STRING);//編號,item_seq
 				$sh->setCellValue("BF".$cellNum,$dr['jpc_seq']);//SAP編號,jpc_seq
 
 				//同一筆row要寫兩筆,這邊要做切換第二筆

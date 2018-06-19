@@ -27,7 +27,7 @@ if($extension!="xls")
     ShowMessageAndRedirect('檔案類型錯誤，僅容許xls檔','/erp/jsadways2/sap_excel.php' , false);
 }
 
-if (move_uploaded_file($_FILES["file"]["tmp_name"],"../EXCEL.xls")) {
+if (move_uploaded_file($_FILES["file"]["tmp_name"],"../EXCEL.xls")){
 } else {
     exit("Sorry, there was an error uploading your file." . EOL);
 }
@@ -40,8 +40,8 @@ $highestRow = $sheet->getHighestRow(); //count total row
 //阿給的範本檔前幾行都標題，所以從第四行取起
 for ($row = 4; $row <= $highestRow; $row++) {
     //定義兩個變數來接值，因為流水號在56列，總公司給的編號在57列，所以直接寫死
-        $val = $sheet->getCellByColumnAndRow(56, $row)->getValue();
-        $val2 = $sheet->getCellByColumnAndRow(57, $row)->getValue();
+        $val = $sheet->getCellByColumnAndRow(0, $row)->getValue();
+        $val2 = $sheet->getCellByColumnAndRow(4, $row)->getValue();
         if($val2!=""){
             if($val!=""){
                 //抓到值之後直接寫sql命令

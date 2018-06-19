@@ -126,7 +126,7 @@ INSERT INTO `media` (`id`, `name`, `company`, `costper`, `type`, `type2`, `typen
 (169, '錢包小豬(任務型)', NULL, '錢包小豬(任務型)', 9, 'SP広告売上', '錢包小豬(任務型)', 169, 169, 0, 1),
 (170, 'CPA模組', NULL, 'CPA模組', 9, 'SP広告売上', 'CPA模組', 170, 170, 0, 1),
 (171, 'CPE模組', NULL, 'CPE模組', 9, 'SP広告売上', 'CPE模組', 171, 171, 0, 1);
-(172, 'CPC模組', NULL, 'CPC', 9, 'SP広告売上', 'CPC', 172, 172, 0, 1),
+(172, 'CPC模組', NULL, 'CPC', 9, 'SP広告売上', 'CPC', 172, 172, 0, 1);
 
 
 
@@ -213,7 +213,7 @@ INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, 
 INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
   (SELECT MAX(id)+1 From `sizeformat`),'172', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (206);
 INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
-  (SELECT MAX(id)+1 From `sizeformat`),'157', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (193);告
+  (SELECT MAX(id)+1 From `sizeformat`),'157', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (193);
 INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT
   (SELECT MAX(id)+1 From `sizeformat`),'158', `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user` FROM `sizeformat` WHERE id in (168);
 INSERT INTO `sizeformat`( `id`,`mediaid`, `medianame`, `adtype`, `phonesystem`, `position`, `format1`, `format2`, `times`, `user`)  SELECT

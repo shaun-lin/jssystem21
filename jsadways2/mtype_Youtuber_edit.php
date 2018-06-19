@@ -73,7 +73,7 @@
 						  </thead>
 						  <tbody>
 						  	<?php
-								$sql2='SELECT * FROM media166_detail WHERE campaign_id = '.$_GET['campaign'];
+								$sql2='SELECT * FROM media166_detail WHERE campaign_id = '.$_GET['campaign'].' AND item_seq='.$_GET['item_seq'];
 								$result2=mysql_query($sql2);
 								if (mysql_num_rows($result2)>0){
 									while($row2=mysql_fetch_array($result2)){

@@ -2,37 +2,6 @@
 	session_start();
 	include('include/db.inc.php');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>編輯媒體</title>
-	<?php include("public/head.php"); ?>
-
-</head>
-
-<body>
-	<?php include("public/topbar.php"); ?>
-		<div class="container-fluid">
-		<div class="row-fluid">
-			<?php include("public/left.php"); ?>
-
-			<noscript>
-				<div class="alert alert-block span10">
-					<h4 class="alert-heading">Warning!</h4>
-					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
-				</div>
-			</noscript>
-
-			<div id="content" class="span10">
-			<!-- content starts -->
-			
-			<div class="row-fluid sortable">
-				<div class="box span12">
-					<div class="box-header well" data-original-title>
-						<h2><i class="icon-edit"></i> <?php echo $row1['name']; ?>-編輯媒體-廣告素材製作</h2>
-
-					</div>
 					<div class="box-content">
 						<?php
 							$sql1 = "SELECT * FROM campaign WHERE id= ".$_GET['campaign'];
@@ -65,7 +34,8 @@
 								}
 						</script>
 						<form class="form-horizontal" action="mtype_Creative_edit2.php?campaign=<?php echo $_GET['campaign']; ?>&id=<?php echo $_GET['id']; ?>" method="post">
-						  <div class="control-group">
+							<fieldset>
+						  	<div class="control-group">
 							  <label class="control-label" for="SelectType">類別(Type)</label>
 							  <div class="controls">
 								 <select id="SelectType" name="SelectType">
@@ -79,8 +49,6 @@
 							    </select>
 							  </div>
 							</div>
-						  <fieldset>
-
                           	<div class="control-group">
 								<label class="control-label">項目</label>
 								<div class="controls">
@@ -103,7 +71,6 @@
 								$<input class="input-xlarge" id="price" name="price" type="text" value="<?php echo $row2['price']; ?>" style="width:100px">元
 							  </div>
 							</div>
-
 							<div class="control-group">
 							  <label class="control-label" for="SelectSubCategory">unit</label>
 							  <div class="controls">
@@ -116,38 +83,22 @@
 								$<?php echo number_format($row2['totalprice']); ?>元
 								</div>
 							  </div>
-							<?php if($_GET['cue']==1){ ?>
-                            <!--
-							<div class="control-group">
-							  <label class="control-label" for="gearing">連動修改對內CUE</label>
-							  <div class="controls">
-								<input type="checkbox" name="gearing" value="1" ><p style="color:red">注意。若為對外一個媒體，對內多個媒體的情況，請逐個修改對內CUE</p>
-							  </div>
-							</div>
-							-->
-                            <?php } ?>
+							
 							  <div class="control-group">
 								<label class="control-label">備註</label>
 								<div class="controls">
                                 <textarea id="other" name="other"><?php echo $row2['other']; ?></textarea>
 								</div>
 							  </div>
-							</div>
 							<div class="form-actions">
 							  <button type="submit" class="btn btn-primary">確定修改</button>
 							</div>
 						  </fieldset>
 						</form>
 					</div>
-				</div><!--/span-->
-			</div><!--/row-->
-					<!-- content ends -->
-			</div><!--/#content.span10-->
-				</div><!--/fluid-row-->
+				</div>
+			</div>
+			</div>
+				</div>
 		<hr>
-	</div><!--/.fluid-container-->
-
-	<?php include("public/js.php"); ?>
-
-</body>
-</html>
+	</div>

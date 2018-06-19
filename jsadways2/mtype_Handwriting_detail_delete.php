@@ -5,6 +5,7 @@
     $mediaId = GetVar('media_id');
     $campaignId = GetVar('campaign');
     $blogId = GetVar('blogid');
+    $item_seq = GetVar('item_seq');
 
     $sqlDelete = sprintf("DELETE FROM media162_detail WHERE id = %d AND campaign_id = %d;", $blogId, $campaignId);
     $GLOBALS['app']->db->query($sqlDelete);
